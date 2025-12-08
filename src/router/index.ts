@@ -266,6 +266,11 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 	menuList.forEach((menu: any) => {
 		let component
 		let path
+		let menuUrl = menu.url
+		if (menuUrl && menuUrl.indexOf('?') > -1) {
+			menuUrl = menuUrl.split('?')[0]
+		}
+
 		if (menu.children && menu.children.length > 0) {
 			component = () => import('@/layout/index.vue')
 			path = '/p/' + menu.id
@@ -275,8 +280,8 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 				component = () => import('@/layout/components/Router/Iframe.vue')
 				path = '/iframe/' + menu.id
 			} else {
-				component = getDynamicComponent(menu.url)
-				path = '/' + menu.url
+				component = getDynamicComponent(menuUrl)
+				path = '/' + menuUrl
 			}
 		}
 		const route: RouteRecordRaw = {

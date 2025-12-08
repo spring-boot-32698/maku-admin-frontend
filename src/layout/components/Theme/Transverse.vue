@@ -32,8 +32,8 @@ const theme = computed(() => appStore.theme)
 const route = useRoute()
 
 const defaultActive = computed(() => {
-	const { path } = route
-	return path
+	const { fullPath } = route
+	return fullPath
 })
 
 const headerClass = computed(() => (appStore.theme.headerStyle === 'theme' ? 'header-theme' : ''))

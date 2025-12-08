@@ -2,10 +2,10 @@
 	<div class="tabs-container">
 		<div class="tabs-item">
 			<el-tabs v-model="activeTabName" :class="tabsStyleClass" @tab-click="tabClick" @tab-remove="tabRemove">
-				<el-tab-pane v-for="tab in tabsStore.visitedViews" :key="tab" :label="tab.title" :name="tab.path" :closable="!isAffix(tab)">
+				<el-tab-pane v-for="tab in tabsStore.visitedViews" :key="tab" :label="tab.title" :name="tab.fullPath" :closable="!isAffix(tab)">
 					<template #label>
 						<el-dropdown
-							:id="tab.path"
+							:id="tab.fullPath"
 							ref="dropdownRef"
 							trigger="contextmenu"
 							placement="bottom-end"
@@ -53,7 +53,7 @@ const tabsStore = useTabsStore()
 const route = useRoute()
 const router = useRouter()
 
-const activeTabName = ref(route.path)
+const activeTabName = ref(route.fullPath)
 const tabsStyleClass = computed(() => 'tabs-item-' + appStore.theme.tabsStyle)
 
 // 是否固定
@@ -111,7 +111,7 @@ const getAffixTabs = (routes: any) => {
 const addTab = () => {
 	tabsStore.addView(route)
 	tabsStore.addCachedView(route)
-	activeTabName.value = route.path
+	activeTabName.value = route.fullPath
 }
 
 // tab被选中
@@ -120,8 +120,8 @@ const tabClick = (tab: any) => {
 }
 
 // 点击关闭tab
-const tabRemove = (path: string) => {
-	const tab = tabsStore.visitedViews.filter((tab: any) => tab.path === path)
+const tabRemove = (fullPath: string) => {
+	const tab = tabsStore.visitedViews.filter((tab: any) => tab.fullPath === fullPath)
 	closeTab(router, tab[0])
 }
 
@@ -147,7 +147,7 @@ const handleChange = (visible: boolean, tab: any) => {
 		return
 	}
 	dropdownRef.value.forEach((item: { id: string; handleClose: () => void }) => {
-		if (item.id === tab.path) {
+		if (item.id === tab.fullPath) {
 			return
 		}
 		item.handleClose()

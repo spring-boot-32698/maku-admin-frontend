@@ -8,7 +8,7 @@ export const useTabsStore = defineStore('tabsStore', {
 	}),
 	actions: {
 		addView(view: RouteLocationNormalizedLoaded) {
-			if (this.visitedViews.some(value => value.path === view.path)) {
+			if (this.visitedViews.some(value => value.fullPath === view.fullPath)) {
 				return
 			}
 			this.visitedViews.push(
@@ -28,7 +28,7 @@ export const useTabsStore = defineStore('tabsStore', {
 		},
 		delView(view: RouteLocationNormalizedLoaded) {
 			for (const [i, v] of this.visitedViews.entries()) {
-				if (v.path === view.path) {
+				if (v.fullPath === view.fullPath) {
 					this.visitedViews.splice(i, 1)
 					break
 				}
@@ -47,7 +47,7 @@ export const useTabsStore = defineStore('tabsStore', {
 		},
 		delOthersViews(view: RouteLocationNormalizedLoaded) {
 			this.visitedViews = this.visitedViews.filter(v => {
-				return v.meta.affix || v.path === view.path
+				return v.meta.affix || v.fullPath === view.fullPath
 			})
 
 			const index = this.cachedViews.indexOf(view.name)

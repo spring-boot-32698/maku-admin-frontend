@@ -48,6 +48,7 @@
 
 <script setup lang="ts">
 import { useRouterStore } from '@/store/modules/router'
+import { isExternalLink } from '@/utils/tool'
 import { useAppStore } from '@/store/modules/app'
 import NavbarLeft from '@/layout/components/Navbar/NavbarLeft.vue'
 import NavbarRight from '@/layout/components/Navbar/NavbarRight.vue'
@@ -63,8 +64,8 @@ const route = useRoute()
 const router = useRouter()
 
 const defaultActive = computed(() => {
-	const { path } = route
-	return path
+	const { fullPath } = route
+	return fullPath
 })
 
 const subMenus = ref<any[]>([])
@@ -99,7 +100,7 @@ const findRoute = (menus: RouteRecordRaw[]): boolean => {
 			if (findRoute(menu.children)) {
 				return true
 			}
-		} else if (menu.path === defaultActive.value) {
+		} else if (menu.path === defaultActive.value || (menu.meta?.url && '/' + menu.meta.url === defaultActive.value)) {
 			return true
 		}
 	}
@@ -109,9 +110,13 @@ const findRoute = (menus: RouteRecordRaw[]): boolean => {
 const handleMenu = (menu: any) => {
 	if (menu.children && menu.children.length > 0) {
 		const leafRoute = findLeafRoute(menu.children)
-		router.push(leafRoute.path)
+		handleMenu(leafRoute)
 	} else {
-		router.push(menu.path)
+		if (menu.meta && menu.meta.url && menu.meta.url.indexOf('?') > -1 && !isExternalLink(menu.meta.url)) {
+			router.push('/' + menu.meta.url)
+		} else {
+			router.push(menu.path)
+		}
 	}
 }
 

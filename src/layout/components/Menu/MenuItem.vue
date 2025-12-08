@@ -6,7 +6,7 @@
 		</template>
 		<menu-item v-for="sub in menu.children" :key="sub.path" :menu="sub"></menu-item>
 	</el-sub-menu>
-	<el-menu-item v-else :key="menu.path" :index="menu.path" @click="handleClickMenu(menu)">
+	<el-menu-item v-else :key="menu.path" :index="menuIndex(menu)" @click="handleClickMenu(menu)">
 		<ma-icon v-if="showIcon" :icon="menu.meta.icon"></ma-icon>
 		<template #title>
 			{{ menu.meta.title }}
@@ -36,11 +36,18 @@ defineProps({
 
 const router = useRouter()
 
+const menuIndex = (menu: any) => {
+	if (menu.meta && menu.meta.url && menu.meta.url.indexOf('?') > -1 && !isExternalLink(menu.meta.url)) {
+		return '/' + menu.meta.url
+	}
+	return menu.path
+}
+
 // 菜单点击事件
 const handleClickMenu = (menu: any) => {
 	// 不是新开页面，则直接切换路由
 	if (!menu.meta.newOpen) {
-		router.push(menu.path)
+		router.push(menuIndex(menu))
 		return
 	}
 
