@@ -143,5 +143,5 @@ const getCurrentDate = () => {
 }
 </script>
 <style lang="scss">
-@import '@tdesign-vue-next/chat/dist/tdesign-vue-chat.min.css';
+@use '@tdesign-vue-next/chat/dist/tdesign-vue-chat.min.css';
 </style>

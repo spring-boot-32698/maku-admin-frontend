@@ -71,5 +71,5 @@ const iconList = computed((): { [key: string]: any } => {
 </script>
 
 <style scoped lang="scss">
-@import './index.scss';
+@use './index.scss';
 </style>
