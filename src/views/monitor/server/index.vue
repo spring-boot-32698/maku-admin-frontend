@@ -8,84 +8,84 @@
 				</div>
 			</template>
 			<el-descriptions :column="2" border>
-				<el-descriptions-item label="CPU 型号">{{ data.cpu.cpuModel }}</el-descriptions-item>
-				<el-descriptions-item label="核心数">{{ data.cpu.cpuNum }}</el-descriptions-item>
-				<el-descriptions-item label="用户使用率">{{ data.cpu.used }}%</el-descriptions-item>
-				<el-descriptions-item label="系统使用率">{{ data.cpu.sys }}%</el-descriptions-item>
-				<el-descriptions-item label="当前空闲率">{{ data.cpu.free }}%</el-descriptions-item>
+				<el-descriptions-item label="CPU Model">{{ data.cpu.cpuModel }}</el-descriptions-item>
+				<el-descriptions-item label="Number of cores">{{ data.cpu.cpuNum }}</el-descriptions-item>
+				<el-descriptions-item label="User usage rate">{{ data.cpu.used }}%</el-descriptions-item>
+				<el-descriptions-item label="System usage rate">{{ data.cpu.sys }}%</el-descriptions-item>
+				<el-descriptions-item label="Current idle rate">{{ data.cpu.free }}%</el-descriptions-item>
 			</el-descriptions>
 		</el-card>
 
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>系统内存</span>
+					<span>System memory</span>
 					<el-button :icon="Refresh" size="small" circle @click="refreshMemInfo" />
 				</div>
 			</template>
 			<el-descriptions :column="2" border>
-				<el-descriptions-item label="内存总量">{{ data.mem.total }} GB</el-descriptions-item>
-				<el-descriptions-item label="已用内存">{{ data.mem.used }} GB</el-descriptions-item>
-				<el-descriptions-item label="剩余内存">{{ data.mem.free }} GB</el-descriptions-item>
-				<el-descriptions-item label="内存使用率">{{ data.mem.usage }}%</el-descriptions-item>
+				<el-descriptions-item label="Total memory amount">{{ data.mem.total }} GB</el-descriptions-item>
+				<el-descriptions-item label="Used memory">{{ data.mem.used }} GB</el-descriptions-item>
+				<el-descriptions-item label="Free memory">{{ data.mem.free }} GB</el-descriptions-item>
+				<el-descriptions-item label="Memory usage">{{ data.mem.usage }}%</el-descriptions-item>
 			</el-descriptions>
 		</el-card>
 
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>JVM信息</span>
+					<span>JVMInformation</span>
 					<el-button :icon="Refresh" size="small" circle @click="refreshJvmInfo" />
 				</div>
 			</template>
 			<el-descriptions :column="2" border>
-				<el-descriptions-item label="名称">{{ data.jvm.name }}</el-descriptions-item>
-				<el-descriptions-item label="版本">{{ data.jvm.version }}</el-descriptions-item>
-				<el-descriptions-item label="厂商">{{ data.jvm.vendor }}</el-descriptions-item>
-				<el-descriptions-item label="最大可用内存">{{ data.jvm.max }} GB</el-descriptions-item>
-				<el-descriptions-item label="总内存">{{ data.jvm.total }} GB</el-descriptions-item>
-				<el-descriptions-item label="已用内存">{{ data.jvm.used }} GB</el-descriptions-item>
-				<el-descriptions-item label="空闲内存">{{ data.jvm.free }} GB</el-descriptions-item>
-				<el-descriptions-item label="内存使用率">{{ data.jvm.usage }}%</el-descriptions-item>
-				<el-descriptions-item label="Jvm 路径">{{ data.jvm.home }}</el-descriptions-item>
-				<el-descriptions-item label="Jar 路径">{{ data.jvm.userDir }}</el-descriptions-item>
-				<el-descriptions-item label="启动时间">{{ data.jvm.startTime }}</el-descriptions-item>
-				<el-descriptions-item label="运行时间">{{ data.jvm.runTime }}</el-descriptions-item>
-				<el-descriptions-item label="运行参数">{{ data.jvm.inputArguments }}</el-descriptions-item>
+				<el-descriptions-item label="Name">{{ data.jvm.name }}</el-descriptions-item>
+				<el-descriptions-item label="Version">{{ data.jvm.version }}</el-descriptions-item>
+				<el-descriptions-item label="Manufacturer">{{ data.jvm.vendor }}</el-descriptions-item>
+				<el-descriptions-item label="Maximum available memory">{{ data.jvm.max }} GB</el-descriptions-item>
+				<el-descriptions-item label="Total memory">{{ data.jvm.total }} GB</el-descriptions-item>
+				<el-descriptions-item label="Used memory">{{ data.jvm.used }} GB</el-descriptions-item>
+				<el-descriptions-item label="Idle memory">{{ data.jvm.free }} GB</el-descriptions-item>
+				<el-descriptions-item label="Memory usage">{{ data.jvm.usage }}%</el-descriptions-item>
+				<el-descriptions-item label="Jvm Path">{{ data.jvm.home }}</el-descriptions-item>
+				<el-descriptions-item label="Jar Path">{{ data.jvm.userDir }}</el-descriptions-item>
+				<el-descriptions-item label="Start time">{{ data.jvm.startTime }}</el-descriptions-item>
+				<el-descriptions-item label="Running time">{{ data.jvm.runTime }}</el-descriptions-item>
+				<el-descriptions-item label="Running parameters">{{ data.jvm.inputArguments }}</el-descriptions-item>
 			</el-descriptions>
 		</el-card>
 
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>系统信息</span>
+					<span>System info</span>
 					<el-button :icon="Refresh" size="small" circle @click="refreshSysInfo" />
 				</div>
 			</template>
 			<el-descriptions :column="2" border>
-				<el-descriptions-item label="操作系统">{{ data.sys.osName }}</el-descriptions-item>
-				<el-descriptions-item label="系统架构">{{ data.sys.osArch }}</el-descriptions-item>
-				<el-descriptions-item label="系统版本">{{ data.sys.osVersion }}</el-descriptions-item>
-				<el-descriptions-item label="系统名称">{{ data.sys.computerName }}</el-descriptions-item>
-				<el-descriptions-item label="系统IP">{{ data.sys.computerIp }}</el-descriptions-item>
+				<el-descriptions-item label="Operating system">{{ data.sys.osName }}</el-descriptions-item>
+				<el-descriptions-item label="System architecture">{{ data.sys.osArch }}</el-descriptions-item>
+				<el-descriptions-item label="System version">{{ data.sys.osVersion }}</el-descriptions-item>
+				<el-descriptions-item label="System name">{{ data.sys.computerName }}</el-descriptions-item>
+				<el-descriptions-item label="System IP">{{ data.sys.computerIp }}</el-descriptions-item>
 			</el-descriptions>
 		</el-card>
 
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>磁盘信息</span>
+					<span>Disk info</span>
 					<el-button :icon="Refresh" size="small" circle @click="refreshDiskInfo" />
 				</div>
 			</template>
 			<el-table :data="data.disks" header-align="center" style="width: 100%">
-				<el-table-column align="center" prop="diskName" label="磁盘名称" />
-				<el-table-column align="center" prop="diskType" label="磁盘类型" />
-				<el-table-column align="center" prop="dirName" label="磁盘路径" />
-				<el-table-column align="center" prop="total" label="总内存" />
-				<el-table-column align="center" prop="used" label="已用内存" />
-				<el-table-column align="center" prop="free" label="空闲内存" />
-				<el-table-column align="center" prop="usage" label="空间使用率">
+				<el-table-column align="center" prop="diskName" label="Disk name" />
+				<el-table-column align="center" prop="diskType" label="Disk type" />
+				<el-table-column align="center" prop="dirName" label="Disk path" />
+				<el-table-column align="center" prop="total" label="Total memory" />
+				<el-table-column align="center" prop="used" label="Used memory" />
+				<el-table-column align="center" prop="free" label="Idle memory" />
+				<el-table-column align="center" prop="usage" label="Space usage rate">
 					<template #default="scope"> {{ scope.row.usage }}% </template>
 				</el-table-column>
 			</el-table>

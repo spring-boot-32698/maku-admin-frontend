@@ -3,31 +3,31 @@
 		<el-col :span="12">
 			<el-card style="height: 700px">
 				<template #header>
-					<span style="margin-right: 10px">WebSocket连接</span>
-					<el-tag :type="openState ? 'primary' : 'danger'">{{ openState ? '已连接' : '已断开' }}</el-tag>
+					<span style="margin-right: 10px">WebSocketConnect</span>
+					<el-tag :type="openState ? 'primary' : 'danger'">{{ openState ? 'Connected' : 'Disconnected' }}</el-tag>
 					<el-button :type="openState ? 'danger' : 'primary'" style="margin-left: 20px" @click="handleConnect">
-						{{ openState ? '断开' : '连接' }}
+						{{ openState ? 'Disconnect' : 'Connect' }}
 					</el-button>
 				</template>
 				<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="80px">
-					<el-form-item label="服务地址">
+					<el-form-item label="Service address">
 						<el-input v-model="webSocketUrl" disabled />
 					</el-form-item>
-					<el-form-item prop="userId" label="发送给谁">
+					<el-form-item prop="userId" label="Send to whom">
 						<ma-user-input v-model="dataForm.userId"></ma-user-input>
 					</el-form-item>
-					<el-form-item prop="content" label="发送内容">
+					<el-form-item prop="content" label="Send content">
 						<el-input v-model="dataForm.content" :rows="3" type="textarea" />
 					</el-form-item>
 				</el-form>
 				<div style="float: right">
-					<el-button type="primary" :disabled="!openState" @click="submitHandle()">发送</el-button>
+					<el-button type="primary" :disabled="!openState" @click="submitHandle()">Send</el-button>
 				</div>
 			</el-card>
 		</el-col>
 		<el-col :span="12">
 			<el-card style="height: 700px">
-				<template #header> 消息列表 </template>
+				<template #header> Message list </template>
 				<el-scrollbar height="620px">
 					<chat-item
 						v-for="message in messageList"
@@ -65,8 +65,8 @@ const { data, status, open, close } = useWebSocket(webSocketUrl, {
 	onError() {
 		ElNotification({
 			type: 'error',
-			title: '连接中断',
-			message: 'WebSocket连接，已断开！'
+			title: 'Connection interrupted',
+			message: 'WebSocketConnection has been disconnected!'
 		})
 	}
 })
@@ -103,8 +103,8 @@ const dataForm = reactive({
 })
 
 const dataRules = ref({
-	content: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	userId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	content: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	userId: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
 const submitHandle = () => {
@@ -114,7 +114,7 @@ const submitHandle = () => {
 		}
 
 		service.postForm('/ws/message/send', dataForm).then(() => {
-			// 发送成功
+			// Sent successfully
 			const userStore = useUserStore()
 			const message: any = {
 				name: userStore.user.realName,
@@ -124,13 +124,13 @@ const submitHandle = () => {
 			}
 			messageList.value.push(message)
 
-			// 清空输入框
+			// Clear input box
 			dataForm.content = ''
 		})
 	})
 }
 
-// 当前时间
+// Current time
 const getCurrentDate = () => {
 	return new Date().toLocaleString('zh-CN', {
 		year: 'numeric',

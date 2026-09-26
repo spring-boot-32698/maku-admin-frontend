@@ -1,6 +1,6 @@
 import { useTabsStore } from '@/store/modules/tabs'
 
-// 关闭tab
+// Close tab
 export const closeTab = (router: any, tab: any) => {
 	const tabsStore = useTabsStore()
 	if (tab.meta && tab.meta.affix) {
@@ -11,7 +11,7 @@ export const closeTab = (router: any, tab: any) => {
 	toLastView(router, tabsStore.visitedViews, tab)
 }
 
-// 关闭其他tabs
+// Close other tabs
 export const closeOthersTabs = (router: any, tab: any) => {
 	const tabsStore = useTabsStore()
 
@@ -19,7 +19,7 @@ export const closeOthersTabs = (router: any, tab: any) => {
 	tabsStore.delOthersViews(tab)
 }
 
-// 关闭全部tabs
+// Close all tabs
 export const closeAllTabs = (router: any, tab: any) => {
 	const tabsStore = useTabsStore()
 
@@ -27,7 +27,7 @@ export const closeAllTabs = (router: any, tab: any) => {
 	toLastView(router, tabsStore.visitedViews, tab)
 }
 
-// 跳转到最后一个tab
+// Jump to the last tab
 export const toLastView = (router: any, visitedViews: any[], view: any) => {
 	const latestView = visitedViews.slice(-1)[0]
 	if (latestView) {

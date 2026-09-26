@@ -2,19 +2,19 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="jobName">
-				<el-input v-model="state.queryForm.jobName" placeholder="任务名称"></el-input>
+				<el-input v-model="state.queryForm.jobName" placeholder="Task name"></el-input>
 			</el-form-item>
 			<el-form-item prop="jobGroup">
-				<ma-dict-select v-model="state.queryForm.jobGroup" dict-type="schedule_group" clearable placeholder="任务组名"></ma-dict-select>
+				<ma-dict-select v-model="state.queryForm.jobGroup" dict-type="schedule_group" clearable placeholder="Task group name"></ma-dict-select>
 			</el-form-item>
 			<el-form-item prop="status">
-				<ma-dict-select v-model="state.queryForm.status" dict-type="schedule_status" clearable placeholder="任务状态"></ma-dict-select>
+				<ma-dict-select v-model="state.queryForm.status" dict-type="schedule_status" clearable placeholder="Task status"></ma-dict-select>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="RefreshRight" @click="reset(queryRef)">重置</el-button>
+				<el-button icon="RefreshRight" @click="reset(queryRef)">Reset</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -22,34 +22,34 @@
 	<el-card>
 		<el-space>
 			<el-space>
-				<el-button v-auth="'schedule:save'" icon="Plus" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+				<el-button v-auth="'schedule:save'" icon="Plus" type="primary" @click="addOrUpdateHandle()">Add</el-button>
 			</el-space>
 			<el-space>
-				<el-button v-auth="'schedule:log'" icon="Document" plain @click="logHandle()">任务日志</el-button>
+				<el-button v-auth="'schedule:log'" icon="Document" plain @click="logHandle()">Task log</el-button>
 			</el-space>
 			<el-space>
-				<el-button v-auth="'schedule:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+				<el-button v-auth="'schedule:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">Batch delete</el-button>
 			</el-space>
 		</el-space>
 
 		<el-table v-loading="state.dataListLoading" :data="state.dataList" border class="layout-table" @selection-change="selectionChangeHandle">
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
 			<el-table-column prop="id" label="id" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="jobName" label="任务名称" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="jobGroup" label="任务组名" dict-type="schedule_group"></ma-dict-column>
-			<el-table-column prop="beanName" label="执行方法" dict-type="schedule_group">
+			<el-table-column prop="jobName" label="Task name" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="jobGroup" label="Task group name" dict-type="schedule_group"></ma-dict-column>
+			<el-table-column prop="beanName" label="Execution method" dict-type="schedule_group">
 				<template #default="scope"> {{ scope.row.beanName }}.{{ scope.row.method }}() </template>
 			</el-table-column>
-			<el-table-column prop="cronExpression" label="Cron表达式" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="status" label="状态" dict-type="schedule_status"></ma-dict-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="260">
+			<el-table-column prop="cronExpression" label="CronExpression" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="status" label="Status" dict-type="schedule_status"></ma-dict-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="260">
 				<template #default="scope">
-					<el-button v-auth="'schedule:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-					<el-button v-if="scope.row.status === 0" v-auth="'schedule:update'" type="primary" link @click="statusHandle(scope.row, 1)">恢复</el-button>
-					<el-button v-if="scope.row.status === 1" v-auth="'schedule:update'" type="primary" link @click="statusHandle(scope.row, 0)">暂停</el-button>
-					<el-button v-auth="'schedule:run'" type="primary" link @click="runHandle(scope.row)">执行</el-button>
-					<el-button v-auth="'schedule:log'" type="primary" link @click="logHandle(scope.row)">日志</el-button>
-					<el-button v-auth="'schedule:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+					<el-button v-auth="'schedule:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">Edit</el-button>
+					<el-button v-if="scope.row.status === 0" v-auth="'schedule:update'" type="primary" link @click="statusHandle(scope.row, 1)">Resume</el-button>
+					<el-button v-if="scope.row.status === 1" v-auth="'schedule:update'" type="primary" link @click="statusHandle(scope.row, 0)">Pause</el-button>
+					<el-button v-auth="'schedule:run'" type="primary" link @click="runHandle(scope.row)">Execute</el-button>
+					<el-button v-auth="'schedule:log'" type="primary" link @click="logHandle(scope.row)">Log</el-button>
+					<el-button v-auth="'schedule:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">Delete</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -64,11 +64,11 @@
 		>
 		</el-pagination>
 
-		<!-- 弹窗, 新增 / 修改 -->
+		<!-- Dialog, Add / Edit -->
 		<add-or-update ref="addOrUpdateRef" @refresh-data-list="getDataList"></add-or-update>
 
-		<!-- 日志 -->
-		<el-drawer v-if="logVisible" v-model="logVisible" title="任务日志" :size="1200" :close-on-press-escape="false">
+		<!-- Log -->
+		<el-drawer v-if="logVisible" v-model="logVisible" title="Task log" :size="1200" :close-on-press-escape="false">
 			<log ref="logRef" />
 		</el-drawer>
 	</el-card>
@@ -94,15 +94,15 @@ const state: IHooksOptions = reactive({
 })
 
 const runHandle = (row: any) => {
-	ElMessageBox.confirm('确定进行立即执行操作?', '提示', {
-		confirmButtonText: '确定',
-		cancelButtonText: '取消',
+	ElMessageBox.confirm('Are you sure you want to run it now?', 'Tip', {
+		confirmButtonText: 'OK',
+		cancelButtonText: 'Cancel',
 		type: 'warning'
 	})
 		.then(() => {
 			useScheduleRunApi(row).then(() => {
 				ElMessage.success({
-					message: '操作成功',
+					message: 'Operation succeeded',
 					duration: 500
 				})
 			})
@@ -111,17 +111,17 @@ const runHandle = (row: any) => {
 }
 
 const statusHandle = (row: any, status: any) => {
-	const opt = status === 0 ? '暂停' : '恢复'
-	ElMessageBox.confirm(`确定进行${opt}操作?`, '提示', {
-		confirmButtonText: '确定',
-		cancelButtonText: '取消',
+	const opt = status === 0 ? 'Pause' : 'Resume'
+	ElMessageBox.confirm(`Are you sure you want to proceed with${opt}Operation?`, 'Tip', {
+		confirmButtonText: 'OK',
+		cancelButtonText: 'Cancel',
 		type: 'warning'
 	})
 		.then(() => {
 			row.status = status
 			useScheduleStatusApi(row).then(() => {
 				ElMessage.success({
-					message: '操作成功',
+					message: 'Operation succeeded',
 					duration: 500
 				})
 			})

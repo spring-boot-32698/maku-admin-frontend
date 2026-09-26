@@ -50,7 +50,7 @@
 
 				<el-divider content-position="left">{{ $t('settings.layout') }}</el-divider>
 
-				<!-- 布局切换 -->
+				<!-- Layout switching -->
 				<el-space>
 					<el-tooltip key="dark" effect="dark" placement="top" :content="$t('settings.vertical')">
 						<div
@@ -120,7 +120,7 @@ const appStore = useAppStore()
 const { t } = useI18n()
 const { copy } = useClipboard()
 
-// 是否显示
+// Whether to display
 const visible = ref(false)
 emits.on('openThemeSettings', () => (visible.value = true))
 
@@ -145,36 +145,36 @@ const tabsStyle = [
 	{ label: t('settings.style2'), value: 'style-2' }
 ]
 
-// 默认主题
+// Default theme
 const theme = computed(() => appStore.theme)
 
-// 处理布局切换
+// Handle layout switching
 const handleLayoutTheme = (layout: string) => {
 	theme.value.layout = layout
 	cache.setTheme(theme.value)
 }
 
-// 处理侧边栏主题
+// Handle sidebar theme
 const handleSidebarTheme = (style: string) => {
 	theme.value.sidebarStyle = style
 	cache.setTheme(theme.value)
 }
 
-// 处理顶栏主题
+// Handle top bar theme
 const handleHeaderTheme = (style: string) => {
 	theme.value.headerStyle = style
 	cache.setTheme(theme.value)
 }
 
-// 处理暗黑模式
+// Handle dark mode
 const isDark = useDark()
 
-// 处理其他主题
+// Handle other themes
 const handleOtherTheme = () => {
 	cache.setTheme(theme.value)
 }
 
-// 处理主题色
+// Handle theme color
 const handleThemeColor = (color: string) => {
 	theme.value.primaryColor = color
 	cache.setTheme(theme.value)
@@ -182,14 +182,14 @@ const handleThemeColor = (color: string) => {
 	handleThemeStyle(theme.value)
 }
 
-// 复制配置
+// Copy settings
 const handleCopyConfig = () => {
 	const config = JSON.stringify(theme.value, null, 2)
 	copy(config)
 	ElMessage.success(t('settings.copySuc'))
 }
 
-// 恢复默认
+// Restore defaults
 const handleResetConfig = async () => {
 	cache.removeTheme()
 	window.location.reload()

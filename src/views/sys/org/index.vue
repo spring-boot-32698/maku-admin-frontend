@@ -2,15 +2,15 @@
 	<el-card>
 		<el-space>
 			<el-space>
-				<el-button v-auth="'sys:org:save'" type="primary" icon="Plus" @click="addOrUpdateHandle(false, null)">新增</el-button>
+				<el-button v-auth="'sys:org:save'" type="primary" icon="Plus" @click="addOrUpdateHandle(false, null)">Add</el-button>
 			</el-space>
 			<el-space>
 				<el-button plain @click="toggleExpandAll()">
 					<template v-if="!isExpandAll">
-						全部展开&nbsp;<el-icon><ArrowDown /></el-icon>
+						Expand all&nbsp;<el-icon><ArrowDown /></el-icon>
 					</template>
 					<template v-else>
-						全部收起&nbsp;<el-icon><ArrowUp /></el-icon>
+						Collapse all&nbsp;<el-icon><ArrowUp /></el-icon>
 					</template>
 				</el-button>
 			</el-space>
@@ -24,14 +24,14 @@
 			border
 			class="layout-table"
 		>
-			<el-table-column prop="name" label="名称" header-align="center"></el-table-column>
-			<el-table-column prop="parentName" label="上级" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="sort" label="排序" header-align="center" align="center"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="160">
+			<el-table-column prop="name" label="Name" header-align="center"></el-table-column>
+			<el-table-column prop="parentName" label="Parent" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="sort" label="Sort" header-align="center" align="center"></el-table-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="160">
 				<template #default="scope">
-					<el-button v-auth="'sys:org:save'" type="primary" link @click="addOrUpdateHandle(false, scope.row)">新增</el-button>
-					<el-button v-auth="'sys:org:update'" type="primary" link @click="addOrUpdateHandle(true, scope.row)">修改</el-button>
-					<el-button v-auth="'sys:org:delete'" type="primary" link @click="deleteHandle(scope.row.id)">删除</el-button>
+					<el-button v-auth="'sys:org:save'" type="primary" link @click="addOrUpdateHandle(false, scope.row)">Add</el-button>
+					<el-button v-auth="'sys:org:update'" type="primary" link @click="addOrUpdateHandle(true, scope.row)">Edit</el-button>
+					<el-button v-auth="'sys:org:delete'" type="primary" link @click="deleteHandle(scope.row.id)">Delete</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -59,12 +59,12 @@ const addOrUpdateHandle = (isUpdate: Boolean, row: any) => {
 
 const { getDataList, deleteHandle } = useCrud(state)
 
-// 是否展开，默认全部折叠
+// Whether expanded, all collapsed by default
 const isExpandAll = ref(false)
-// 是否重新渲染表格状态
+// Whether to re-render the table state
 const refreshTable = ref(true)
 
-// 切换 展开和折叠
+// Toggle expand and collapse
 const toggleExpandAll = () => {
 	refreshTable.value = false
 	isExpandAll.value = !isExpandAll.value

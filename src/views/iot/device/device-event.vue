@@ -2,10 +2,10 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="serviceType">
-				<ma-dict-select v-model="state.queryForm.eventTypeEnum" dict-type="device_event_type" placeholder="事件类型" clearable></ma-dict-select>
+				<ma-dict-select v-model="state.queryForm.eventTypeEnum" dict-type="device_event_type" placeholder="Event type" clearable></ma-dict-select>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -20,10 +20,10 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="eventUid" label="关联服务ID" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="eventTypeEnum" label="事件类型" dict-type="device_event_type"></ma-dict-column>
-			<el-table-column prop="eventPayload" label="事件内容" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="eventTime" label="事件时间" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="eventUid" label="Associated service ID" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="eventTypeEnum" label="Event type" dict-type="device_event_type"></ma-dict-column>
+			<el-table-column prop="eventPayload" label="Event content" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="eventTime" label="Event time" header-align="center" align="center"></el-table-column>
 		</el-table>
 		<el-pagination
 			:current-page="state.page"
@@ -36,7 +36,7 @@
 		>
 		</el-pagination>
 
-		<!-- 弹窗, 新增 / 修改 -->
+		<!-- Dialog, Add / Edit -->
 		<add-or-update ref="addOrUpdateRef" @refresh-data-list="getDataList"></add-or-update>
 	</el-card>
 </template>

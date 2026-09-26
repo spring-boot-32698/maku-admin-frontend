@@ -36,13 +36,13 @@
 				</template>
 			</el-input>
 			<div class="captcha-img" @click="onCaptcha">
-				<img :src="captchaBase64" alt="验证码" />
+				<img :src="captchaBase64" alt="Captcha" />
 			</div>
 		</el-form-item>
 		<el-form-item class="login-button">
 			<el-button type="primary" :loading="loading" @click="onLogin()">
 				<span v-if="!loading">{{ $t('app.signIn') }}</span>
-				<span v-else>登录中...</span>
+				<span v-else>Logging in...</span>
 			</el-button>
 		</el-form-item>
 	</el-form>
@@ -78,7 +78,7 @@ const loginRules = ref({
 	captcha: [{ required: true, message: t('required'), trigger: 'blur' }]
 })
 
-// 是否显示验证码
+// Whether to display the captcha
 const captchaVisible = ref(false)
 
 onMounted(() => {
@@ -111,7 +111,7 @@ const onLogin = () => {
 
 		loading.value = true
 
-		// 重新封装登录数据
+		// Re-wrap the login data
 		const loginData = {
 			username: loginForm.username,
 			password: sm2Encrypt(loginForm.password),
@@ -119,7 +119,7 @@ const onLogin = () => {
 			captcha: loginForm.captcha
 		}
 
-		// 用户登录
+		// User login
 		userStore
 			.accountLoginAction(loginData)
 			.then(() => {

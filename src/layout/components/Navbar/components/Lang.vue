@@ -24,7 +24,7 @@ const languageChange = (language: string) => {
 	appStore.setLanguage(language)
 	locale.value = language
 
-	// 刷新页面
+	// Refresh page
 	window.location.reload()
 }
 </script>

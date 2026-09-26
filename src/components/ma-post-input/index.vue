@@ -8,16 +8,16 @@
 		v-if="!disabled && visible"
 		:key="visible + ''"
 		v-model:visible="visible"
-		title="岗位选择"
+		title="Post selection"
 		url="/sys/post/page"
 		:multiple
 		:columns="[
-			{ field: 'postCode', label: '岗位编码' },
-			{ field: 'postName', label: '岗位名称' }
+			{ field: 'postCode', label: 'Post code' },
+			{ field: 'postName', label: 'Post name' }
 		]"
 		:query-params="[
-			{ field: 'postCode', label: '岗位编码' },
-			{ field: 'postName', label: '岗位名称' }
+			{ field: 'postCode', label: 'Post code' },
+			{ field: 'postName', label: 'Post name' }
 		]"
 		@select="onSelect"
 	></ma-data-table>

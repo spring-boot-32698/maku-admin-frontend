@@ -2,54 +2,54 @@
 	<el-row :gutter="20">
 		<el-col :span="8">
 			<el-card class="profile-card">
-				<template #header> 个人信息 </template>
+				<template #header> Personal information </template>
 				<div class="avatar">
 					<ma-upload-image v-model:image-url="userStore.user.avatar" :drag="false" border-radius="50%" @success="handleSuccess">
 						<template #empty>
 							<el-icon><Avatar /></el-icon>
-							<span>请上传头像</span>
+							<span>Please upload an avatar</span>
 						</template>
 					</ma-upload-image>
 				</div>
 				<ul>
 					<li>
-						<ma-icon icon="icon-user" /> 用户名 <span>{{ userStore.user.username }}</span>
+						<ma-icon icon="icon-user" /> Username <span>{{ userStore.user.username }}</span>
 					</li>
 					<li>
-						<ma-icon icon="icon-idcard" /> 姓名 <span>{{ userStore.user.realName }}</span>
+						<ma-icon icon="icon-idcard" /> Name <span>{{ userStore.user.realName }}</span>
 					</li>
 					<li>
-						<ma-icon icon="icon-phone" /> 手机号码 <span>{{ userStore.user.mobile }}</span>
+						<ma-icon icon="icon-phone" /> Mobile phone number <span>{{ userStore.user.mobile }}</span>
 					</li>
 					<li>
-						<ma-icon icon="icon-mail" /> 用户邮箱 <span>{{ userStore.user.email || '/' }}</span>
+						<ma-icon icon="icon-mail" /> User email <span>{{ userStore.user.email || '/' }}</span>
 					</li>
 					<li>
-						<ma-icon icon="icon-apartment" /> 所属机构 <span>{{ userStore.user.orgName || '/' }}</span>
+						<ma-icon icon="icon-apartment" /> Organization <span>{{ userStore.user.orgName || '/' }}</span>
 					</li>
 					<li>
-						<ma-icon icon="icon-tag" /> 所属岗位 <span>{{ userStore.user.postNameList || '/' }} </span>
+						<ma-icon icon="icon-tag" /> Post <span>{{ userStore.user.postNameList || '/' }} </span>
 					</li>
 					<li>
-						<ma-icon icon="icon-calendar-check" /> 创建日期 <span>{{ userStore.user.createTime }}</span>
+						<ma-icon icon="icon-calendar-check" /> Creation date <span>{{ userStore.user.createTime }}</span>
 					</li>
 				</ul>
 			</el-card>
 		</el-col>
 		<el-col :span="16">
 			<el-card>
-				<template #header> 基本信息 </template>
+				<template #header> Basic information </template>
 				<el-tabs v-model="activeName">
-					<el-tab-pane label="基本资料" name="info">
+					<el-tab-pane label="Basic profile" name="info">
 						<UserInfo />
 					</el-tab-pane>
-					<el-tab-pane label="修改密码" name="password">
+					<el-tab-pane label="Change password" name="password">
 						<Password />
 					</el-tab-pane>
-					<el-tab-pane label="个人签名" name="signature" lazy>
+					<el-tab-pane label="Personal signature" name="signature" lazy>
 						<Signature />
 					</el-tab-pane>
-					<el-tab-pane label="第三方登录" name="third" lazy>
+					<el-tab-pane label="Third-party login" name="third" lazy>
 						<ThirdLogin />
 					</el-tab-pane>
 				</el-tabs>
@@ -75,9 +75,9 @@ const handleSuccess = (data: any) => {
 	const dataForm = {
 		avatar: data.url
 	}
-	// 修改登录用户头像
+	// Update logged-in user avatar
 	useUserAvatarApi(dataForm).then(() => {
-		ElMessage.success('修改成功')
+		ElMessage.success('Update succeeded')
 	})
 }
 </script>

@@ -2,22 +2,22 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="realName">
-				<el-input v-model="state.queryForm.realName" placeholder="用户"></el-input>
+				<el-input v-model="state.queryForm.realName" placeholder="User"></el-input>
 			</el-form-item>
 			<el-form-item prop="module">
-				<el-input v-model="state.queryForm.module" placeholder="模块名"></el-input>
+				<el-input v-model="state.queryForm.module" placeholder="Module name"></el-input>
 			</el-form-item>
 			<el-form-item prop="reqUri">
-				<el-input v-model="state.queryForm.reqUri" placeholder="请求URI"></el-input>
+				<el-input v-model="state.queryForm.reqUri" placeholder="Request URI"></el-input>
 			</el-form-item>
 			<el-form-item prop="status">
-				<ma-dict-select v-model="state.queryForm.status" placeholder="操作状态" dict-type="success_fail" clearable> </ma-dict-select>
+				<ma-dict-select v-model="state.queryForm.status" placeholder="Operation status" dict-type="success_fail" clearable> </ma-dict-select>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="RefreshRight" @click="reset(queryRef)">重置</el-button>
+				<el-button icon="RefreshRight" @click="reset(queryRef)">Reset</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -32,20 +32,20 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="realName" label="用户" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="module" label="模块名" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="reqUri" label="请求URI" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="reqMethod" label="请求方法" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="address" label="登录地点" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="operateType" label="操作类型" dict-type="log_operate_type" header-align="center" align="center"></ma-dict-column>
-			<el-table-column prop="duration" label="执行时长" header-align="center" align="center">
+			<el-table-column prop="realName" label="User" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="module" label="Module name" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="reqUri" label="Request URI" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="reqMethod" label="Request method" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="address" label="Login location" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="operateType" label="Operation type" dict-type="log_operate_type" header-align="center" align="center"></ma-dict-column>
+			<el-table-column prop="duration" label="Execution duration" header-align="center" align="center">
 				<template #default="scope"> {{ scope.row.duration }}ms </template>
 			</el-table-column>
-			<ma-dict-column prop="status" label="操作状态" dict-type="success_fail"></ma-dict-column>
-			<el-table-column prop="createTime" label="创建时间" header-align="center" align="center"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="80">
+			<ma-dict-column prop="status" label="Operation status" dict-type="success_fail"></ma-dict-column>
+			<el-table-column prop="createTime" label="Creation time" header-align="center" align="center"></el-table-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="80">
 				<template #default="scope">
-					<el-button type="primary" link @click="detailHandle(scope.row)">详情</el-button>
+					<el-button type="primary" link @click="detailHandle(scope.row)">Details</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -60,7 +60,7 @@
 		>
 		</el-pagination>
 
-		<!-- 详情 -->
+		<!-- Details -->
 		<operate-detail ref="detailRef"></operate-detail>
 	</el-card>
 </template>

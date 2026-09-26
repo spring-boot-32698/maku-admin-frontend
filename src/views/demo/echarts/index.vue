@@ -16,7 +16,7 @@ const main = ref()
 const init = () => {
 	const myChart = echarts.init(main.value)
 
-	// 绘制图表
+	// Draw chart
 	myChart.setOption({
 		title: {
 			text: 'Stacked Area Chart'

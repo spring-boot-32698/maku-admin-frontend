@@ -1,12 +1,12 @@
 <template>
-	<el-drawer v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :size="800">
+	<el-drawer v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :size="800">
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="100px" @keyup.enter="submitHandle()">
-			<el-form-item label="平台类型" prop="openType">
-				<el-select v-model="dataForm.openType" placeholder="请选择" style="width: 100%">
-					<el-option label="企业微信" value="wechat_work"></el-option>
-					<el-option label="钉钉" value="dingtalk"></el-option>
-					<el-option label="飞书" value="feishu"></el-option>
-					<el-option label="微信" value="wechat_open"></el-option>
+			<el-form-item label="Platform type" prop="openType">
+				<el-select v-model="dataForm.openType" placeholder="Please select" style="width: 100%">
+					<el-option label="WeCom" value="wechat_work"></el-option>
+					<el-option label="DingTalk" value="dingtalk"></el-option>
+					<el-option label="Feishu" value="feishu"></el-option>
+					<el-option label="WeChat" value="wechat_open"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="ClientID" prop="clientId">
@@ -23,8 +23,8 @@
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-drawer>
 </template>
@@ -56,7 +56,7 @@ const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -73,14 +73,14 @@ const getSys_third_login_config = (id: number) => {
 }
 
 const dataRules = ref({
-	openType: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	clientId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	clientSecret: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	redirectUri: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	agentId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	openType: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	clientId: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	clientSecret: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	redirectUri: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	agentId: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -89,7 +89,7 @@ const submitHandle = () => {
 
 		useThirdConfigSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

@@ -1,24 +1,24 @@
 <template>
-	<el-drawer v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :size="800">
+	<el-drawer v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :size="800">
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="100px" @keyup.enter="submitHandle()">
-			<el-form-item label="平台类型" prop="platform">
-				<ma-dict-select v-model="dataForm.platform" dict-type="sms_platform" placeholder="平台类型" style="width: 100%"></ma-dict-select>
+			<el-form-item label="Platform type" prop="platform">
+				<ma-dict-select v-model="dataForm.platform" dict-type="sms_platform" placeholder="Platform type" style="width: 100%"></ma-dict-select>
 			</el-form-item>
-			<el-form-item label="分组名称" prop="groupName">
-				<el-input v-model="dataForm.groupName" placeholder="分组名称相同的配置，会轮询发送短信"></el-input>
+			<el-form-item label="Group name" prop="groupName">
+				<el-input v-model="dataForm.groupName" placeholder="Configurations with the same group name send SMS in rotation"></el-input>
 			</el-form-item>
 			<el-divider></el-divider>
-			<el-form-item v-if="dataForm.platform == 3" label="接入地址" prop="url">
-				<el-input v-model="dataForm.url" placeholder="APP接入地址"></el-input>
+			<el-form-item v-if="dataForm.platform == 3" label="Access address" prop="url">
+				<el-input v-model="dataForm.url" placeholder="APPAccess address"></el-input>
 			</el-form-item>
 			<el-form-item v-if="dataForm.platform == 1" label="AppId" prop="appId">
 				<el-input v-model="dataForm.appId" placeholder="AppId"></el-input>
 			</el-form-item>
-			<el-form-item v-if="dataForm.platform != 2" label="短信签名" prop="signName">
-				<el-input v-model="dataForm.signName" placeholder="短信签名"></el-input>
+			<el-form-item v-if="dataForm.platform != 2" label="SMS signature" prop="signName">
+				<el-input v-model="dataForm.signName" placeholder="SMS signature"></el-input>
 			</el-form-item>
-			<el-form-item label="短信模板" prop="templateId">
-				<el-input v-model="dataForm.templateId" placeholder="短信模板"></el-input>
+			<el-form-item label="SMS template" prop="templateId">
+				<el-input v-model="dataForm.templateId" placeholder="SMS template"></el-input>
 			</el-form-item>
 			<el-form-item label="AccessKey" prop="accessKey">
 				<el-input v-model="dataForm.accessKey" placeholder="AccessKey"></el-input>
@@ -27,18 +27,18 @@
 				<el-input v-model="dataForm.secretKey" placeholder="SecretKey"></el-input>
 			</el-form-item>
 			<el-form-item v-if="dataForm.platform == 1" label="SenderId" prop="senderId">
-				<el-input v-model="dataForm.senderId" placeholder="国际短信必填"></el-input>
+				<el-input v-model="dataForm.senderId" placeholder="Required for international SMS"></el-input>
 			</el-form-item>
-			<el-form-item v-if="dataForm.platform == 3" label="通道号" prop="senderId">
-				<el-input v-model="dataForm.senderId" placeholder="通道号必填"></el-input>
+			<el-form-item v-if="dataForm.platform == 3" label="Channel number" prop="senderId">
+				<el-input v-model="dataForm.senderId" placeholder="Channel number is required"></el-input>
 			</el-form-item>
-			<el-form-item label="状态" prop="status">
+			<el-form-item label="Status" prop="status">
 				<ma-dict-radio v-model="dataForm.status" dict-type="enable_disable"></ma-dict-radio>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-drawer>
 </template>
@@ -73,7 +73,7 @@ const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -90,17 +90,17 @@ const getSmsPlatform = (id: number) => {
 }
 
 const dataRules = ref({
-	platform: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	groupName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	appId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	signName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	templateId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	url: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	accessKey: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	secretKey: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	platform: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	groupName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	appId: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	signName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	templateId: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	url: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	accessKey: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	secretKey: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -109,7 +109,7 @@ const submitHandle = () => {
 
 		useSmsConfigSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

@@ -1,15 +1,15 @@
 <template>
 	<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="100px">
-		<el-form-item prop="realName" label="姓名">
-			<el-input v-model="dataForm.realName" placeholder="姓名"></el-input>
+		<el-form-item prop="realName" label="Name">
+			<el-input v-model="dataForm.realName" placeholder="Name"></el-input>
 		</el-form-item>
-		<el-form-item prop="mobile" label="手机">
-			<el-input v-model="dataForm.mobile" placeholder="手机号码"></el-input>
+		<el-form-item prop="mobile" label="Mobile">
+			<el-input v-model="dataForm.mobile" placeholder="Mobile phone number"></el-input>
 		</el-form-item>
-		<el-form-item prop="email" label="邮箱">
-			<el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
+		<el-form-item prop="email" label="Email">
+			<el-input v-model="dataForm.email" placeholder="Email"></el-input>
 		</el-form-item>
-		<el-form-item prop="gender" label="性别">
+		<el-form-item prop="gender" label="Gender">
 			<ma-dict-radio v-model="dataForm.gender" dict-type="user_gender"></ma-dict-radio>
 		</el-form-item>
 		<el-form-item>
@@ -48,15 +48,15 @@ const handleDataForm = () => {
 			return false
 		}
 
-		// 修改登录用户信息
+		// Update logged-in user info
 		useUserInfoSubmitApi(dataForm).then(() => {
-			// 更新状态管理
+			// Update state management
 			userStore.user.realName = dataForm.realName
 			userStore.user.mobile = dataForm.mobile
 			userStore.user.email = dataForm.email
 			userStore.user.gender = dataForm.gender
 
-			ElMessage.success('修改成功')
+			ElMessage.success('Update succeeded')
 		})
 	})
 }

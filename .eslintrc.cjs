@@ -13,7 +13,7 @@ module.exports = {
 		}
 	},
 	rules: {
-		curly: 'error', // 控制语句需要大括号
+		curly: 'error', // Control statements require braces
 		'vue/multi-word-component-names': 'off',
 		'vue/require-prop-types': 'off'
 	}

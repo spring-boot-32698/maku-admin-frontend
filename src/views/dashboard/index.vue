@@ -5,21 +5,21 @@
 				<div style="display: flex; flex-direction: row">
 					<el-avatar :size="60" :src="userStore.user.avatar" />
 					<div style="display: flex; flex-direction: column; margin-left: 20px; line-height: 28px">
-						<h1>早安，{{ userStore.user.realName }}，祝你开心每一天!</h1>
-						<div>今日晴，25℃ - 28℃！</div>
+						<h1>Good morning,{{ userStore.user.realName }}, have a nice day!</h1>
+						<div>Sunny today, 25℃ - 28℃!</div>
 					</div>
 				</div>
 			</el-col>
 			<el-col :span="3">
-				<el-statistic title="用户量" :value="outputValue" />
+				<el-statistic title="Number of users" :value="outputValue" />
 			</el-col>
 			<el-col :span="3">
-				<el-statistic title="项目数" :value="66" />
+				<el-statistic title="Number of projects" :value="66" />
 			</el-col>
 			<el-col :span="3">
 				<el-statistic :value="8">
 					<template #title>
-						<div style="display: inline-flex; align-items: center">待办</div>
+						<div style="display: inline-flex; align-items: center">To-do</div>
 					</template>
 					<template #suffix>/100</template>
 				</el-statistic>
@@ -32,7 +32,7 @@
 		<el-card style="width: 100px">
 			<template #header>
 				<div class="card-header">
-					<span>关注公众号，加入微信交流群</span>
+					<span>Follow the official account and join the WeChat group</span>
 				</div>
 			</template>
 			<div style="height: 220px; display: flex; justify-content: center">
@@ -42,7 +42,7 @@
 		<el-card style="width: 600px">
 			<template #header>
 				<div class="card-header">
-					<span>销售统计</span>
+					<span>Sales statistics</span>
 				</div>
 			</template>
 			<div style="height: 220px; display: flex; justify-content: center">
@@ -55,18 +55,18 @@
 	<br />
 	<el-card>
 		<el-tabs v-model="active">
-			<el-tab-pane label="项目列表" name="first">
+			<el-tab-pane label="Project list" name="first">
 				<el-table :data="tableData" show-overflow-tooltip style="width: 100%">
-					<el-table-column prop="name" label="项目名称" width="150" />
-					<el-table-column prop="url" label="项目地址" width="310" />
-					<el-table-column prop="intro" label="项目介绍" />
+					<el-table-column prop="name" label="Project name" width="150" />
+					<el-table-column prop="url" label="Project address" width="310" />
+					<el-table-column prop="intro" label="Project introduction" />
 				</el-table>
 			</el-tab-pane>
-			<el-tab-pane label="我的项目" name="second">
+			<el-tab-pane label="My projects" name="second">
 				<el-table :data="tableData" show-overflow-tooltip style="width: 100%">
-					<el-table-column prop="name" label="项目名称" width="150" />
-					<el-table-column prop="url" label="项目地址" width="310" />
-					<el-table-column prop="intro" label="项目介绍" />
+					<el-table-column prop="name" label="Project name" width="150" />
+					<el-table-column prop="url" label="Project address" width="310" />
+					<el-table-column prop="intro" label="Project introduction" />
 				</el-table>
 			</el-tab-pane>
 		</el-tabs>
@@ -93,32 +93,32 @@ const tableData = [
 	{
 		name: 'maku-boot',
 		url: 'https://gitee.com/makunet/maku-boot',
-		intro: '企业级低代码平台（单体版），使用门槛极低，支持国密加密、达梦数据库等，满足信创要求。'
+		intro: 'Enterprise low-code platform (monolithic edition), very low barrier to entry, supports national cryptographic algorithms, Dameng database, etc., meeting Xinchuang requirements.'
 	},
 	{
 		name: 'maku-cloud',
 		url: 'https://gitee.com/makunet/maku-cloud',
-		intro: '企业级低代码平台（微服务版），使用门槛极低，支持国密加密、达梦数据库等，满足信创要求。'
+		intro: 'Enterprise low-code platform (microservice edition), very low barrier to entry, supports national cryptographic algorithms, Dameng database, etc., meeting Xinchuang requirements.'
 	},
 	{
 		name: 'maku-admin',
 		url: 'https://gitee.com/makunet/maku-admin',
-		intro: 'maku-boot和maku-cloud的前端工程，采用Vue3、TypeScript、ElementPlus、Vite等开发。'
+		intro: 'maku-bootAnd the maku-cloud frontend project, developed with Vue3, TypeScript, ElementPlus, Vite, etc.'
 	},
 	{
 		name: 'maku-app',
 		url: 'https://gitee.com/makunet/maku-app',
-		intro: '微信小程序端，采用微信原生小程序开发，使用门槛极低。'
+		intro: 'The WeChat Mini Program is developed with native WeChat Mini Program, with a very low barrier to entry.'
 	},
 	{
 		name: 'maku-generator',
 		url: 'https://gitee.com/makunet/maku-generator',
-		intro: '代码生成器，可根据自定义模板内容，快速生成代码。'
+		intro: 'Code generator that quickly generates code from custom template content.'
 	},
 	{
 		name: 'maku-form-design',
 		url: 'https://gitee.com/makunet/maku-form-design',
-		intro: '表单设计器，基于vue3、element-plus开发的表单设计器，主要用于低代码开发平台。'
+		intro: 'Form designer, developed with vue3 and element-plus, mainly used for low-code development platforms.'
 	}
 ]
 
@@ -204,7 +204,7 @@ const init = () => {
 	option = {
 		xAxis: {
 			type: 'category',
-			data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+			data: ['1Month', '2Month', '3Month', '4Month', '5Month', '6Month', '7Month', '8Month', '9Month', '10Month', '11Month', '12Month']
 		},
 		yAxis: {
 			type: 'value'

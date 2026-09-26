@@ -1,44 +1,44 @@
 <template>
-	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false" draggable>
+	<el-dialog v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="80px">
-			<el-form-item prop="dictType" label="字典类型">
-				<el-input v-model="dataForm.dictType" placeholder="字典类型"></el-input>
+			<el-form-item prop="dictType" label="Dictionary type">
+				<el-input v-model="dataForm.dictType" placeholder="Dictionary type"></el-input>
 			</el-form-item>
-			<el-form-item prop="dictName" label="字典名称">
-				<el-input v-model="dataForm.dictName" placeholder="字典名称"></el-input>
+			<el-form-item prop="dictName" label="Dictionary name">
+				<el-input v-model="dataForm.dictName" placeholder="Dictionary name"></el-input>
 			</el-form-item>
-			<el-form-item prop="pid" label="上级节点">
+			<el-form-item prop="pid" label="Parent node">
 				<ma-data-tree-select
 					v-model="dataForm.pid"
 					url="/sys/dict/type/list"
 					:props="{ label: 'dictType', children: 'children' }"
-					placeholder="请选择上级"
+					placeholder="Please select a parent"
 				></ma-data-tree-select>
 			</el-form-item>
-			<el-form-item prop="sort" label="排序">
-				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="排序"></el-input-number>
+			<el-form-item prop="sort" label="Sort">
+				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="Sort"></el-input-number>
 			</el-form-item>
-			<el-form-item prop="remark" label="备注">
-				<el-input v-model="dataForm.remark" placeholder="备注"></el-input>
+			<el-form-item prop="remark" label="Remarks">
+				<el-input v-model="dataForm.remark" placeholder="Remarks"></el-input>
 			</el-form-item>
-			<el-form-item label="数据来源" prop="dictSource">
+			<el-form-item label="Data source" prop="dictSource">
 				<el-radio-group v-model="dataForm.dictSource">
-					<el-radio-button :value="0">字典数据</el-radio-button>
-					<el-radio-button :value="1">动态SQL</el-radio-button>
+					<el-radio-button :value="0">Dictionary data</el-radio-button>
+					<el-radio-button :value="1">Dynamic SQL</el-radio-button>
 				</el-radio-group>
 			</el-form-item>
-			<el-form-item v-if="dataForm.dictSource === 1" prop="dictSql" label="动态SQL">
+			<el-form-item v-if="dataForm.dictSource === 1" prop="dictSql" label="Dynamic SQL">
 				<el-input
 					v-model="dataForm.dictSql"
 					type="textarea"
 					:rows="6"
-					placeholder="如：select id as dictValue, name as dictLabel from sys_role where deleted = 0"
+					placeholder="E.g.: select id as dictValue, name as dictLabel from sys_role where deleted = 0"
 				></el-input>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -64,22 +64,22 @@ const dataForm = reactive({
 })
 
 const dataRules = ref({
-	dictType: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	dictName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	dictSource: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	dictSql: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	dictType: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	dictName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	dictSource: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	dictSql: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
 const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
 
-	// id 存在则为修改
+	// id If it exists, it is an update
 	if (id) {
 		getDictType(id)
 	}
@@ -91,7 +91,7 @@ const getDictType = (id: number) => {
 	})
 }
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -100,7 +100,7 @@ const submitHandle = () => {
 
 		useDictTypeSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

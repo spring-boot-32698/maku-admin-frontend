@@ -6,7 +6,7 @@ import { useAuthorityListApi } from '@/api/sys/menu'
 
 export const useUserStore = defineStore('userStore', {
 	state: () => ({
-		// 用户信息
+		// User info
 		user: {
 			id: '',
 			superAdmin: 0,
@@ -21,11 +21,11 @@ export const useUserStore = defineStore('userStore', {
 			postNameList: [],
 			createTime: ''
 		},
-		// 权限列表
+		// Permission list
 		authorityList: [],
-		// 访问token
+		// Access token
 		token: cache.getToken(),
-		// 刷新token
+		// Refresh token
 		refreshToken: cache.getRefreshToken()
 	}),
 	actions: {
@@ -40,39 +40,39 @@ export const useUserStore = defineStore('userStore', {
 			this.refreshToken = val
 			cache.setRefreshToken(val)
 		},
-		// 账号登录
+		// Account login
 		async accountLoginAction(loginForm: any) {
 			const { data } = await useAccountLoginApi(loginForm)
 			this.setToken(data.access_token)
 			this.setRefreshToken(data.refresh_token)
 		},
-		// 手机号登录
+		// Mobile number login
 		async mobileLoginAction(loginForm: any) {
 			const { data } = await useMobileLoginApi(loginForm)
 			this.setToken(data.access_token)
 			this.setRefreshToken(data.refresh_token)
 		},
-		// 第三方登录
+		// Third-party login
 		async thirdLoginAction(loginForm: any) {
 			const { data } = await useThirdLoginApi(loginForm)
 			this.setToken(data.access_token)
 			this.setRefreshToken(data.refresh_token)
 		},
-		// 获取用户信息
+		// Get user info
 		async getUserInfoAction() {
 			const { data } = await useUserInfoApi()
 			this.setUser(data)
 		},
-		// 获取权限
+		// Get permissions
 		async getAuthorityListAction() {
 			const { data } = await useAuthorityListApi()
 			this.authorityList = data || []
 		},
-		// 用户退出
+		// User logout
 		async logoutAction() {
 			await useLogoutApi()
 
-			// 移除 token
+			// Remove token
 			this.setToken(null)
 			this.setRefreshToken(null)
 		}

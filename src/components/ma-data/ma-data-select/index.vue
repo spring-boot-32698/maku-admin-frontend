@@ -56,7 +56,7 @@ watch(
 
 const model = defineModel<number | string>()
 
-// 获取列表
+// Get list
 const dataList = ref<any[]>()
 const getDataList = async () => {
 	if (prop.url.length === 0) {

@@ -1,23 +1,23 @@
 <template>
 	<el-form :inline="true" :model="state.queryForm">
 		<el-form-item>
-			<el-input v-model="state.queryForm.username" placeholder="用户名"></el-input>
+			<el-input v-model="state.queryForm.username" placeholder="Username"></el-input>
 		</el-form-item>
 		<el-form-item>
-			<el-input v-model="state.queryForm.mobile" placeholder="手机号"></el-input>
+			<el-input v-model="state.queryForm.mobile" placeholder="Mobile number"></el-input>
 		</el-form-item>
 		<el-form-item>
-			<ma-dict-select v-model="state.queryForm.gender" dict-type="user_gender" clearable placeholder="性别"></ma-dict-select>
+			<ma-dict-select v-model="state.queryForm.gender" dict-type="user_gender" clearable placeholder="Gender"></ma-dict-select>
 		</el-form-item>
 		<el-form-item>
-			<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+			<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 		</el-form-item>
 		<el-form-item>
-			<el-button icon="Plus" type="primary" @click="userSelectVisible = true">新增</el-button>
+			<el-button icon="Plus" type="primary" @click="userSelectVisible = true">Add</el-button>
 			<ma-user-dialog :key="userSelectVisible" v-model:visible="userSelectVisible" multiple @select="userHandle"></ma-user-dialog>
 		</el-form-item>
 		<el-form-item>
-			<el-button icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+			<el-button icon="Delete" plain type="danger" @click="deleteBatchHandle()">Batch delete</el-button>
 		</el-form-item>
 	</el-form>
 	<el-table
@@ -29,13 +29,13 @@
 		@sort-change="sortChangeHandle"
 	>
 		<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-		<el-table-column prop="username" label="用户名" header-align="center" align="center"></el-table-column>
-		<el-table-column prop="mobile" label="手机号" header-align="center" align="center"></el-table-column>
-		<el-table-column prop="realName" label="姓名" header-align="center" align="center"></el-table-column>
-		<ma-dict-column prop="gender" label="性别" dict-type="user_gender"></ma-dict-column>
-		<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
+		<el-table-column prop="username" label="Username" header-align="center" align="center"></el-table-column>
+		<el-table-column prop="mobile" label="Mobile number" header-align="center" align="center"></el-table-column>
+		<el-table-column prop="realName" label="Name" header-align="center" align="center"></el-table-column>
+		<ma-dict-column prop="gender" label="Gender" dict-type="user_gender"></ma-dict-column>
+		<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="150">
 			<template #default="scope">
-				<el-button type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+				<el-button type="primary" link @click="deleteBatchHandle(scope.row.id)">Delete</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -82,7 +82,7 @@ const userHandle = (users: any[]) => {
 	const userIdList = users.map((item: any) => item.id)
 	useRoleUserSubmitApi(props.roleId, userIdList).then(() => {
 		ElMessage.success({
-			message: '操作成功',
+			message: 'Operation succeeded',
 			duration: 500,
 			onClose: () => {
 				getDataList()

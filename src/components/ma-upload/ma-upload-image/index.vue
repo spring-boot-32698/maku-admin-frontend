@@ -19,15 +19,15 @@
 				<div class="upload-handle" @click.stop>
 					<div v-if="!self_disabled" class="handle-icon" @click="editImg">
 						<el-icon><Edit /></el-icon>
-						<span>编辑</span>
+						<span>Edit</span>
 					</div>
 					<div class="handle-icon" @click="imgViewVisible = true">
 						<el-icon><ZoomIn /></el-icon>
-						<span>查看</span>
+						<span>View</span>
 					</div>
 					<div v-if="!self_disabled" class="handle-icon" @click="deleteImg">
 						<el-icon><Delete /></el-icon>
-						<span>删除</span>
+						<span>Delete</span>
 					</div>
 				</div>
 			</template>
@@ -35,7 +35,7 @@
 				<div class="upload-empty">
 					<slot name="empty">
 						<el-icon><Plus /></el-icon>
-						<!-- <span>请上传图片</span> -->
+						<!-- <span>Please upload an image</span> -->
 					</slot>
 				</div>
 			</template>
@@ -55,17 +55,17 @@ import { generateUUID } from '@/utils/tool'
 import { uploadImg } from '@/api/sys/upload'
 
 interface UploadFileProps {
-	imageUrl: string // 图片地址 ==> 必传
-	drag?: boolean // 是否支持拖拽上传 ==> 非必传（默认为 true）
-	disabled?: boolean // 是否禁用上传组件 ==> 非必传（默认为 false）
-	fileSize?: number // 图片大小限制 ==> 非必传（默认为 5M）
-	fileType?: any[] // 图片类型限制 ==> 非必传（默认为 ["image/jpeg", "image/png", "image/gif"]）
-	height?: string // 组件高度 ==> 非必传（默认为 150px）
-	width?: string // 组件宽度 ==> 非必传（默认为 150px）
-	borderRadius?: string // 组件边框圆角 ==> 非必传（默认为 8px）
+	imageUrl: string // Image URL ==> Required
+	drag?: boolean // Whether drag-and-drop upload is supported ==> Optional (default is true)
+	disabled?: boolean // Whether to disable the upload component ==> Optional (default is false)
+	fileSize?: number // Image size limit ==> Optional (default is 5M)
+	fileType?: any[] // Image type limit ==> Optional (default is ["image/jpeg", "image/png", "image/gif"])
+	height?: string // Component height ==> Optional (default is 150px)
+	width?: string // Component width ==> Optional (default is 150px)
+	borderRadius?: string // Component border radius ==> Optional (default is 8px)
 }
 
-// 接受父组件参数
+// Receive parent component parameters
 const props = withDefaults(defineProps<UploadFileProps>(), {
 	imageUrl: '',
 	drag: true,
@@ -77,23 +77,23 @@ const props = withDefaults(defineProps<UploadFileProps>(), {
 	borderRadius: '8px'
 })
 
-// 生成组件唯一id
+// Generate a unique component id
 const uuid = ref('id-' + generateUUID())
 
-// 查看图片
+// View image
 const imgViewVisible = ref(false)
-// 获取 el-form 组件上下文
+// Get the el-form component context
 const formContext = inject(formContextKey, void 0)
-// 获取 el-form-item 组件上下文
+// Get the el-form-item component context
 const formItemContext = inject(formItemContextKey, void 0)
-// 判断是否禁用上传和删除
+// Check whether upload and delete are disabled
 const self_disabled = computed(() => {
 	return props.disabled || formContext?.disabled
 })
 
 /**
- * @description 图片上传
- * @param options upload 所有配置项
+ * @description Image upload
+ * @param options upload All settings
  * */
 const emit = defineEmits<{
 	'update:imageUrl': [value: string]
@@ -106,7 +106,7 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
 		const { data } = await uploadImg(formData)
 		emit('update:imageUrl', data.url)
 		emit('success', data)
-		// 调用 el-form 内部的校验方法（可自动校验）
+		// Call the validation method inside el-form (validates automatically)
 		formItemContext?.prop && formContext?.validateField([formItemContext.prop as string])
 	} catch (error) {
 		options.onError(error as any)
@@ -114,14 +114,14 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
 }
 
 /**
- * @description 删除图片
+ * @description Delete image
  * */
 const deleteImg = () => {
 	emit('update:imageUrl', '')
 }
 
 /**
- * @description 编辑图片
+ * @description Edit image
  * */
 const editImg = () => {
 	const dom = document.querySelector(`#${uuid.value} .el-upload__input`)
@@ -129,24 +129,24 @@ const editImg = () => {
 }
 
 /**
- * @description 文件上传之前判断
- * @param rawFile 选择的文件
+ * @description Check before file upload
+ * @param rawFile Selected file
  * */
 const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
 	const imgSize = rawFile.size / 1024 / 1024 < props.fileSize
 	const imgType = props.fileType.includes(rawFile.type)
 	if (!imgType) {
 		ElNotification({
-			title: '温馨提示',
-			message: '上传图片不符合所需的格式！',
+			title: 'Friendly reminder',
+			message: 'The uploaded image does not match the required format!',
 			type: 'warning'
 		})
 	}
 	if (!imgSize) {
 		setTimeout(() => {
 			ElNotification({
-				title: '温馨提示',
-				message: `上传图片大小不能超过 ${props.fileSize}M！`,
+				title: 'Friendly reminder',
+				message: `Uploaded image size cannot exceed ${props.fileSize}M!`,
 				type: 'warning'
 			})
 		}, 0)
@@ -155,23 +155,23 @@ const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
 }
 
 /**
- * @description 图片上传成功
+ * @description Image uploaded successfully
  * */
 const uploadSuccess = () => {
 	ElNotification({
-		title: '温馨提示',
-		message: '图片上传成功！',
+		title: 'Friendly reminder',
+		message: 'Image uploaded successfully!',
 		type: 'success'
 	})
 }
 
 /**
- * @description 图片上传错误
+ * @description Image upload error
  * */
 const uploadError = () => {
 	ElNotification({
-		title: '温馨提示',
-		message: '图片上传失败，请您重新上传！',
+		title: 'Friendly reminder',
+		message: 'Image upload failed, please upload again!',
 		type: 'error'
 	})
 }

@@ -9,17 +9,17 @@
 					</span>
 					<template #dropdown>
 						<el-dropdown-menu>
-							<el-dropdown-item command="refresh">刷新数据</el-dropdown-item>
-							<el-dropdown-item command="expand">展开全部</el-dropdown-item>
-							<el-dropdown-item command="collapse">折叠全部</el-dropdown-item>
-							<el-dropdown-item v-if="manage" command="manage">数据管理</el-dropdown-item>
+							<el-dropdown-item command="refresh">Refresh data</el-dropdown-item>
+							<el-dropdown-item command="expand">Expand all</el-dropdown-item>
+							<el-dropdown-item command="collapse">Collapse all</el-dropdown-item>
+							<el-dropdown-item v-if="manage" command="manage">Data management</el-dropdown-item>
 						</el-dropdown-menu>
 					</template>
 				</el-dropdown>
 			</div>
 		</template>
 		<div style="margin: 10px">
-			<el-input v-model="keyword" clearable placeholder="请输入关键字" />
+			<el-input v-model="keyword" clearable placeholder="Please enter keywords" />
 		</div>
 		<el-tree
 			ref="treeRef"
@@ -81,7 +81,7 @@ const prop = defineProps({
 	}
 })
 
-// 是否展开全部
+// Whether to expand all
 const isExpandAll = ref(false)
 const treeKey = ref(generateUUID())
 const handleCommand = (command: string) => {
@@ -132,7 +132,7 @@ emit.on(MittEvent.LeftTree, () => {
 })
 
 const emits = defineEmits(['click', 'manage'])
-// 处理点击事件
+// Handle click events
 const handleNodeClick = (row: any) => {
 	if (currentNodeKey.value === row.id) {
 		currentNodeKey.value = null
@@ -143,7 +143,7 @@ const handleNodeClick = (row: any) => {
 	emits('click', idList)
 }
 
-// 获取所有子节点 ID 的函数
+// Function to get all child node IDs
 function getAllChildNodeIds(nodeId: any, nodes: any) {
 	if (!nodeId) {
 		return []
@@ -158,7 +158,7 @@ function getAllChildNodeIds(nodeId: any, nodes: any) {
 	return ids
 }
 
-// 查找指定 ID 的节点
+// Find the node with the specified ID
 function findNodeById(id: any, nodes: any): any {
 	for (const node of nodes) {
 		if (node.id === id) {
@@ -174,7 +174,7 @@ function findNodeById(id: any, nodes: any): any {
 	return null
 }
 
-// 递归获取所有子节点 ID
+// Recursively get all child node IDs
 function getChildrenIdsRecursively(node: any): any[] {
 	const ids = []
 	if (node.children && node.children.length > 0) {

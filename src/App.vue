@@ -18,12 +18,12 @@ const { t } = useI18n()
 const locale = computed(() => messages[appStore.language].el)
 const size = computed(() => appStore.componentSize)
 
-// 设置标题
+// Set title
 useTitle(t('app.title'))
 
 onMounted(() => {
 	nextTick(() => {
-		// 初始化主题样式
+		// Initialize theme styles
 		handleThemeStyle(appStore.theme)
 	})
 })

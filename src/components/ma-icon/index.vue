@@ -28,7 +28,7 @@ const props = defineProps({
 	}
 })
 
-// https://www.iconfont.cn 图标库需使用前缀 icon- 才能匹配
+// https://www.iconfont.cn Icon libraries must use the prefix icon- to match
 const iconName = computed(() => `#icon-${props.icon.replace('icon-', '')}`)
 </script>
 

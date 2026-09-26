@@ -9,14 +9,14 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="accessToken" label="会话编号" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="username" label="用户名" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="realName" label="姓名" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="gender" label="性别" dict-type="user_gender"></ma-dict-column>
-			<el-table-column prop="email" label="邮箱" header-align="center" align="center"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
+			<el-table-column prop="accessToken" label="Session number" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="username" label="Username" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="realName" label="Name" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="gender" label="Gender" dict-type="user_gender"></ma-dict-column>
+			<el-table-column prop="email" label="Email" header-align="center" align="center"></el-table-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="150">
 				<template #default="scope">
-					<el-button type="primary" link @click="logoutHandle(scope.row.accessToken)">踢出</el-button>
+					<el-button type="primary" link @click="logoutHandle(scope.row.accessToken)">Kick out</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -45,15 +45,15 @@ const state: IHooksOptions = reactive({
 })
 
 const logoutHandle = (accessToken: string) => {
-	ElMessageBox.confirm('确定踢出该用户?', '提示', {
-		confirmButtonText: '确定',
-		cancelButtonText: '取消',
+	ElMessageBox.confirm('Are you sure you want to kick this user out?', 'Tip', {
+		confirmButtonText: 'OK',
+		cancelButtonText: 'Cancel',
 		type: 'warning'
 	})
 		.then(() => {
 			useMonitorUserLogoutApi(accessToken).then(() => {
 				ElMessage.success({
-					message: '操作成功',
+					message: 'Operation succeeded',
 					duration: 500
 				})
 				getDataList()

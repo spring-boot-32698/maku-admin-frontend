@@ -2,7 +2,7 @@
 	<div class="signature-container">
 		<el-card shadow="never">
 			<div class="signature-header">
-				<el-text type="info">我的签名（可直接在画布上签名，完成后点击保存）</el-text>
+				<el-text type="info">My signature (sign directly on the canvas, then click save)</el-text>
 			</div>
 			<div class="signature-content">
 				<div class="canvas-wrapper">
@@ -19,8 +19,8 @@
 					></canvas>
 				</div>
 				<div class="signature-actions">
-					<el-button @click="clearCanvas">清空</el-button>
-					<el-button type="primary" @click="saveSignature">保存签名</el-button>
+					<el-button @click="clearCanvas">Clear</el-button>
+					<el-button type="primary" @click="saveSignature">Save signature</el-button>
 				</div>
 			</div>
 		</el-card>
@@ -40,7 +40,7 @@ let ctx: CanvasRenderingContext2D | null = null
 const isDrawing = ref(false)
 const savedSignature = ref<string>('')
 
-// 从本地存储加载已保存的签名
+// Load the saved signature from local storage
 onMounted(() => {
 	initCanvas()
 	loadSavedSignature()
@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 	window.removeEventListener('resize', handleResize)
 })
 
-// 监听用户信息变化，当签名更新时重新加载
+// Watch user info changes and reload when the signature is updated
 watch(
 	() => userStore.user?.signature,
 	newSignature => {
@@ -83,23 +83,23 @@ const initCanvas = () => {
 		ctx.lineJoin = 'round'
 		ctx.strokeStyle = '#000000'
 		ctx.lineWidth = 3
-		// 填充背景色
+		// Fill background color
 		ctx.fillStyle = '#ffffff'
 		ctx.fillRect(0, 0, canvas.width, canvas.height)
 	}
 }
 
 const handleResize = () => {
-	// 保存当前画布内容
+	// Save the current canvas content
 	if (!canvasRef.value || !ctx) {
 		return
 	}
 	const imageData = canvasRef.value.toDataURL()
 
-	// 重新初始化画布
+	// Reinitialize the canvas
 	initCanvas()
 
-	// 恢复画布内容
+	// Restore canvas content
 	const img = new Image()
 	img.onload = () => {
 		if (ctx && canvasRef.value) {
@@ -143,7 +143,7 @@ const stopDrawing = () => {
 	isDrawing.value = false
 }
 
-// 触摸事件支持移动端
+// Touch events support mobile
 const handleTouchStart = (e: TouchEvent) => {
 	e.preventDefault()
 	if (!ctx || !canvasRef.value) {
@@ -182,7 +182,7 @@ const clearCanvas = () => {
 
 	ctx.fillStyle = '#ffffff'
 	ctx.fillRect(0, 0, canvasRef.value.width, canvasRef.value.height)
-	ElMessage.success('画布已清空')
+	ElMessage.success('Canvas cleared')
 }
 
 const saveSignature = async () => {
@@ -192,7 +192,7 @@ const saveSignature = async () => {
 
 	const dataURL = canvasRef.value.toDataURL('image/png')
 
-	// 将base64转换为Blob对象
+	// Convert base64 to Blob object
 	const base64Data = dataURL.split(',')[1]
 	const byteCharacters = atob(base64Data)
 	const byteNumbers = new Array(byteCharacters.length)
@@ -202,21 +202,21 @@ const saveSignature = async () => {
 	const byteArray = new Uint8Array(byteNumbers)
 	const blob = new Blob([byteArray], { type: 'image/png' })
 
-	// 将Blob转换为File对象
+	// Convert Blob to File object
 	const file = new File([blob], `${userStore.user.username}.png`, { type: 'image/png' })
 
-	// 创建FormData上传图片
+	// Create FormData to upload image
 	const formData = new FormData()
 	formData.append('file', file)
 
-	// 上传签名图片
+	// Upload signature image
 	const { data } = await uploadImg(formData)
 	savedSignature.value = dataURL
 
-	// 更新用户签名
+	// Update user signature
 	await useUserSignatureApi({ signature: data.url })
 
-	ElMessage.success('签名已保存')
+	ElMessage.success('Signature saved')
 }
 
 const loadSignatureToCanvas = (imageUrl: string) => {
@@ -225,19 +225,19 @@ const loadSignatureToCanvas = (imageUrl: string) => {
 	}
 
 	const img = new Image()
-	// 设置跨域属性，允许从服务器加载图片
+	// Set the cross-origin attribute to allow loading images from the server
 	img.crossOrigin = 'anonymous'
 	img.onload = () => {
 		if (ctx && canvasRef.value) {
-			// 先清空画布并填充白色背景
+			// Clear the canvas first and fill it with a white background
 			ctx.fillStyle = '#ffffff'
 			ctx.fillRect(0, 0, canvasRef.value.width, canvasRef.value.height)
-			// 绘制签名图片
+			// Draw signature image
 			ctx.drawImage(img, 0, 0, canvasRef.value.width, canvasRef.value.height)
 		}
 	}
 	img.onerror = error => {
-		console.error('加载签名图片失败:', error)
+		console.error('Failed to load signature image:', error)
 	}
 	img.src = imageUrl
 }
@@ -247,13 +247,13 @@ const loadSavedSignature = () => {
 		const signature = userStore.user?.signature
 		if (signature) {
 			savedSignature.value = signature
-			// 延迟加载签名到画布，确保canvas已初始化
+			// Delay loading the signature onto the canvas to make sure the canvas is initialized
 			setTimeout(() => {
 				loadSignatureToCanvas(signature)
 			}, 100)
 		}
 	} catch (error) {
-		console.error('加载签名失败:', error)
+		console.error('Failed to load signature:', error)
 	}
 }
 </script>

@@ -1,13 +1,13 @@
 <template>
-	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :width="600" :close-on-click-modal="false" draggable>
+	<el-dialog v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :width="600" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="80px" @keyup.enter="submitHandle()">
-			<el-form-item prop="dictValue" label="字典值">
-				<el-input v-model="dataForm.dictValue" placeholder="字典值"></el-input>
+			<el-form-item prop="dictValue" label="Dictionary value">
+				<el-input v-model="dataForm.dictValue" placeholder="Dictionary value"></el-input>
 			</el-form-item>
-			<el-form-item prop="dictLabel" label="字典标签">
-				<el-input v-model="dataForm.dictLabel" placeholder="字典标签"></el-input>
+			<el-form-item prop="dictLabel" label="Dictionary label">
+				<el-input v-model="dataForm.dictLabel" placeholder="Dictionary label"></el-input>
 			</el-form-item>
-			<el-form-item prop="labelClass" label="标签样式">
+			<el-form-item prop="labelClass" label="Label style">
 				<el-select v-model="dataForm.labelClass" style="width: 100%" clearable>
 					<el-option
 						v-for="item in [
@@ -26,16 +26,16 @@
 					</el-option>
 				</el-select>
 			</el-form-item>
-			<el-form-item prop="sort" label="排序">
-				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="排序"></el-input-number>
+			<el-form-item prop="sort" label="Sort">
+				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="Sort"></el-input-number>
 			</el-form-item>
-			<el-form-item prop="remark" label="备注">
-				<el-input v-model="dataForm.remark" placeholder="备注"></el-input>
+			<el-form-item prop="remark" label="Remarks">
+				<el-input v-model="dataForm.remark" placeholder="Remarks"></el-input>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -60,20 +60,20 @@ const dataForm = reactive({
 })
 
 const dataRules = ref({
-	dictLabel: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	dictValue: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	dictLabel: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	dictValue: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
 const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
 
-	// id 存在则为修改
+	// id If it exists, it is an update
 	if (id) {
 		getDictData(id)
 	}
@@ -85,7 +85,7 @@ const getDictData = (id: number) => {
 	})
 }
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -94,7 +94,7 @@ const submitHandle = () => {
 
 		useDictDataSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

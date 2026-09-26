@@ -56,36 +56,36 @@ const router = useRouter()
 const activeTabName = ref(route.fullPath)
 const tabsStyleClass = computed(() => 'tabs-item-' + appStore.theme.tabsStyle)
 
-// 是否固定
+// Whether pinned
 const isAffix = (tab: any) => {
 	return tab.meta && tab.meta.affix
 }
 
 watch(route, () => {
-	// 当前路由，添加到tabs里
+	// Current route, add it to tabs
 	if (route.name) {
 		addTab()
 	}
 })
 
 onMounted(() => {
-	// 初始化
+	// Initialize
 	initTabs()
 	addTab()
 })
 
-// 初始化固定tab
+// Initialize pinned tabs
 const initTabs = () => {
 	const affixTabs = getAffixTabs(routerStore.routes)
 	for (const tab of affixTabs) {
-		// 需要有tab名称
+		// A tab name is required
 		if (tab.name) {
 			tabsStore.addView(tab)
 		}
 	}
 }
 
-// 获取需要固定的tabs
+// Get the tabs that need to be pinned
 const getAffixTabs = (routes: any) => {
 	let tabs: any[] = []
 	routes.forEach((route: any) => {
@@ -107,25 +107,25 @@ const getAffixTabs = (routes: any) => {
 	return tabs
 }
 
-// 添加tab
+// Add tab
 const addTab = () => {
 	tabsStore.addView(route)
 	tabsStore.addCachedView(route)
 	activeTabName.value = route.fullPath
 }
 
-// tab被选中
+// tabSelected
 const tabClick = (tab: any) => {
 	tab.props.name && router.push(tab.props.name)
 }
 
-// 点击关闭tab
+// Click to close tab
 const tabRemove = (fullPath: string) => {
 	const tab = tabsStore.visitedViews.filter((tab: any) => tab.fullPath === fullPath)
 	closeTab(router, tab[0])
 }
 
-// dropdown 关闭事件
+// dropdown Close event
 const onClose = (type: string) => {
 	switch (type) {
 		case 'close':
@@ -140,7 +140,7 @@ const onClose = (type: string) => {
 	}
 }
 
-// 保证右键标签页只会弹出当前一个下拉框
+// Ensure right-clicking a tab pops up only one dropdown
 const dropdownRef = ref()
 const handleChange = (visible: boolean, tab: any) => {
 	if (!visible) {

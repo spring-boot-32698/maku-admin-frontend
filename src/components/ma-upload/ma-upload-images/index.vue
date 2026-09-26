@@ -50,14 +50,14 @@ import { ElNotification, formContextKey } from 'element-plus'
 import cache from '@/utils/cache'
 
 interface UploadFileProps {
-	drag?: boolean // 是否支持拖拽上传 ==> 非必传（默认为 true）
-	disabled?: boolean // 是否禁用上传组件 ==> 非必传（默认为 false）
-	limit?: number // 最大图片上传数 ==> 非必传（默认为 5张）
-	size?: number // 图片大小限制 ==> 非必传（默认为 5M）
-	fileType?: any[] // 图片类型限制 ==> 非必传（默认为 ["image/jpeg", "image/png", "image/gif"]）
-	height?: string // 组件高度 ==> 非必传（默认为 150px）
-	width?: string // 组件宽度 ==> 非必传（默认为 150px）
-	borderRadius?: string // 组件边框圆角 ==> 非必传（默认为 8px）
+	drag?: boolean // Whether drag-and-drop upload is supported ==> Optional (default is true)
+	disabled?: boolean // Whether to disable the upload component ==> Optional (default is false)
+	limit?: number // Maximum number of uploaded images ==> Optional (default is 5 images)
+	size?: number // Image size limit ==> Optional (default is 5M)
+	fileType?: any[] // Image type limit ==> Optional (default is ["image/jpeg", "image/png", "image/gif"])
+	height?: string // Component height ==> Optional (default is 150px)
+	width?: string // Component width ==> Optional (default is 150px)
+	borderRadius?: string // Component border radius ==> Optional (default is 8px)
 }
 
 const props = withDefaults(defineProps<UploadFileProps>(), {
@@ -71,9 +71,9 @@ const props = withDefaults(defineProps<UploadFileProps>(), {
 	borderRadius: '5px'
 })
 
-// 获取 el-form 组件上下文
+// Get the el-form component context
 const formContext = inject(formContextKey, void 0)
-// 判断是否禁用上传和删除
+// Check whether upload and delete are disabled
 const self_disabled = computed(() => {
 	return props.disabled || formContext?.disabled
 })
@@ -103,24 +103,24 @@ watch(
 )
 
 /**
- * @description 文件上传之前判断
- * @param rawFile 选择的文件
+ * @description Check before file upload
+ * @param rawFile Selected file
  * */
 const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
 	const imgSize = rawFile.size / 1024 / 1024 < props.size
 	const imgType = props.fileType.includes(rawFile.type)
 	if (!imgType) {
 		ElNotification({
-			title: '温馨提示',
-			message: '上传图片不符合所需的格式！',
+			title: 'Friendly reminder',
+			message: 'The uploaded image does not match the required format!',
 			type: 'warning'
 		})
 	}
 	if (!imgSize) {
 		setTimeout(() => {
 			ElNotification({
-				title: '温馨提示',
-				message: `上传图片大小不能超过 ${props.size}MB！`,
+				title: 'Friendly reminder',
+				message: `Uploaded image size cannot exceed ${props.size}MB!`,
 				type: 'warning'
 			})
 		}, 0)
@@ -129,8 +129,8 @@ const beforeUpload: UploadProps['beforeUpload'] = rawFile => {
 }
 
 /**
- * @description 图片上传
- * @param options upload 所有配置项
+ * @description Image upload
+ * @param options upload All settings
  * */
 const handleHttpUpload = async (options: UploadRequestOptions) => {
 	let formData = new FormData()
@@ -144,9 +144,9 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
 }
 
 /**
- * @description 图片上传成功
- * @param response 上传响应结果
- * @param uploadFile 上传的文件
+ * @description Image uploaded successfully
+ * @param response Upload response result
+ * @param uploadFile Uploaded file
  * */
 const emit = defineEmits<{ 'update:fileList': [value: UploadUserFile[]] }>()
 const uploadSuccess = (response: { url: string } | undefined, uploadFile: UploadFile) => {
@@ -163,8 +163,8 @@ const uploadSuccess = (response: { url: string } | undefined, uploadFile: Upload
 }
 
 /**
- * @description 删除图片
- * @param file 删除的文件
+ * @description Delete image
+ * @param file Deleted files
  * */
 const handleRemove = (file: UploadFile) => {
 	fileList.value = fileList.value.filter(item => item.url !== file.url || item.name !== file.name)
@@ -180,30 +180,30 @@ const handleRemove = (file: UploadFile) => {
 }
 
 /**
- * @description 图片上传错误
+ * @description Image upload error
  * */
 const uploadError = () => {
 	ElNotification({
-		title: '温馨提示',
-		message: '图片上传失败，请您重新上传！',
+		title: 'Friendly reminder',
+		message: 'Image upload failed, please upload again!',
 		type: 'error'
 	})
 }
 
 /**
- * @description 文件数超出
+ * @description Number of files exceeded
  * */
 const handleExceed = () => {
 	ElNotification({
-		title: '温馨提示',
-		message: `当前最多只能上传 ${props.limit} 张图片，请移除后上传！`,
+		title: 'Friendly reminder',
+		message: `At most the following can be uploaded currently: ${props.limit} images, please remove some before uploading!`,
 		type: 'warning'
 	})
 }
 
 /**
- * @description 图片预览
- * @param file 预览的文件
+ * @description Image preview
+ * @param file File to preview
  * */
 const viewImageUrl = ref('')
 const imgViewVisible = ref(false)

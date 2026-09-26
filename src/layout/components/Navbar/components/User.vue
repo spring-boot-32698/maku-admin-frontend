@@ -28,7 +28,7 @@ const logout = () => {
 	userStore.logoutAction().then(() => {
 		// router.push({ path: '/login' })
 
-		// 刷新页面
+		// Refresh page
 		location.reload()
 	})
 }

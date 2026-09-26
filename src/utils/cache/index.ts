@@ -3,7 +3,7 @@ import CacheKey from '@/utils/cache/key'
 import { ITheme } from '@/store/theme/interface'
 import { themeConfig } from '@/store/theme/config'
 
-// 缓存
+// Cache
 class Cache {
 	getToken = (): string => {
 		return Storage.getItem(CacheKey.TokenKey) || ''
@@ -38,7 +38,7 @@ class Cache {
 	}
 
 	getLanguage = (): string => {
-		return Storage.getItem(CacheKey.LangKey) || 'zh-CN'
+		return Storage.getItem(CacheKey.LangKey) || 'en-US'
 	}
 
 	setLanguage = (value: string) => {

@@ -1,6 +1,6 @@
 import { ITheme } from '@/store/theme/interface'
 
-// 处理主题样式
+// Handle theme styles
 export const handleThemeStyle = (theme: ITheme) => {
 	document.documentElement.style.setProperty('--el-color-primary', theme.primaryColor)
 	for (let i = 1; i <= 9; i++) {
@@ -11,7 +11,7 @@ export const handleThemeStyle = (theme: ITheme) => {
 	}
 }
 
-// hex颜色转rgb颜色
+// hexColor to rgb color
 const hexToRgb = (str: any) => {
 	str = str.replace('#', '')
 	let hexs = str.match(/../g)
@@ -21,7 +21,7 @@ const hexToRgb = (str: any) => {
 	return hexs
 }
 
-// rgb颜色转Hex颜色
+// rgbColor to Hex color
 const rgbToHex = (r: any, g: any, b: any) => {
 	let hexs = [r.toString(16), g.toString(16), b.toString(16)]
 	for (let i = 0; i < 3; i++) {
@@ -32,7 +32,7 @@ const rgbToHex = (r: any, g: any, b: any) => {
 	return `#${hexs.join('')}`
 }
 
-// 变浅颜色值
+// Lighten color value
 const getLightColor = (color: string, level: number) => {
 	let rgb = hexToRgb(color)
 	for (let i = 0; i < 3; i++) {
@@ -41,7 +41,7 @@ const getLightColor = (color: string, level: number) => {
 	return rgbToHex(rgb[0], rgb[1], rgb[2])
 }
 
-// 变深颜色值
+// Darken color value
 const getDarkColor = (color: string, level: number) => {
 	let rgb = hexToRgb(color)
 	for (let i = 0; i < 3; i++) {

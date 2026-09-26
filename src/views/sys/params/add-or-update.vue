@@ -1,25 +1,25 @@
 <template>
-	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false" :width="600">
+	<el-dialog v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :close-on-click-modal="false" :width="600">
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="100px" @keyup.enter="submitHandle()">
-			<el-form-item label="参数名称" prop="paramName">
-				<el-input v-model="dataForm.paramName" placeholder="参数名称"></el-input>
+			<el-form-item label="Parameter name" prop="paramName">
+				<el-input v-model="dataForm.paramName" placeholder="Parameter name"></el-input>
 			</el-form-item>
-			<el-form-item label="参数键" prop="paramKey">
-				<el-input v-model="dataForm.paramKey" placeholder="参数键"></el-input>
+			<el-form-item label="Parameter key" prop="paramKey">
+				<el-input v-model="dataForm.paramKey" placeholder="Parameter key"></el-input>
 			</el-form-item>
-			<el-form-item label="参数值" prop="paramValue">
-				<el-input v-model="dataForm.paramValue" placeholder="参数值"></el-input>
+			<el-form-item label="Parameter value" prop="paramValue">
+				<el-input v-model="dataForm.paramValue" placeholder="Parameter value"></el-input>
 			</el-form-item>
-			<el-form-item label="备注" prop="remark">
-				<el-input v-model="dataForm.remark" placeholder="备注"></el-input>
+			<el-form-item label="Remarks" prop="remark">
+				<el-input v-model="dataForm.remark" placeholder="Remarks"></el-input>
 			</el-form-item>
-			<el-form-item label="系统参数" prop="paramType">
+			<el-form-item label="System parameters" prop="paramType">
 				<ma-dict-radio v-model="dataForm.paramType" dict-type="params_type"></ma-dict-radio>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -47,7 +47,7 @@ const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -64,13 +64,13 @@ const getParams = (id: number) => {
 }
 
 const dataRules = ref({
-	paramName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	paramType: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	paramKey: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	paramValue: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	paramName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	paramType: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	paramKey: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	paramValue: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -79,7 +79,7 @@ const submitHandle = () => {
 
 		useParamsSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

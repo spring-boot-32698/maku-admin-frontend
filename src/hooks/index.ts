@@ -34,7 +34,7 @@ export const useCrud = (options: IHooksOptions) => {
 		return props
 	}
 
-	// 覆盖默认值
+	// Override the default value
 	const state = mergeDefaultOptions(defaultOptions, options)
 
 	onMounted(() => {
@@ -88,30 +88,30 @@ export const useCrud = (options: IHooksOptions) => {
 		query()
 	}
 
-	// 多选
+	// Multiple choice
 	const selectionChangeHandle = (selections: any[]) => {
 		state.dataListSelections = selections
 		state.dataListSelectionKeys = selections.map((item: any) => state.primaryKey && item[state.primaryKey])
 	}
 
-	// 单选值
+	// Single choice value
 	const singleSelectionHandle = () => {
 		const selectionKeys = state.dataListSelectionKeys ? state.dataListSelectionKeys : []
 
 		if (selectionKeys.length === 0) {
-			ElMessage.warning('请选择一条记录')
+			ElMessage.warning('Please select a record')
 			return
 		}
 
 		if (selectionKeys.length > 1) {
-			ElMessage.warning('只能选择一条记录')
+			ElMessage.warning('Only one record can be selected')
 			return
 		}
 
 		return selectionKeys[0]
 	}
 
-	// 排序
+	// Sort
 	const sortChangeHandle = (data: any) => {
 		const { prop, order } = data
 
@@ -130,14 +130,14 @@ export const useCrud = (options: IHooksOptions) => {
 			return
 		}
 
-		ElMessageBox.confirm('确定进行删除操作?', '提示', {
-			confirmButtonText: '确定',
-			cancelButtonText: '取消',
+		ElMessageBox.confirm('Are you sure you want to delete?', 'Tip', {
+			confirmButtonText: 'OK',
+			cancelButtonText: 'Cancel',
 			type: 'warning'
 		})
 			.then(() => {
 				service.delete(state.deleteUrl + '/' + key).then(() => {
-					ElMessage.success('删除成功')
+					ElMessage.success('Deleted successfully')
 
 					query()
 				})
@@ -153,20 +153,20 @@ export const useCrud = (options: IHooksOptions) => {
 			data = state.dataListSelectionKeys ? state.dataListSelectionKeys : []
 
 			if (data.length === 0) {
-				ElMessage.warning('请选择删除记录')
+				ElMessage.warning('Please select records to delete')
 				return
 			}
 		}
 
-		ElMessageBox.confirm('确定进行删除操作?', '提示', {
-			confirmButtonText: '确定',
-			cancelButtonText: '取消',
+		ElMessageBox.confirm('Are you sure you want to delete?', 'Tip', {
+			confirmButtonText: 'OK',
+			cancelButtonText: 'Cancel',
 			type: 'warning'
 		})
 			.then(() => {
 				if (state.deleteUrl) {
 					service.delete(state.deleteUrl, { data }).then(() => {
-						ElMessage.success('删除成功')
+						ElMessage.success('Deleted successfully')
 
 						query()
 					})
@@ -182,10 +182,10 @@ export const useCrud = (options: IHooksOptions) => {
 				url: url,
 				method: method
 			})
-			// 创建a标签
+			// Create an a tag
 			const down = document.createElement('a')
 
-			// 文件名没传，则使用时间戳
+			// If no file name is passed, use a timestamp
 			if (filename) {
 				down.download = filename
 			} else {
@@ -193,23 +193,23 @@ export const useCrud = (options: IHooksOptions) => {
 				down.download = decodeURI(downName)
 			}
 
-			// 隐藏a标签
+			// Hide the a tag
 			down.style.display = 'none'
 
-			// 创建下载url
+			// Create download url
 			down.href = URL.createObjectURL(
 				new Blob([res.data], {
 					type: res.data.type
 				})
 			)
 
-			// 模拟点击下载
+			// Simulate click to download
 			document.body.appendChild(down)
 			down.click()
 
-			// 释放URL
+			// Release URL
 			URL.revokeObjectURL(down.href)
-			// 下载完成移除
+			// Remove after download completes
 			document.body.removeChild(down)
 		} catch (err: any) {
 			ElMessage.error(err.message)

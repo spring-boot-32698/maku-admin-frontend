@@ -2,20 +2,20 @@
 	<div class="login-third">
 		<div class="divider">
 			<span class="divider-line"></span>
-			<span class="divider-text">其他登录方式</span>
+			<span class="divider-text">Other login methods</span>
 			<span class="divider-line"></span>
 		</div>
 		<div class="third-btns">
-			<button class="third-btn wechat-work" title="企业微信" @click="thirdLogin('wechat_work')">
+			<button class="third-btn wechat-work" title="WeCom" @click="thirdLogin('wechat_work')">
 				<ma-icon icon="icon-workweixin" size="20" />
 			</button>
-			<button class="third-btn dingtalk" title="钉钉" @click="thirdLogin('dingtalk')">
+			<button class="third-btn dingtalk" title="DingTalk" @click="thirdLogin('dingtalk')">
 				<ma-icon icon="icon-dingding" size="20" />
 			</button>
-			<button class="third-btn feishu" title="飞书" @click="thirdLogin('feishu')">
+			<button class="third-btn feishu" title="Feishu" @click="thirdLogin('feishu')">
 				<ma-icon icon="icon-feishu" size="20" />
 			</button>
-			<button class="third-btn wechat" title="微信" @click="thirdLogin('wechat_open')">
+			<button class="third-btn wechat" title="WeChat" @click="thirdLogin('wechat_open')">
 				<ma-icon icon="icon-weixin" size="20" />
 			</button>
 		</div>
@@ -32,17 +32,17 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const thirdLogin = (openType: string) => {
-	// 请求接口
+	// Request API
 	const url = constant.thirdLoginUrl + openType
-	// 打开新窗口
-	window.open(url, '第三方登录', 'width=600, height=400, toolbar=no')
+	// Open in new window
+	window.open(url, 'Third-party login', 'width=600, height=400, toolbar=no')
 
 	window.onmessage = function (e) {
 		if (!e.data?.openType) {
 			return
 		}
 
-		// 第三方登录
+		// Third-party login
 		userStore.thirdLoginAction(e.data).then(() => {
 			router.push({ path: cache.getRedirect() || constant.loginPage })
 		})
@@ -96,25 +96,25 @@ const thirdLogin = (openType: string) => {
 			background: var(--el-color-primary-light-9);
 		}
 
-		// 企业微信
+		// WeCom
 		&.wechat-work:hover {
 			border-color: #2979ff;
 			background: #e3f2fd;
 		}
 
-		// 钉钉
+		// DingTalk
 		&.dingtalk:hover {
 			border-color: #007fff;
 			background: #e3f2fd;
 		}
 
-		// 飞书
+		// Feishu
 		&.feishu:hover {
 			border-color: #3370ff;
 			background: #e8f0fe;
 		}
 
-		// 微信
+		// WeChat
 		&.wechat:hover {
 			border-color: #07c160;
 			background: #e8f8ef;

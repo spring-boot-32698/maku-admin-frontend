@@ -1,25 +1,25 @@
 import appPackage from '../../package.json'
 
 /**
- * 常量
+ * Constant
  */
 export default {
-	// 版本号
+	// Version number
 	version: appPackage.version,
 
-	// 登录成功后，跳转页面
+	// Redirect to a page after successful login
 	loginPage: '/dashboard/index',
 
-	// API地址
+	// APIAddress
 	apiUrl: import.meta.env.VITE_API_URL,
 
-	// 第三方登录地址
+	// Third-party login address
 	thirdLoginUrl: import.meta.env.VITE_API_URL + '/sys/third/render/',
 
-	// 文件上传地址
+	// File upload address
 	uploadUrl: import.meta.env.VITE_API_URL + '/sys/file/upload',
 
-	// 环境变量
+	// Environment variables
 	env: {
 		MODE: import.meta.env.MODE,
 		PROD: import.meta.env.PROD,

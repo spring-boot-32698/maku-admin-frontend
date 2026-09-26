@@ -38,7 +38,7 @@ defineProps({
 const model = defineModel<number | string>()
 const orgList = ref([])
 
-// 获取机构列表
+// Get organization list
 const getOrgList = async () => {
 	const res = await useOrgListApi()
 	orgList.value = res.data

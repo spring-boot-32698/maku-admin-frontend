@@ -8,15 +8,15 @@
 		v-if="!disabled && visible"
 		:key="visible + ''"
 		v-model:visible="visible"
-		title="角色选择"
+		title="Role selection"
 		url="/sys/role/page"
 		:multiple
 		:columns="[
-			{ field: 'name', label: '名称' },
-			{ field: 'roleCode', label: '编码' },
-			{ field: 'remark', label: '备注' }
+			{ field: 'name', label: 'Name' },
+			{ field: 'roleCode', label: 'Code' },
+			{ field: 'remark', label: 'Remarks' }
 		]"
-		:query-params="[{ field: 'name', label: '名称' }]"
+		:query-params="[{ field: 'name', label: 'Name' }]"
 		@select="onSelect"
 	></ma-data-table>
 </template>

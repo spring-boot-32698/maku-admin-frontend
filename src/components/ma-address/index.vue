@@ -49,7 +49,7 @@ const data = computed(() => {
 	return []
 })
 
-// 编辑器change事件触发
+// Editor change event triggered
 const emit = defineEmits(['update:modelValue'])
 const handleChange = (value: any) => {
 	if (value) {

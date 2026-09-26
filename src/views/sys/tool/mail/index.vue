@@ -2,16 +2,16 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="platform">
-				<ma-dict-select v-model="state.queryForm.platform" dict-type="mail_platform" clearable placeholder="平台类型"></ma-dict-select>
+				<ma-dict-select v-model="state.queryForm.platform" dict-type="mail_platform" clearable placeholder="Platform type"></ma-dict-select>
 			</el-form-item>
 			<el-form-item prop="mailFrom">
-				<el-input v-model="state.queryForm.mailFrom" placeholder="发件人"></el-input>
+				<el-input v-model="state.queryForm.mailFrom" placeholder="Sender"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="RefreshRight" @click="reset(queryRef)">重置</el-button>
+				<el-button icon="RefreshRight" @click="reset(queryRef)">Reset</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -19,10 +19,10 @@
 	<el-card>
 		<el-space>
 			<el-space>
-				<el-button icon="Plus" type="primary" @click="sendHandle()">发送邮件</el-button>
+				<el-button icon="Plus" type="primary" @click="sendHandle()">Send mail</el-button>
 			</el-space>
 			<el-space>
-				<el-button icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+				<el-button icon="Delete" plain type="danger" @click="deleteBatchHandle()">Batch delete</el-button>
 			</el-space>
 		</el-space>
 		<el-table
@@ -34,16 +34,16 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="platformId" label="平台ID" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="platform" label="平台类型" dict-type="mail_platform"></ma-dict-column>
-			<el-table-column prop="mailFrom" label="发件人" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="mailTos" label="接收人" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="subject" label="主题" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="status" label="状态" dict-type="success_fail"></ma-dict-column>
-			<el-table-column prop="createTime" label="发送时间" header-align="center" align="center"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
+			<el-table-column prop="platformId" label="Platform ID" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="platform" label="Platform type" dict-type="mail_platform"></ma-dict-column>
+			<el-table-column prop="mailFrom" label="Sender" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="mailTos" label="Recipient" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="subject" label="Topic" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="status" label="Status" dict-type="success_fail"></ma-dict-column>
+			<el-table-column prop="createTime" label="Send time" header-align="center" align="center"></el-table-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="150">
 				<template #default="scope">
-					<el-button type="primary" link @click="detailHandle(scope.row)">详情</el-button>
+					<el-button type="primary" link @click="detailHandle(scope.row)">Details</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -58,9 +58,9 @@
 		>
 		</el-pagination>
 
-		<!-- 详情 -->
+		<!-- Details -->
 		<detail ref="detailRef"></detail>
-		<!-- 发送短信 -->
+		<!-- Send SMS -->
 		<send v-if="sendVisible" v-model="sendVisible"></send>
 	</el-card>
 </template>

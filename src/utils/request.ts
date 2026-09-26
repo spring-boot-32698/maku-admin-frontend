@@ -5,14 +5,14 @@ import { useUserStore } from '@/store/modules/user'
 import cache from '@/utils/cache'
 import { ElMessageBox } from 'element-plus/es'
 
-// axios实例
+// axiosInstance
 const service = axios.create({
 	baseURL: import.meta.env.VITE_API_URL as any,
 	timeout: 60000,
 	headers: { 'Content-Type': 'application/json;charset=UTF-8' }
 })
 
-// 请求拦截器
+// Request interceptor
 service.interceptors.request.use(
 	(config: any) => {
 		const userStore = useUserStore()
@@ -23,7 +23,7 @@ service.interceptors.request.use(
 
 		config.headers['Accept-Language'] = cache.getLanguage()
 
-		// 追加时间戳，防止GET请求缓存
+		// Append a timestamp to prevent caching of GET requests
 		if (config.method?.toUpperCase() === 'GET') {
 			config.params = { ...config.params, t: new Date().getTime() }
 		}
@@ -39,17 +39,17 @@ service.interceptors.request.use(
 	}
 )
 
-// 是否刷新
+// Whether to refresh
 let isRefreshToken = false
-// 重试请求
+// Retry request
 let requests: any[] = []
 
-// 刷新token
+// Refresh token
 const getRefreshToken = (refreshToken: string) => {
 	return service.post('/sys/auth/token?refreshToken=' + refreshToken)
 }
 
-// 响应拦截器
+// Response interceptor
 service.interceptors.response.use(
 	async (response: AxiosResponse<any>) => {
 		const userStore = useUserStore()
@@ -63,23 +63,23 @@ service.interceptors.response.use(
 			return response
 		}
 
-		// 响应成功
+		// Response succeeded
 		if (res.code === 0) {
 			return res
 		}
 
-		// refreshToken失效，跳转到登录页
+		// refreshTokenInvalid, redirect to the login page
 		if (res.code === 400) {
 			return handleAuthorized()
 		}
 
-		// 没有权限，如：未登录、token过期
+		// No permission, e.g.: not logged in, token expired
 		if (res.code === 401) {
 			const config = response.config
 			if (!isRefreshToken) {
 				isRefreshToken = true
 
-				// 不存在 refreshToken，重新登录
+				// refreshToken does not exist, log in again
 				const refreshToken = cache.getRefreshToken()
 				if (!refreshToken) {
 					return handleAuthorized()
@@ -87,7 +87,7 @@ service.interceptors.response.use(
 
 				try {
 					const { data } = await getRefreshToken(refreshToken)
-					// 设置新 token
+					// Set the new token
 					userStore.setToken(data.access_token)
 					config.headers!.Authorization = data.access_token
 					requests.forEach((cb: any) => {
@@ -96,7 +96,7 @@ service.interceptors.response.use(
 					requests = []
 					return service(config)
 				} catch (e) {
-					// 刷新失败
+					// Refresh failed
 					requests.forEach((cb: any) => {
 						cb()
 					})
@@ -106,7 +106,7 @@ service.interceptors.response.use(
 					isRefreshToken = false
 				}
 			} else {
-				// 多个请求的情况
+				// Case of multiple requests
 				return new Promise(resolve => {
 					requests.push(() => {
 						config.headers!.Authorization = userStore.token
@@ -116,7 +116,7 @@ service.interceptors.response.use(
 			}
 		}
 
-		// 错误提示
+		// Error prompt
 		ElMessage.error(res.msg)
 
 		return Promise.reject(new Error(res.msg || 'Error'))
@@ -128,11 +128,11 @@ service.interceptors.response.use(
 )
 
 const handleAuthorized = () => {
-	ElMessageBox.confirm('登录超时，请重新登录', '提示', {
+	ElMessageBox.confirm('Login timed out, please log in again', 'Tip', {
 		showCancelButton: false,
 		closeOnClickModal: false,
 		showClose: false,
-		confirmButtonText: '重新登录',
+		confirmButtonText: 'Log in again',
 		type: 'warning'
 	}).then(() => {
 		const userStore = useUserStore()
@@ -141,9 +141,9 @@ const handleAuthorized = () => {
 		userStore?.setRefreshToken('')
 		location.reload()
 
-		return Promise.reject('登录超时，请重新登录')
+		return Promise.reject('Login timed out, please log in again')
 	})
 }
 
-// 导出 axios 实例
+// Export the axios instance
 export default service

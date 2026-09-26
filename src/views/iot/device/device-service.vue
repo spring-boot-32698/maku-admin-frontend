@@ -2,10 +2,10 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="deviceCommand">
-				<ma-dict-select v-model="state.queryForm.deviceCommandEnum" dict-type="device_command" placeholder="服务类型" clearable></ma-dict-select>
+				<ma-dict-select v-model="state.queryForm.deviceCommandEnum" dict-type="device_command" placeholder="Service type" clearable></ma-dict-select>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -20,10 +20,10 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="serviceUid" label="服务ID" header-align="center" align="center"></el-table-column>
-			<ma-dict-column prop="deviceCommandEnum" label="服务类型" dict-type="device_command"></ma-dict-column>
-			<el-table-column prop="servicePayload" label="下发内容" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="serviceTime" label="下发时间" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="serviceUid" label="Service ID" header-align="center" align="center"></el-table-column>
+			<ma-dict-column prop="deviceCommandEnum" label="Service type" dict-type="device_command"></ma-dict-column>
+			<el-table-column prop="servicePayload" label="Sent content" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="serviceTime" label="Sent time" header-align="center" align="center"></el-table-column>
 		</el-table>
 		<el-pagination
 			:current-page="state.page"

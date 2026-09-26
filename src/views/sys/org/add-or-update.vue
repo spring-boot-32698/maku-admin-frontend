@@ -1,22 +1,22 @@
 <template>
-	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false" draggable>
+	<el-dialog v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="120px" @keyup.enter="submitHandle()">
-			<el-form-item prop="name" label="名称">
-				<el-input v-model="dataForm.name" placeholder="名称"></el-input>
+			<el-form-item prop="name" label="Name">
+				<el-input v-model="dataForm.name" placeholder="Name"></el-input>
 			</el-form-item>
-			<el-form-item prop="pid" label="上级机构">
-				<ma-org-select v-model="dataForm.pid" placeholder="请选择"></ma-org-select>
+			<el-form-item prop="pid" label="Parent organization">
+				<ma-org-select v-model="dataForm.pid" placeholder="Please select"></ma-org-select>
 			</el-form-item>
-			<el-form-item prop="leaderId" label="负责人">
-				<ma-user-input v-model="dataForm.leaderId" placeholder="机构负责人"></ma-user-input>
+			<el-form-item prop="leaderId" label="Person in charge">
+				<ma-user-input v-model="dataForm.leaderId" placeholder="Organization head"></ma-user-input>
 			</el-form-item>
-			<el-form-item prop="sort" label="排序">
-				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="排序"></el-input-number>
+			<el-form-item prop="sort" label="Sort">
+				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="Sort"></el-input-number>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -45,12 +45,12 @@ const dataForm = reactive({
 const init = (isUpdate: boolean, row: any) => {
 	visible.value = true
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
 
-	// 更新表单数据
+	// Update form data
 	if (row) {
 		getOrg(isUpdate, row)
 	} else {
@@ -63,11 +63,11 @@ const init = (isUpdate: boolean, row: any) => {
 	}
 }
 
-// 获取信息
+// Get info
 const getOrg = (isUpdate: boolean, row: any) => {
 	Object.assign(dataForm, row)
 	if (!isUpdate) {
-		// 是新增，重置表单数据
+		// If adding, reset the form data
 		dataForm.pid = dataForm.id
 		dataForm.parentName = dataForm.name
 		dataForm.id = ''
@@ -77,11 +77,11 @@ const getOrg = (isUpdate: boolean, row: any) => {
 }
 
 const dataRules = ref({
-	name: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	parentName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	name: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	parentName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -90,7 +90,7 @@ const submitHandle = () => {
 
 		useOrgSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false
