@@ -13,7 +13,7 @@
 		:on-success="handleSuccess"
 		:disabled="disabled"
 	>
-		<el-button icon="Upload" plain> 点击上传</el-button>
+		<el-button icon="Upload" plain> Click to upload</el-button>
 	</el-upload>
 </template>
 
@@ -43,7 +43,7 @@ const props = defineProps({
 	}
 })
 
-// 上传URL
+// Upload URL
 const uploadUrl = props.action ? constant.apiUrl + props.action : constant.uploadUrl
 
 const model = defineModel<any>()
@@ -87,7 +87,7 @@ const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
 
 const handleSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
 	if (response.code !== 0) {
-		ElMessage.error('上传失败：' + response.msg)
+		ElMessage.error('Upload failed:' + response.msg)
 		return false
 	}
 
@@ -102,8 +102,8 @@ const handleBeforeUpload: UploadProps['beforeUpload'] = rawFile => {
 	const fileSize = rawFile.size / 1024 / 1024 < props.size
 	if (!fileSize) {
 		ElNotification({
-			title: '温馨提示',
-			message: `文件大小不能超过 ${props.size}MB！`,
+			title: 'Friendly reminder',
+			message: `File size cannot exceed ${props.size}MB!`,
 			type: 'warning'
 		})
 	}
@@ -112,8 +112,8 @@ const handleBeforeUpload: UploadProps['beforeUpload'] = rawFile => {
 
 const handleExceed = () => {
 	ElNotification({
-		title: '温馨提示',
-		message: `最大上传数量为：${props.limit}，请移除后上传！`,
+		title: 'Friendly reminder',
+		message: `Maximum upload count:${props.limit}, please remove some before uploading!`,
 		type: 'warning'
 	})
 }

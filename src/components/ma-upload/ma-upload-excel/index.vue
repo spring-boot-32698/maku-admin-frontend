@@ -23,16 +23,16 @@ const props = defineProps({
 	}
 })
 
-// 上传URL
+// Upload URL
 const uploadUrl = constant.apiUrl + props.action
 const handleSuccess: UploadProps['onSuccess'] = (res, file) => {
 	if (res.code !== 0) {
-		ElMessage.error('上传失败：' + res.msg)
+		ElMessage.error('Upload failed:' + res.msg)
 		return false
 	}
 
 	ElMessage.success({
-		message: '上传成功',
+		message: 'Upload succeeded',
 		duration: 500,
 		onClose: () => {
 			//
@@ -42,7 +42,7 @@ const handleSuccess: UploadProps['onSuccess'] = (res, file) => {
 
 const beforeUpload: UploadProps['beforeUpload'] = file => {
 	if (file.size / 1024 / 1024 / 1024 / 1024 > 1) {
-		ElMessage.error('文件大小不能超过100M')
+		ElMessage.error('File size cannot exceed 100M')
 		return false
 	}
 	return true

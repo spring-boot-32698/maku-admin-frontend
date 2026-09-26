@@ -2,13 +2,13 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="name">
-				<el-input v-model="state.queryForm.name" placeholder="名称"></el-input>
+				<el-input v-model="state.queryForm.name" placeholder="Name"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="RefreshRight" @click="reset(queryRef)">重置</el-button>
+				<el-button icon="RefreshRight" @click="reset(queryRef)">Reset</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -16,29 +16,29 @@
 	<el-card>
 		<el-space>
 			<el-space>
-				<el-button v-auth="'sys:role:save'" icon="Plus" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+				<el-button v-auth="'sys:role:save'" icon="Plus" type="primary" @click="addOrUpdateHandle()">Add</el-button>
 			</el-space>
 			<el-space>
-				<el-button v-auth="'sys:role:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+				<el-button v-auth="'sys:role:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">Batch delete</el-button>
 			</el-space>
 		</el-space>
 
 		<el-table v-loading="state.dataListLoading" :data="state.dataList" border class="layout-table" @selection-change="selectionChangeHandle">
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="name" label="名称" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="roleCode" label="编码" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="remark" label="备注" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="180"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="200">
+			<el-table-column prop="name" label="Name" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="roleCode" label="Code" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="remark" label="Remarks" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="createTime" label="Creation time" header-align="center" align="center" width="180"></el-table-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="200">
 				<template #default="scope">
-					<el-button v-auth="'sys:role:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-					<el-button v-auth="'sys:role:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+					<el-button v-auth="'sys:role:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">Edit</el-button>
+					<el-button v-auth="'sys:role:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">Delete</el-button>
 					<el-dropdown v-auth="'sys:role:update'" @command="(command: string) => handleCommand(command, scope.row)">
-						<el-button type="primary" class="el-dropdown-link" link>更多</el-button>
+						<el-button type="primary" class="el-dropdown-link" link>More</el-button>
 						<template #dropdown>
 							<el-dropdown-menu>
-								<el-dropdown-item command="dataScope">数据权限</el-dropdown-item>
-								<el-dropdown-item command="user">分配用户</el-dropdown-item>
+								<el-dropdown-item command="dataScope">Data permission</el-dropdown-item>
+								<el-dropdown-item command="user">Assign users</el-dropdown-item>
 							</el-dropdown-menu>
 						</template>
 					</el-dropdown>
@@ -56,11 +56,11 @@
 		>
 		</el-pagination>
 
-		<!-- 弹窗, 新增 / 修改 -->
+		<!-- Dialog, Add / Edit -->
 		<add-or-update ref="addOrUpdateRef" @refresh-data-list="getDataList"></add-or-update>
-		<!-- 数据权限 -->
+		<!-- Data permission -->
 		<data-scope ref="dataScopeRef"></data-scope>
-		<!-- 分配用户 -->
+		<!-- Assign users -->
 		<el-drawer v-if="userVisible" v-model="userVisible" :title="userTitle" :size="1000" :close-on-press-escape="false">
 			<user :role-id="roleId"></user>
 		</el-drawer>
@@ -98,7 +98,7 @@ const handleCommand = (command: string, row: any) => {
 		dataScopeRef.value.init(row.id)
 	} else if (command === 'user') {
 		roleId.value = row.id
-		userTitle.value = '分配用户 - ' + row.name
+		userTitle.value = 'Assign users - ' + row.name
 		userVisible.value = true
 	}
 }

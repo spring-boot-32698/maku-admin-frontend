@@ -1,37 +1,37 @@
 <template>
 	<el-form :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 		<el-form-item>
-			<el-input v-model="state.queryForm.jobId" placeholder="任务ID"></el-input>
+			<el-input v-model="state.queryForm.jobId" placeholder="Task ID"></el-input>
 		</el-form-item>
 		<el-form-item>
-			<el-input v-model="state.queryForm.jobName" placeholder="任务名称"></el-input>
+			<el-input v-model="state.queryForm.jobName" placeholder="Task name"></el-input>
 		</el-form-item>
 		<el-form-item>
-			<ma-dict-select v-model="state.queryForm.jobGroup" dict-type="schedule_group" clearable placeholder="任务组名"></ma-dict-select>
+			<ma-dict-select v-model="state.queryForm.jobGroup" dict-type="schedule_group" clearable placeholder="Task group name"></ma-dict-select>
 		</el-form-item>
 		<el-form-item>
-			<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+			<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 		</el-form-item>
 	</el-form>
 	<el-table v-loading="state.dataListLoading" :data="state.dataList" border style="width: 100%" @selection-change="selectionChangeHandle">
 		<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-		<el-table-column prop="jobId" label="任务ID" header-align="center" align="center" width="100"></el-table-column>
-		<el-table-column prop="jobName" label="任务名称" header-align="center" align="center"></el-table-column>
-		<ma-dict-column prop="jobGroup" label="任务组名" dict-type="schedule_group"></ma-dict-column>
-		<el-table-column prop="beanName" label="执行方法" dict-type="schedule_group">
+		<el-table-column prop="jobId" label="Task ID" header-align="center" align="center" width="100"></el-table-column>
+		<el-table-column prop="jobName" label="Task name" header-align="center" align="center"></el-table-column>
+		<ma-dict-column prop="jobGroup" label="Task group name" dict-type="schedule_group"></ma-dict-column>
+		<el-table-column prop="beanName" label="Execution method" dict-type="schedule_group">
 			<template #default="scope"> {{ scope.row.beanName }}.{{ scope.row.method }}() </template>
 		</el-table-column>
-		<el-table-column prop="status" label="状态" width="100">
+		<el-table-column prop="status" label="Status" width="100">
 			<template #default="scope">
-				<el-tag v-if="scope.row.status === 0" type="danger">失败</el-tag>
-				<el-tag v-else type="success">成功</el-tag>
+				<el-tag v-if="scope.row.status === 0" type="danger">Failed</el-tag>
+				<el-tag v-else type="success">Success</el-tag>
 			</template>
 		</el-table-column>
-		<el-table-column prop="times" label="时长（毫秒）" header-align="center" align="center" width="120"></el-table-column>
-		<el-table-column prop="createTime" label="执行时间" header-align="center" align="center"></el-table-column>
-		<el-table-column label="操作" fixed="right" header-align="center" align="center" width="60">
+		<el-table-column prop="times" label="Duration (milliseconds)" header-align="center" align="center" width="120"></el-table-column>
+		<el-table-column prop="createTime" label="Execution time" header-align="center" align="center"></el-table-column>
+		<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="60">
 			<template #default="scope">
-				<el-button v-auth="'schedule:update'" type="primary" link @click="detailHandle(scope.row)">详情</el-button>
+				<el-button v-auth="'schedule:update'" type="primary" link @click="detailHandle(scope.row)">Details</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -71,7 +71,7 @@ const detailHandle = (row: any) => {
 
 const { getDataList, selectionChangeHandle, sizeChangeHandle, currentChangeHandle } = useCrud(state)
 
-// 供父组件（定时任务列表）调用，按任务过滤日志
+// Called by the parent component (scheduled task list) to filter logs by task
 const init = (row?: any) => {
 	if (row) {
 		state.queryForm.jobId = row.id

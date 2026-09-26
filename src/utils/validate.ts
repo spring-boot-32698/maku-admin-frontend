@@ -9,13 +9,13 @@ export const validateEmail = (rule: any, value: any, callback: (e?: Error) => an
 	if (reg.test(value)) {
 		callback()
 	} else {
-		callback(new Error('邮箱格式不正确'))
+		callback(new Error('Email format is incorrect'))
 	}
 }
 
 export const validatePassword = (rule: any, value: any, callback: (e?: Error) => any) => {
 	if (value.length < 4) {
-		callback(new Error('密码不能小于4位数'))
+		callback(new Error('Password cannot be shorter than 4 characters'))
 	} else {
 		callback()
 	}
@@ -27,6 +27,6 @@ export const validateMobile = (rule: any, value: any, callback: (e?: Error) => a
 	if (mobileRegExp.test(value)) {
 		callback()
 	} else {
-		callback(new Error('手机号格式不正确'))
+		callback(new Error('Mobile number format is incorrect'))
 	}
 }

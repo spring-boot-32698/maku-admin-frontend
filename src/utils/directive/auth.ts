@@ -2,7 +2,7 @@ import type { App } from 'vue'
 import { useUserStore } from '@/store/modules/user'
 
 export function auth(app: App) {
-	// 权限验证
+	// Permission verification
 	app.directive('auth', {
 		mounted(el, binding) {
 			const userStore = useUserStore()

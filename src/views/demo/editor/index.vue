@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<ma-editor v-model="editorValue" placeholder="请输入..."></ma-editor>
+		<ma-editor v-model="editorValue" placeholder="Please enter..."></ma-editor>
 		<!--		<ma-editor v-model="editorValue2" :disabled="true" placeholder=""></ma-editor>-->
 	</div>
 </template>

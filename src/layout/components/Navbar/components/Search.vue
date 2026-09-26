@@ -8,7 +8,7 @@
 				size="large"
 				:prefix-icon="Search"
 				:fetch-suggestions="menuSearch"
-				placeholder="菜单搜索"
+				placeholder="Menu search"
 				@select="handleSelect"
 				@blur="handleBlur"
 			>
@@ -50,10 +50,10 @@ interface Restaurant {
 	}
 }
 
-// 获取菜单列表
+// Get menu list
 const menuList = routerStore.searchMenu
 
-// 菜单搜索
+// Menu search
 const menuSearch = (queryString: string, cb: any) => {
 	const results = queryString ? menuList.filter(createFilter(queryString)) : menuList
 	cb(results)

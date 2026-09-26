@@ -1,13 +1,13 @@
 <template>
 	<el-card>
 		<el-tabs v-model="activeName">
-			<el-tab-pane v-auth="'sys:sms:config'" label="短信配置" name="sms">
+			<el-tab-pane v-auth="'sys:sms:config'" label="SMS settings" name="sms">
 				<SmsConfig />
 			</el-tab-pane>
-			<el-tab-pane v-auth="'sys:mail:config'" label="邮件配置" name="email">
+			<el-tab-pane v-auth="'sys:mail:config'" label="Mail settings" name="email">
 				<MailConfig />
 			</el-tab-pane>
-			<el-tab-pane v-auth="'sys:third:config'" label="第三方登录" name="third">
+			<el-tab-pane v-auth="'sys:third:config'" label="Third-party login" name="third">
 				<ThirdConfig />
 			</el-tab-pane>
 		</el-tabs>

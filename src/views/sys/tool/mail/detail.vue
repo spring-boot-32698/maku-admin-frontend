@@ -1,58 +1,58 @@
 <template>
-	<el-drawer v-model="visible" title="邮件日志详情" :size="1000">
+	<el-drawer v-model="visible" title="Mail log details" :size="1000">
 		<el-form label-width="100px">
 			<el-row>
 				<el-col :span="12">
-					<el-form-item label="日志ID" prop="id">
+					<el-form-item label="Log ID" prop="id">
 						<el-input v-model="dataForm.id" disabled></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
-					<el-form-item label="平台ID" prop="platformId">
+					<el-form-item label="Platform ID" prop="platformId">
 						<el-input v-model="dataForm.platformId" disabled></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row>
 				<el-col :span="12">
-					<el-form-item label="平台类型" prop="platform">
+					<el-form-item label="Platform type" prop="platform">
 						<ma-dict-select v-model="dataForm.platform" dict-type="mail_platform" disabled style="width: 100%"></ma-dict-select>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
-					<el-form-item label="状态" prop="status">
-						<el-tag v-if="dataForm.status === 0" type="danger">失败</el-tag>
-						<el-tag v-else type="success">成功</el-tag>
+					<el-form-item label="Status" prop="status">
+						<el-tag v-if="dataForm.status === 0" type="danger">Failed</el-tag>
+						<el-tag v-else type="success">Success</el-tag>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row>
 				<el-col :span="12">
-					<el-form-item label="发件人" prop="mailFrom">
+					<el-form-item label="Sender" prop="mailFrom">
 						<el-input v-model="dataForm.mailFrom" disabled></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
-					<el-form-item label="发送时间" prop="createTime">
+					<el-form-item label="Send time" prop="createTime">
 						<el-input v-model="dataForm.createTime" disabled></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
-			<el-form-item label="接收人" prop="mailTos">
+			<el-form-item label="Recipient" prop="mailTos">
 				<el-input v-model="dataForm.mailTos" disabled></el-input>
 			</el-form-item>
-			<el-form-item label="主题" prop="subject">
+			<el-form-item label="Topic" prop="subject">
 				<el-input v-model="dataForm.subject" disabled></el-input>
 			</el-form-item>
-			<el-form-item label="内容" prop="content">
+			<el-form-item label="Content" prop="content">
 				<div v-html="dataForm.content"></div>
 			</el-form-item>
-			<el-form-item v-if="dataForm.status === 0" label="错误信息" prop="error">
+			<el-form-item v-if="dataForm.status === 0" label="Error message" prop="error">
 				<el-input v-model="dataForm.error" :rows="12" type="textarea" disabled />
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button type="primary" @click="visible = false">关闭</el-button>
+			<el-button type="primary" @click="visible = false">Close</el-button>
 		</template>
 	</el-drawer>
 </template>

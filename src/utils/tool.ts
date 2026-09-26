@@ -1,32 +1,32 @@
 import constant from '@/utils/constant'
 import { useAppStore } from '@/store/modules/app'
 
-// 把路径转换成驼峰命名
+// Convert the path to camel case
 export const pathToCamel = (path: string): string => {
 	return path.replace(/\/(\w)/g, (all, letter) => letter.toUpperCase())
 }
 
-// 是否外链
+// Whether external link
 export const isExternalLink = (url: string): boolean => {
 	return /^(https?:|\/\/|http?:|\/\/|^{{\s?apiUrl\s?}})/.test(url)
 }
 
-// 替换外链参数
+// Replace external link parameters
 export const replaceLinkParam = (url: string): string => {
 	return url.replace('{{apiUrl}}', constant.apiUrl)
 }
 
-// 转换文件大小格式
+// Convert file size format
 export const convertSizeFormat = (size: number): string => {
 	const unit = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB']
 	let index = Math.floor(Math.log(size) / Math.log(1024))
 	let newSize = size / Math.pow(1024, index)
 
-	// 保留的小数位数
+	// Number of decimal places to keep
 	return newSize.toFixed(2) + ' ' + unit[index]
 }
 
-// 生成uuid
+// Generate uuid
 export const generateUUID = () => {
 	let uuid = ''
 	for (let i = 0; i < 32; i++) {
@@ -39,7 +39,7 @@ export const generateUUID = () => {
 	return uuid
 }
 
-// 获取svg图标(id)列表
+// Get svg icon(id)List
 export const getIconList = (): string[] => {
 	const rs: string[] = []
 	const list = document.querySelectorAll('svg symbol[id^="icon-"]')
@@ -49,7 +49,7 @@ export const getIconList = (): string[] => {
 	return rs
 }
 
-// 获取字典Label
+// Get dictionary Label
 export const getDictLabel = (dictList: any[], dictType: string, dictValue: string) => {
 	const type = dictList.find((element: any) => element.dictType === dictType)
 	if (type) {
@@ -64,7 +64,7 @@ export const getDictLabel = (dictList: any[], dictType: string, dictValue: strin
 	}
 }
 
-// 获取字典Label样式
+// Get dictionary Label style
 export const getDictLabelClass = (dictList: any[], dictType: string, dictValue: string): string => {
 	const type = dictList.find((element: any) => element.dictType === dictType)
 	if (type) {
@@ -105,7 +105,7 @@ export const getDictLabelList = (dictType: string, dictValue: any): string => {
 	return result
 }
 
-// 获取字典数据列表
+// Get dictionary data list
 export const getDictDataList = (dictList: any[], dictType: string) => {
 	const type = dictList.find((element: any) => element.dictType === dictType)
 	if (type) {
@@ -115,7 +115,7 @@ export const getDictDataList = (dictList: any[], dictType: string) => {
 	}
 }
 
-// 树形数据转换
+// Tree data conversion
 export const treeDataTranslate = (data: any[], id?: string, pid?: string): any[] => {
 	const res: any[] = []
 	const temp: any = {}
@@ -137,7 +137,7 @@ export const treeDataTranslate = (data: any[], id?: string, pid?: string): any[]
 	return res
 }
 
-// 生成数字字母混合字符串
+// Generate a mixed alphanumeric string
 export const getRandom = (num: number) => {
 	const chars = [
 		'0',

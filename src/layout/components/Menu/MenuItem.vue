@@ -22,7 +22,7 @@ import { useAppStore } from '@/store/modules/app'
 
 const appStore = useAppStore()
 
-// 显示icon图标
+// Show icon
 const showIcon = computed(() => {
 	return appStore.theme.layout !== 'columns'
 })
@@ -43,20 +43,20 @@ const menuIndex = (menu: any) => {
 	return menu.path
 }
 
-// 菜单点击事件
+// Menu click event
 const handleClickMenu = (menu: any) => {
-	// 不是新开页面，则直接切换路由
+	// If it is not a new page, switch the route directly
 	if (!menu.meta.newOpen) {
 		router.push(menuIndex(menu))
 		return
 	}
 
-	// 新开页面逻辑
+	// New page opening logic
 	if (isExternalLink(menu.meta.url)) {
-		// 外链
+		// External link
 		window.open(replaceLinkParam(menu.meta.url), '_blank')
 	} else {
-		// 内部组件
+		// Internal component
 		window.open('#' + menu.meta.url, '_blank')
 	}
 }

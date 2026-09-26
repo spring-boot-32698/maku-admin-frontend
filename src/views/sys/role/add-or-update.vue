@@ -1,22 +1,22 @@
 <template>
-	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false" draggable>
+	<el-dialog v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="120px" @keyup.enter="submitHandle()">
-			<el-form-item prop="name" label="名称">
-				<el-input v-model="dataForm.name" placeholder="名称"></el-input>
+			<el-form-item prop="name" label="Name">
+				<el-input v-model="dataForm.name" placeholder="Name"></el-input>
 			</el-form-item>
-			<el-form-item prop="roleCode" label="编码">
-				<el-input v-model="dataForm.roleCode" placeholder="编码"></el-input>
+			<el-form-item prop="roleCode" label="Code">
+				<el-input v-model="dataForm.roleCode" placeholder="Code"></el-input>
 			</el-form-item>
-			<el-form-item prop="remark" label="备注">
-				<el-input v-model="dataForm.remark" placeholder="备注"></el-input>
+			<el-form-item prop="remark" label="Remarks">
+				<el-input v-model="dataForm.remark" placeholder="Remarks"></el-input>
 			</el-form-item>
-			<el-form-item label="菜单权限">
+			<el-form-item label="Menu permission">
 				<el-tree ref="menuListTree" :data="menuList" :props="{ label: 'name', children: 'children' }" node-key="id" accordion show-checkbox></el-tree>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -46,7 +46,7 @@ const init = async (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -54,22 +54,22 @@ const init = async (id?: number) => {
 		menuListTree.value.setCheckedKeys([])
 	}
 
-	// 菜单列表
+	// Menu list
 	await getMenuList()
 
-	// id 存在则为修改
+	// id If it exists, it is an update
 	if (id) {
 		getRole(id)
 	}
 }
 
-// 获取菜单列表
+// Get menu list
 const getMenuList = async () => {
 	const res = await useRoleMenuApi()
 	menuList.value = res.data
 }
 
-// 获取信息
+// Get info
 const getRole = (id: number) => {
 	useRoleApi(id).then(res => {
 		Object.assign(dataForm, res.data)
@@ -79,11 +79,11 @@ const getRole = (id: number) => {
 }
 
 const dataRules = ref({
-	name: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	roleCode: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	name: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	roleCode: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -93,7 +93,7 @@ const submitHandle = () => {
 
 		useRoleSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

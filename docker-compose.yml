@@ -1,0 +1,12 @@
+# Frontend: static site served by nginx on http://localhost:3000
+# The backend API URL is baked in at build time; start the backend first.
+# Start with: docker compose up -d --build
+services:
+  maku-admin:
+    build:
+      context: .
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8080}
+    container_name: maku-admin
+    ports:
+      - "3000:80"

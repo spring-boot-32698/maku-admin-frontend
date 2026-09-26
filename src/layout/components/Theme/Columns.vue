@@ -82,7 +82,7 @@ const menuPath = ref<string>('')
 const initSubMenu = () => {
 	menuPath.value = defaultActive.value
 	for (const menu of routerStore.menuRoutes) {
-		// 是否包含当前路由
+		// Whether to include the current route
 		const exist = findRoute(menu.children as RouteRecordRaw[])
 		if (exist) {
 			subMenus.value = menu.children as RouteRecordRaw[]
@@ -95,7 +95,7 @@ const initSubMenu = () => {
 
 const findRoute = (menus: RouteRecordRaw[]): boolean => {
 	for (const menu of menus) {
-		// 有子菜单的情况
+		// Case with child menus
 		if (menu.children && menu.children.length > 0) {
 			if (findRoute(menu.children)) {
 				return true
@@ -122,7 +122,7 @@ const handleMenu = (menu: any) => {
 
 const findLeafRoute = (menus: RouteRecordRaw[]): any => {
 	for (const menu of menus) {
-		// 有子菜单的情况
+		// Case with child menus
 		if (menu.children && menu.children.length > 0) {
 			return findLeafRoute(menu.children)
 		} else {

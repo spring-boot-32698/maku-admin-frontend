@@ -1,19 +1,19 @@
 <template>
-	<el-dialog v-model="visible" title="数据权限" :close-on-click-modal="false" :width="600" draggable>
+	<el-dialog v-model="visible" title="Data permission" :close-on-click-modal="false" :width="600" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" label-width="120px" @keyup.enter="submitHandle()">
-			<el-form-item prop="name" label="名称">
+			<el-form-item prop="name" label="Name">
 				<el-input v-model="dataForm.name" disabled></el-input>
 			</el-form-item>
-			<el-form-item prop="dataScope" label="数据范围">
-				<ma-dict-select v-model="dataForm.dataScope" dict-type="role_data_scope" placeholder="数据范围" style="width: 100%"></ma-dict-select>
+			<el-form-item prop="dataScope" label="Data scope">
+				<ma-dict-select v-model="dataForm.dataScope" dict-type="role_data_scope" placeholder="Data scope" style="width: 100%"></ma-dict-select>
 			</el-form-item>
-			<el-form-item v-show="dataForm.dataScope == 4" label="数据权限">
+			<el-form-item v-show="dataForm.dataScope == 4" label="Data permission">
 				<el-tree ref="orgListTree" :data="orgList" :props="{ label: 'name', children: 'children' }" node-key="id" accordion show-checkbox> </el-tree>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -41,7 +41,7 @@ const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -49,22 +49,22 @@ const init = (id?: number) => {
 		orgListTree.value.setCheckedKeys([])
 	}
 
-	// id 存在则为修改
+	// id If it exists, it is an update
 	if (id) {
 		getRole(id)
 	}
 
-	// 机构列表
+	// Organization list
 	getOrgList()
 }
 
-// 获取机构列表
+// Get organization list
 const getOrgList = async () => {
 	const res = await useOrgListApi()
 	orgList.value = res.data
 }
 
-// 获取信息
+// Get info
 const getRole = (id: number) => {
 	useRoleApi(id).then(res => {
 		Object.assign(dataForm, res.data)
@@ -73,13 +73,13 @@ const getRole = (id: number) => {
 	})
 }
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataForm.orgIdList = orgListTree.value.getCheckedKeys()
 
 	useRoleDataScopeSubmitApi(dataForm).then(() => {
 		ElMessage.success({
-			message: '操作成功',
+			message: 'Operation succeeded',
 			duration: 500,
 			onClose: () => {
 				visible.value = false

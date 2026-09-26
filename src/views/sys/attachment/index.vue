@@ -2,16 +2,16 @@
 	<el-card class="layout-query">
 		<el-form ref="queryRef" :inline="true" :model="state.queryForm" @keyup.enter="getDataList()">
 			<el-form-item prop="name">
-				<el-input v-model="state.queryForm.name" placeholder="附件名称"></el-input>
+				<el-input v-model="state.queryForm.name" placeholder="Attachment name"></el-input>
 			</el-form-item>
 			<el-form-item prop="platform">
-				<el-input v-model="state.queryForm.platform" placeholder="存储平台"></el-input>
+				<el-input v-model="state.queryForm.platform" placeholder="Storage platform"></el-input>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+				<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 			</el-form-item>
 			<el-form-item>
-				<el-button icon="RefreshRight" @click="reset(queryRef)">重置</el-button>
+				<el-button icon="RefreshRight" @click="reset(queryRef)">Reset</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
@@ -26,11 +26,11 @@
 					:on-success="handleSuccess"
 					:show-file-list="false"
 				>
-					<el-button v-auth="'sys:attachment:save'" icon="Plus" type="primary">上传</el-button>
+					<el-button v-auth="'sys:attachment:save'" icon="Plus" type="primary">Upload</el-button>
 				</el-upload>
 			</el-space>
 			<el-space>
-				<el-button v-auth="'sys:attachment:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">批量删除</el-button>
+				<el-button v-auth="'sys:attachment:delete'" icon="Delete" plain type="danger" @click="deleteBatchHandle()">Batch delete</el-button>
 			</el-space>
 		</el-space>
 		<el-table
@@ -42,19 +42,19 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="name" label="附件名称" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="url" label="附件地址" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="size" label="附件大小" header-align="center" align="center">
+			<el-table-column prop="name" label="Attachment name" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="url" label="Attachment address" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="size" label="Attachment size" header-align="center" align="center">
 				<template #default="scope">
 					{{ convertSizeFormat(scope.row.size) }}
 				</template>
 			</el-table-column>
-			<el-table-column prop="platform" label="存储平台" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="createTime" label="创建时间" header-align="center" align="center"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
+			<el-table-column prop="platform" label="Storage platform" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="createTime" label="Creation time" header-align="center" align="center"></el-table-column>
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="150">
 				<template #default="scope">
-					<el-button type="primary" link @click="downloadHandle(scope.row.url, scope.row.name)">下载</el-button>
-					<el-button v-auth="'sys:attachment:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+					<el-button type="primary" link @click="downloadHandle(scope.row.url, scope.row.name)">Download</el-button>
+					<el-button v-auth="'sys:attachment:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">Delete</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -101,7 +101,7 @@ const dataForm = reactive({
 
 const handleSuccess: UploadProps['onSuccess'] = (res, file) => {
 	if (res.code !== 0) {
-		ElMessage.error('上传失败：' + res.msg)
+		ElMessage.error('Upload failed:' + res.msg)
 		return false
 	}
 
@@ -109,7 +109,7 @@ const handleSuccess: UploadProps['onSuccess'] = (res, file) => {
 
 	useAttachmentSubmitApi(dataForm).then(() => {
 		ElMessage.success({
-			message: '上传成功',
+			message: 'Upload succeeded',
 			duration: 500,
 			onClose: () => {
 				getDataList()
@@ -120,7 +120,7 @@ const handleSuccess: UploadProps['onSuccess'] = (res, file) => {
 
 const beforeUpload: UploadProps['beforeUpload'] = file => {
 	if (file.size / 1024 / 1024 / 100 > 1) {
-		ElMessage.error('文件大小不能超过100M')
+		ElMessage.error('File size cannot exceed 100M')
 		return false
 	}
 	return true

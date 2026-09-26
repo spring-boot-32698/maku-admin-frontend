@@ -5,15 +5,15 @@ import { useDictTypeAllApi } from '@/api/sys/dict'
 
 export const useAppStore = defineStore('appStore', {
 	state: () => ({
-		// sidebar 是否展开
+		// sidebar Whether expanded
 		sidebarOpened: cache.getSidebarOpened(),
-		// 国际化
+		// Internationalization
 		language: cache.getLanguage(),
-		// 组件大小
+		// Component size
 		componentSize: cache.getComponentSize(),
-		// 字典列表
+		// Dictionary list
 		dictList: [],
-		// 主题
+		// Topic
 		theme: cache.getTheme()
 	}),
 	actions: {

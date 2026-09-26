@@ -1,5 +1,5 @@
 <template>
-	<el-card :header="`点击图标即可复制代码，已提供的图标：${iconList.length}个`">
+	<el-card :header="`Click an icon to copy the code, available icons:${iconList.length}items`">
 		<el-row class="iconfont-row">
 			<el-col v-for="(icon, key) in iconList" :key="key" class="iconfont-item" :xs="12" :sm="8" :md="6" :lg="4" :xl="2">
 				<div class="iconfont-warp" @click="handleCopy(icon)">
@@ -22,7 +22,7 @@ const { copy } = useClipboard()
 const handleCopy = (icon: string) => {
 	const svgIcon = `<ma-icon icon="${icon}"></ma-icon>`
 	copy(svgIcon)
-	ElMessage.success('已复制')
+	ElMessage.success('Copied')
 }
 </script>
 

@@ -6,7 +6,7 @@
 			</template>
 		</el-input>
 		<el-dialog v-model="dialogVisible" :title="placeholder" top="50px" width="66%">
-			<el-input v-model="inputValue" placeholder="搜索图标" size="large" prefix-icon="Search" />
+			<el-input v-model="inputValue" placeholder="Search icon" size="large" prefix-icon="Search" />
 			<el-scrollbar>
 				<div class="icon-list">
 					<div v-for="item in iconList" :key="item" class="icon-item" @click="selectIcon(item)">
@@ -29,9 +29,9 @@ interface SelectIconProps {
 }
 
 const props = withDefaults(defineProps<SelectIconProps>(), {
-	title: '请选择图标',
+	title: 'Please select an icon',
 	clearable: true,
-	placeholder: '请选择图标'
+	placeholder: 'Please select an icon'
 })
 
 const model = defineModel<string>()
@@ -46,14 +46,14 @@ const selectIcon = (item: any) => {
 	setTimeout(() => inputRef.value.blur(), 0)
 }
 
-// 清空图标
+// Clear icon
 const inputRef = ref()
 const clearIcon = () => {
 	model.value = ''
 	setTimeout(() => inputRef.value.blur(), 0)
 }
 
-// 监听搜索框值
+// Watch the search box value
 const inputValue = ref('')
 const customIcons: { [key: string]: any } = getIconList()
 const iconList = computed((): { [key: string]: any } => {

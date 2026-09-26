@@ -44,14 +44,14 @@ const asyncRoutes: RouteRecordRaw = {
 			name: 'ProfileIndex',
 			component: () => import('../views/profile/index.vue'),
 			meta: {
-				title: '个人中心',
+				title: 'Personal center',
 				cache: true
 			}
 		}
 	]
 }
 
-// 配置控制台菜单
+// Configure console menus
 export const dashboardMenu = [
 	{
 		id: 100,
@@ -62,7 +62,7 @@ export const dashboardMenu = [
 		children: [
 			{
 				id: 101,
-				name: '首页',
+				name: 'Home',
 				url: 'dashboard/index',
 				openStyle: 0,
 				icon: 'icon-home',
@@ -72,7 +72,7 @@ export const dashboardMenu = [
 	}
 ]
 
-// 配置常量菜单
+// Configure constant menus
 export const constantMenu = [
 	{
 		id: 1000,
@@ -83,35 +83,35 @@ export const constantMenu = [
 		children: [
 			{
 				id: 1001,
-				name: 'Icon 图标',
+				name: 'Icon Icon',
 				url: 'demo/icons/index',
 				openStyle: 0,
 				icon: 'icon-unorderedlist'
 			},
 			{
 				id: 1002,
-				name: '二维码生成',
+				name: 'QR code generation',
 				url: 'demo/qrcode/index',
 				openStyle: 0,
 				icon: 'icon-unorderedlist'
 			},
 			{
 				id: 1003,
-				name: '页面打印',
+				name: 'Page printing',
 				url: 'demo/printJs/index',
 				openStyle: 0,
 				icon: 'icon-unorderedlist'
 			},
 			{
 				id: 1004,
-				name: '图片裁剪',
+				name: 'Image cropping',
 				url: 'demo/cropper/index',
 				openStyle: 0,
 				icon: 'icon-unorderedlist'
 			},
 			{
 				id: 1005,
-				name: '富文本编辑器',
+				name: 'Rich text editor',
 				url: 'demo/editor/index',
 				openStyle: 0,
 				icon: 'icon-unorderedlist'
@@ -125,7 +125,7 @@ export const constantMenu = [
 			},
 			{
 				id: 1007,
-				name: 'ECharts图表',
+				name: 'EChartsChart',
 				url: 'demo/echarts/index',
 				openStyle: 0,
 				icon: 'icon-unorderedlist'
@@ -151,10 +151,10 @@ export const router = createRouter({
 	routes: constantRoutes
 })
 
-// 白名单列表
+// Whitelist
 const whiteList = ['/login']
 
-// 路由跳转前
+// Before route navigation
 router.beforeEach(async (to, from, next) => {
 	NProgress.start()
 
@@ -162,41 +162,41 @@ router.beforeEach(async (to, from, next) => {
 	const userStore = useUserStore()
 	const routerStore = useRouterStore()
 
-	// token存在的情况
+	// tokenCase where it exists
 	if (userStore.token) {
 		if (to.path === '/login') {
 			next(constant.loginPage)
 		} else {
-			// 用户信息不存在，则重新拉取
+			// If the user info does not exist, fetch it again
 			if (!userStore.user.id) {
 				try {
 					await userStore.getUserInfoAction()
 					await userStore.getAuthorityListAction()
 					await appStore.getDictListAction()
 				} catch (error) {
-					// 请求异常，则跳转到登录页
+					// If the request fails, redirect to the login page
 					userStore?.setToken('')
 					next('/login')
 					return Promise.reject(error)
 				}
 
-				// 动态菜单+常量菜单
+				// Dynamic menu+Constant menu
 				const menuRoutes = await routerStore.getMenuRoutes()
 
-				// 获取扁平化路由，将多级路由转换成一级路由
+				// Get flattened routes, converting multi-level routes into single-level routes
 				const keepAliveRoutes = getKeepAliveRoutes(menuRoutes, [])
 
-				// 添加菜单路由
+				// Add menu routes
 				asyncRoutes.children?.push(...keepAliveRoutes)
 				router.addRoute(asyncRoutes)
 
-				// 错误路由
+				// Error route
 				router.addRoute(errorRoute)
 
-				// 保存路由数据
+				// Save route data
 				routerStore.setRoutes(constantRoutes.concat(asyncRoutes))
 
-				// 搜索菜单需要使用
+				// Searching menus requires using
 				routerStore.setSearchMenu(keepAliveRoutes)
 
 				next({ ...to, replace: true })
@@ -205,7 +205,7 @@ router.beforeEach(async (to, from, next) => {
 			}
 		}
 	} else {
-		// 没有token的情况下，可以进入白名单
+		// Without a token, whitelisted paths can still be accessed
 		if (whiteList.indexOf(to.path) > -1) {
 			next()
 		} else {
@@ -218,12 +218,12 @@ router.beforeEach(async (to, from, next) => {
 	}
 })
 
-// 路由加载后
+// After route loaded
 router.afterEach(() => {
 	NProgress.done()
 })
 
-// 获取扁平化路由，将多级路由转换成一级路由
+// Get flattened routes, converting multi-level routes into single-level routes
 export const getKeepAliveRoutes = (rs: RouteRecordRaw[], breadcrumb: string[]): RouteRecordRaw[] => {
 	const routerList: RouteRecordRaw[] = []
 
@@ -244,7 +244,7 @@ export const getKeepAliveRoutes = (rs: RouteRecordRaw[], breadcrumb: string[]): 
 	return routerList
 }
 
-// 加载vue组件
+// Load vue component
 export interface ModuleMap {
 	[key: string]: any
 }
@@ -253,13 +253,13 @@ export const layoutModules = () => {
 	return import.meta.glob('/src/views/**/*.vue')
 }
 
-// 根据路径，动态获取vue组件
+// Dynamically get the vue component by path
 const getDynamicComponent = (path: string): any => {
 	const modules: ModuleMap = layoutModules()
 	return modules[`/src/views/${path}.vue`]
 }
 
-// 根据菜单列表，生成路由数据
+// Generate route data from the menu list
 export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 	const routerList: RouteRecordRaw[] = []
 
@@ -275,7 +275,7 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 			component = () => import('@/layout/index.vue')
 			path = '/p/' + menu.id
 		} else {
-			// 判断是否iframe
+			// Check whether it is an iframe
 			if (isIframeUrl(menu)) {
 				component = () => import('@/layout/components/Router/Iframe.vue')
 				path = '/iframe/' + menu.id
@@ -301,7 +301,7 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 			}
 		}
 
-		// 有子菜单的情况
+		// Case with child menus
 		if (menu.children && menu.children.length > 0) {
 			route.children?.push(...generateRoutes(menu.children))
 		}
@@ -312,13 +312,13 @@ export const generateRoutes = (menuList: any): RouteRecordRaw[] => {
 	return routerList
 }
 
-// 判断是否iframe
+// Check whether it is an iframe
 const isIframeUrl = (menu: any): boolean => {
-	// 如果是新页面打开，则不用iframe
+	// If opened as a new page, do not use an iframe
 	if (menu.openStyle === 1) {
 		return false
 	}
 
-	// 是否外部链接
+	// Whether external link
 	return isExternalLink(menu.url)
 }

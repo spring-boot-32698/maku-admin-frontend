@@ -1,25 +1,25 @@
 <template>
 	<el-table :data="thirdList">
-		<el-table-column type="index" label="序号" width="100" align="center" />
-		<el-table-column prop="openType" label="平台类型" align="center">
+		<el-table-column type="index" label="No." width="100" align="center" />
+		<el-table-column prop="openType" label="Platform type" align="center">
 			<template #default="scope">
-				<el-text v-if="scope.row.openType === 'wechat_work'"><ma-icon icon="icon-workweixin" size="16" /> 企业微信</el-text>
-				<el-text v-else-if="scope.row.openType === 'dingtalk'"><ma-icon icon="icon-dingding" size="16" /> 钉钉</el-text>
-				<el-text v-else-if="scope.row.openType === 'feishu'"><ma-icon icon="icon-feishu" size="16" /> 飞书</el-text>
-				<el-text v-else-if="scope.row.openType === 'wechat_open'"><ma-icon icon="icon-weixin" size="16" /> 微信</el-text>
+				<el-text v-if="scope.row.openType === 'wechat_work'"><ma-icon icon="icon-workweixin" size="16" /> WeCom</el-text>
+				<el-text v-else-if="scope.row.openType === 'dingtalk'"><ma-icon icon="icon-dingding" size="16" /> DingTalk</el-text>
+				<el-text v-else-if="scope.row.openType === 'feishu'"><ma-icon icon="icon-feishu" size="16" /> Feishu</el-text>
+				<el-text v-else-if="scope.row.openType === 'wechat_open'"><ma-icon icon="icon-weixin" size="16" /> WeChat</el-text>
 			</template>
 		</el-table-column>
-		<el-table-column prop="username" label="昵称" align="center" />
-		<el-table-column prop="status" label="状态" align="center">
+		<el-table-column prop="username" label="Nickname" align="center" />
+		<el-table-column prop="status" label="Status" align="center">
 			<template #default="scope">
-				<el-tag v-if="scope.row.status === 0" type="danger">未绑定</el-tag>
-				<el-tag v-else type="success">已绑定</el-tag>
+				<el-tag v-if="scope.row.status === 0" type="danger">Unbound</el-tag>
+				<el-tag v-else type="success">Bound</el-tag>
 			</template>
 		</el-table-column>
-		<el-table-column label="操作" align="center" width="100">
+		<el-table-column label="Operation" align="center" width="100">
 			<template #default="scope">
-				<el-button v-if="scope.row.status === 0" type="primary" link @click="handleBind(scope.row.openType)">绑定</el-button>
-				<el-button v-else type="danger" link @click="handleUnBind(scope.row.openType)">解绑</el-button>
+				<el-button v-if="scope.row.status === 0" type="primary" link @click="handleBind(scope.row.openType)">Bind</el-button>
+				<el-button v-else type="danger" link @click="handleUnBind(scope.row.openType)">Unbind</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -42,7 +42,7 @@ const getThirdList = async () => {
 	const res = await useThirdListApi()
 
 	thirdList.forEach(third => {
-		// 初始化
+		// Initialize
 		third.status = 0
 		third.username = '-'
 
@@ -57,12 +57,12 @@ const getThirdList = async () => {
 
 getThirdList()
 
-// 绑定
+// Bind
 const handleBind = (openType: string) => {
-	// 请求接口
+	// Request API
 	const url = constant.thirdLoginUrl + openType
-	// 打开新窗口
-	window.open(url, '第三方登录', 'width=600, height=400, toolbar=no')
+	// Open in new window
+	window.open(url, 'Third-party login', 'width=600, height=400, toolbar=no')
 
 	window.onmessage = function (e) {
 		if (!e.data?.openType) {
@@ -71,7 +71,7 @@ const handleBind = (openType: string) => {
 
 		useThirdBindApi(e.data).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					getThirdList()
@@ -81,11 +81,11 @@ const handleBind = (openType: string) => {
 	}
 }
 
-// 解绑
+// Unbind
 const handleUnBind = (openType: string) => {
 	useThirdUnBindApi(openType).then(() => {
 		ElMessage.success({
-			message: '操作成功',
+			message: 'Operation succeeded',
 			duration: 500,
 			onClose: () => {
 				getThirdList()

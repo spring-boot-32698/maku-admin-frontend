@@ -1,8 +1,8 @@
 <template>
 	<div style="border: 1px solid #ccc; z-index: 100">
-		<!-- 工具栏 -->
+		<!-- Toolbar -->
 		<Toolbar :editor="editorRef" :mode="mode" style="border-bottom: 1px solid #ccc" />
-		<!-- 编辑器 -->
+		<!-- Editor -->
 		<Editor
 			:model-value="modelValue"
 			:style="style"
@@ -30,7 +30,7 @@ const props = defineProps({
 	},
 	mode: {
 		type: String,
-		default: 'default' // 可选值：[default | simple]
+		default: 'default' // Optional values:[default | simple]
 	},
 	placeholder: {
 		type: String,
@@ -46,12 +46,12 @@ const props = defineProps({
 	}
 })
 
-// 编辑器实例，必须用 shallowRef
+// Editor instance, must use shallowRef
 const editorRef = shallowRef()
 
 type InsertFnType = (url: string, alt: string, href: string) => void
 
-// 编辑器配置
+// Editor settings
 const editorConfig: Partial<IEditorConfig> = {
 	placeholder: props.placeholder,
 	readOnly: props.disabled,
@@ -59,17 +59,17 @@ const editorConfig: Partial<IEditorConfig> = {
 		uploadImage: {
 			server: constant.uploadUrl + '?access_token=' + cache.getToken(),
 			fieldName: 'file',
-			// 自定义插入图片
+			// Custom insert image
 			customInsert(res: any, insertFn: InsertFnType) {
-				// res 即服务端的返回结果
-				// 从 res 中找到 url alt href ，然后插图图片
+				// res The result returned by the server
+				// Find url alt href in res, then insert the image
 				insertFn(res.data.url, res.data.name, '')
 			}
 		}
 	}
 }
 
-// 组件销毁时，也及时销毁编辑器
+// Destroy the editor promptly when the component is destroyed
 onBeforeUnmount(() => {
 	const editor = editorRef.value
 	if (editor == null) {
@@ -82,7 +82,7 @@ const handleCreated = (editor: IDomEditor) => {
 	editorRef.value = editor
 }
 
-// 编辑器change事件触发
+// Editor change event triggered
 const emit = defineEmits(['update:modelValue'])
 const handleChange = (editor: IDomEditor) => {
 	emit('update:modelValue', editor.getHtml())

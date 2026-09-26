@@ -3,22 +3,22 @@
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>基本信息</span>
+					<span>Basic information</span>
 				</div>
 			</template>
 			<el-descriptions :column="3" border>
-				<el-descriptions-item label="Redis版本">{{ data.info.redis_version }}</el-descriptions-item>
-				<el-descriptions-item label="运行模式">{{ data.info.redis_mode == 'standalone' ? '单机' : '集群' }}</el-descriptions-item>
-				<el-descriptions-item label="端口">{{ data.info.tcp_port }}</el-descriptions-item>
-				<el-descriptions-item label="客户端">{{ data.info.connected_clients }}</el-descriptions-item>
-				<el-descriptions-item label="运行时间（天）">{{ data.info.uptime_in_days }}</el-descriptions-item>
-				<el-descriptions-item label="Key数量">{{ data.keyCount }}</el-descriptions-item>
-				<el-descriptions-item label="最大内存配置">{{ data.info.maxmemory_human }}</el-descriptions-item>
-				<el-descriptions-item label="使用CPU">{{ data.info.used_cpu_user_children }}%</el-descriptions-item>
-				<el-descriptions-item label="已用内存">{{ data.info.used_memory_human }}</el-descriptions-item>
-				<el-descriptions-item label="AOF是否开启">{{ data.info.aof_enabled === 0 ? '否' : '是' }}</el-descriptions-item>
-				<el-descriptions-item label="RDB是否成功">{{ data.info.rdb_last_bgsave_status }}</el-descriptions-item>
-				<el-descriptions-item label="网络入口/出口"
+				<el-descriptions-item label="RedisVersion">{{ data.info.redis_version }}</el-descriptions-item>
+				<el-descriptions-item label="Running mode">{{ data.info.redis_mode == 'standalone' ? 'Standalone' : 'Cluster' }}</el-descriptions-item>
+				<el-descriptions-item label="Port">{{ data.info.tcp_port }}</el-descriptions-item>
+				<el-descriptions-item label="Client">{{ data.info.connected_clients }}</el-descriptions-item>
+				<el-descriptions-item label="Running time (days)">{{ data.info.uptime_in_days }}</el-descriptions-item>
+				<el-descriptions-item label="KeyQuantity">{{ data.keyCount }}</el-descriptions-item>
+				<el-descriptions-item label="Maximum memory setting">{{ data.info.maxmemory_human }}</el-descriptions-item>
+				<el-descriptions-item label="CPU used">{{ data.info.used_cpu_user_children }}%</el-descriptions-item>
+				<el-descriptions-item label="Used memory">{{ data.info.used_memory_human }}</el-descriptions-item>
+				<el-descriptions-item label="AOFWhether enabled">{{ data.info.aof_enabled === 0 ? 'No' : 'Yes' }}</el-descriptions-item>
+				<el-descriptions-item label="RDBWhether successful">{{ data.info.rdb_last_bgsave_status }}</el-descriptions-item>
+				<el-descriptions-item label="Network inbound/outbound"
 					>{{ data.info.instantaneous_input_kbps }}kps/{{ data.info.instantaneous_output_kbps }}kps</el-descriptions-item
 				>
 			</el-descriptions>
@@ -27,12 +27,12 @@
 		<el-card class="box-card">
 			<template #header>
 				<div class="card-header">
-					<span>命令统计</span>
+					<span>Command statistics</span>
 				</div>
 			</template>
 			<el-table :data="data.commandStats" header-align="center" style="width: 100%">
-				<el-table-column align="center" prop="name" label="属性" />
-				<el-table-column align="center" prop="value" label="值" />
+				<el-table-column align="center" prop="name" label="Property" />
+				<el-table-column align="center" prop="value" label="Value" />
 			</el-table>
 		</el-card>
 	</el-card>

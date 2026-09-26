@@ -1,34 +1,34 @@
 export interface IHooksOptions {
-	// 是否在创建页面时，调用数据列表接口
+	// Whether to call the data list API when the page is created
 	createdIsNeed?: boolean
-	// 数据列表 Url
+	// Data list Url
 	dataListUrl?: string
-	// 是否需要分页
+	// Whether pagination is needed
 	isPage?: boolean
-	// 删除 Url
+	// Delete Url
 	deleteUrl?: string
-	// 主键key，用于删除场景
+	// Primary key, used in delete scenarios
 	primaryKey?: string
-	// 导出 Url
+	// Export Url
 	exportUrl?: string
-	// 查询条件
+	// Query conditions
 	queryForm?: any
-	// 数据列表
+	// Data list
 	dataList?: any[]
-	// 排序字段
+	// Sort field
 	order?: string
-	// 是否升序
+	// Whether ascending
 	asc?: boolean
-	// 当前页码
+	// Current page number
 	page?: number
-	// 每页数
+	// Items per page
 	limit?: number
-	// 总条数
+	// Total number of items
 	total?: number
 	pageSizes?: any[]
-	// 数据列表，loading状态
+	// Data list, loading state
 	dataListLoading?: boolean
-	// 数据列表，多选项
+	// Data list, multiple selection
 	dataListSelections?: any[]
 	dataListSelectionKeys?: any[]
 }

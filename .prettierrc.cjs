@@ -1,29 +1,29 @@
-// 参考：https://prettier.io/docs/en/options.html
+// Reference: https://prettier.io/docs/en/options.html
 module.exports = {
-	// 超过指定值换行
+	// Wrap when exceeding the specified value
 	printWidth: 150,
-	// 制表符宽度
+	// Tab width
 	tabWidth: 2,
-	// 使用制表符缩进
+	// Indent with tabs
 	useTabs: true,
-	// 句尾不使用分号
+	// No semicolon at the end of statements
 	semi: false,
-	// 使用单引号
+	// Use single quotes
 	singleQuote: true,
-	// 在 JSX 文件中使用单引号代替双引号
+	// Use single quotes instead of double quotes in JSX files
 	jsxSingleQuote: true,
-	// 在对象或数组最后一个元素后面是否加逗号，可选值"[none：不追加 | es5：追加]
+	// Whether to add a trailing comma after the last element of an object or array, optional values"[none: do not append | es5: append]
 	trailingComma: 'none',
-	// 在对象，数组括号与代码之间加空格 "{ foo: bar }"
+	// Add spaces between the brackets of objects and arrays and the code "{ foo: bar }"
 	bracketSpacing: true,
-	// 将多行 JSX 元素的 > 放置于最后一行的末尾，而非换行
+	// Multi-line JSX elements > Place at the end of the last line instead of wrapping
 	jsxBracketSameLine: true,
-	//(x) => {} 箭头函数参数只有一个时是否要有小括号，可选值"[always：(x) => x | avoid：x => x]
+	//(x) => {} Whether an arrow function with a single parameter needs parentheses, optional values"[always:(x) => x | avoid: x => x]
 	arrowParens: 'avoid',
-	// 使用默认的折行标准，可选值"[always|never|preserve]"
+	// Use the default line wrapping standard, optional values"[always|never|preserve]"
 	proseWrap: 'preserve',
-	// 指定HTML文件的全局空格敏感度，可选值"[css|strict|ignore]"
+	// Specify the global whitespace sensitivity of HTML files, optional values"[css|strict|ignore]"
 	htmlWhitespaceSensitivity: 'css',
-	// 结尾时换行符，默认值lf，可选值"[auto|lf|crlf|cr]"
+	// Line ending at the end, default lf, optional values"[auto|lf|crlf|cr]"
 	endOfLine: 'auto'
 }

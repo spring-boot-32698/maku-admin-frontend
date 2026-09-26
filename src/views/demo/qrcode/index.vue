@@ -1,16 +1,16 @@
 <template>
-	<el-card header="二维码生成">
+	<el-card header="QR code generation">
 		<el-form label-position="left" label-width="100px">
-			<el-form-item label="文本">
+			<el-form-item label="Text">
 				<el-input v-model="value" />
 			</el-form-item>
-			<el-form-item label="大小">
+			<el-form-item label="Size">
 				<el-slider v-model="size" :min="100" :max="500" />
 			</el-form-item>
-			<el-form-item label="颜色">
+			<el-form-item label="Color">
 				<el-color-picker v-model="color" />
 			</el-form-item>
-			<el-form-item label="二维码">
+			<el-form-item label="QR code">
 				<qrcode-vue :value="value" :size="size" :foreground="color" level="H" />
 			</el-form-item>
 		</el-form>

@@ -5,11 +5,11 @@ import vue from '@vitejs/plugin-vue'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
-// 参考：https://cn.vitejs.dev/config/
+// Reference: https://cn.vitejs.dev/config/
 export default defineConfig({
 	base: '/',
 	resolve: {
-		// 配置别名
+		// Configuration alias
 		alias: {
 			'@': resolve(__dirname, './src'),
 			'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
@@ -25,7 +25,7 @@ export default defineConfig({
 	],
 	server: {
 		host: '0.0.0.0',
-		port: 3000, // 端口号
-		open: false // 是否自动打开浏览器
+		port: 3000, // Port number
+		open: false // Whether to open the browser automatically
 	}
 })

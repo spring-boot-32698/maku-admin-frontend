@@ -1,5 +1,5 @@
 <template>
-	<el-card shadow="hover" header="cropper 图片裁剪">
+	<el-card shadow="hover" header="cropper Image cropping">
 		<div class="croppers-container">
 			<div class="img-cropper">
 				<img ref="imgRef" :src="cropperImg" />
@@ -7,8 +7,8 @@
 			<div class="img-preview"></div>
 		</div>
 		<div style="margin-top: 20px">
-			<el-button type="primary" @click="handleUpload">选择图片</el-button>
-			<el-button type="primary" @click="handleDownload">下载图片</el-button>
+			<el-button type="primary" @click="handleUpload">Select image</el-button>
+			<el-button type="primary" @click="handleDownload">Download image</el-button>
 			<input ref="fileRef" style="display: none" type="file" accept="image/*" @change="handleFileChange" />
 		</div>
 	</el-card>
@@ -55,7 +55,7 @@ const handleDownload = () => {
 		link.setAttribute('download', '')
 		document.body.appendChild(link)
 
-		// 模拟点击下载
+		// Simulate click to download
 		link.click()
 		document.body.removeChild(link)
 	})

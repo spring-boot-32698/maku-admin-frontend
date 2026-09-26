@@ -1,64 +1,64 @@
 <template>
-	<h3>需要开启MQTT监听功能</h3>
-	<el-divider>服务下发</el-divider>
+	<h3>The MQTT listening feature needs to be enabled</h3>
+	<el-divider>Service dispatch</el-divider>
 	<div>
 		<el-form v-loading="loading" :model="serviceDebugDataForm">
 			<el-row :gutter="30">
 				<el-col :span="8">
-					<el-form-item label="接入协议" prop="accessProtocol">
+					<el-form-item label="Access protocol" prop="accessProtocol">
 						<el-input v-model="propertyDataForm.accessProtocol" disabled />
 					</el-form-item>
 				</el-col>
 				<el-col :span="8">
-					<el-form-item label="指令" prop="command">
+					<el-form-item label="Command" prop="command">
 						<ma-dict-select v-model="serviceDebugDataForm.command" dict-type="device_command" style="width: 100%"></ma-dict-select>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row :gutter="30">
 				<el-col :span="16">
-					<el-form-item label="设备响应" prop="waitResponse">
+					<el-form-item label="Device response" prop="waitResponse">
 						<el-radio-group v-model="serviceDebugDataForm.waitResponse">
-							<el-radio value="0" size="large">不等待</el-radio>
-							<el-radio value="1" size="large">等待</el-radio>
+							<el-radio value="0" size="large">Do not wait</el-radio>
+							<el-radio value="1" size="large">Wait</el-radio>
 						</el-radio-group>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row :gutter="30">
 				<el-col :span="16">
-					<el-form-item label="指令内容" prop="payload">
-						<el-input v-model="serviceDebugDataForm.payload" placeholder="请输入指令内容" clearable />
+					<el-form-item label="Command content" prop="payload">
+						<el-input v-model="serviceDebugDataForm.payload" placeholder="Please enter the command content" clearable />
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row :gutter="30">
 				<el-col :span="8">
 					<el-form-item>
-						<el-button v-auth="'iot:device:send'" type="primary" @click="serviceDebugHandle(serviceDebugDataForm)"> 下发 </el-button>
+						<el-button v-auth="'iot:device:send'" type="primary" @click="serviceDebugHandle(serviceDebugDataForm)"> Send down </el-button>
 					</el-form-item>
 				</el-col>
 			</el-row>
 		</el-form>
 	</div>
-	<el-divider>属性上报</el-divider>
+	<el-divider>Property report</el-divider>
 	<div>
 		<el-form :model="propertyDataForm">
 			<el-row :gutter="30">
 				<el-col :span="8">
-					<el-form-item label="接入协议" prop="accessProtocol">
+					<el-form-item label="Access protocol" prop="accessProtocol">
 						<el-input v-model="propertyDataForm.accessProtocol" disabled />
 					</el-form-item>
 				</el-col>
 				<el-col :span="8">
-					<el-form-item label="属性" prop="propertyType">
+					<el-form-item label="Property" prop="propertyType">
 						<ma-dict-select v-model="propertyDataForm.propertyType" dict-type="device_property" style="width: 100%"></ma-dict-select>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row :gutter="30">
 				<el-col :span="16">
-					<el-form-item label="属性值" prop="payload">
+					<el-form-item label="Property value" prop="payload">
 						<template v-if="propertyDataForm.propertyType === 'RUNNING_STATUS'">
 							<ma-dict-select v-model="propertyDataForm.payload" dict-type="device_running_status" style="width: 100%"></ma-dict-select>
 						</template>
@@ -69,7 +69,7 @@
 							<el-input-number v-model="propertyDataForm.payload" :min="0" :max="100" />
 						</template>
 						<template v-else>
-							<el-input v-model="propertyDataForm.payload" placeholder="请输入最新的属性值" clearable />
+							<el-input v-model="propertyDataForm.payload" placeholder="Please enter the latest property value" clearable />
 						</template>
 					</el-form-item>
 				</el-col>
@@ -77,7 +77,7 @@
 			<el-row :gutter="30">
 				<el-col :span="8">
 					<el-form-item>
-						<el-button v-auth="'iot:device:report'" type="primary" @click="deviceReportAttributeDataHandle(propertyDataForm)">上报 </el-button>
+						<el-button v-auth="'iot:device:report'" type="primary" @click="deviceReportAttributeDataHandle(propertyDataForm)">Report </el-button>
 					</el-form-item>
 				</el-col>
 			</el-row>
@@ -113,7 +113,7 @@ const serviceDebugDataForm = reactive({
 	waitResponse: '0'
 })
 
-//设备属性上报表单
+//Device property report form
 const propertyDataForm = reactive({
 	deviceId: props.deviceId,
 	accessProtocol: props.protocolType,
@@ -139,17 +139,17 @@ const serviceDebugHandle = (serviceDebugDataForm: any) => {
 	} else {
 		useIotDeviceAsyncSendCommandApi(serviceDebugDataForm).then(() => {
 			ElMessage.success({
-				message: '服务指令下发成功！'
+				message: 'Service command sent successfully!'
 			})
 		})
 	}
 }
 
-//设备属性上报
+//Device property report
 const deviceReportAttributeDataHandle = (propertyDataForm: any) => {
 	useIotDeviceSimulateDeviceReportAttributeDataApi(propertyDataForm).then(() => {
 		ElMessage.success({
-			message: '属性上报成功！'
+			message: 'Property reported successfully!'
 		})
 	})
 }

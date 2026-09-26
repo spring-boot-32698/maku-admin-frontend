@@ -6,7 +6,7 @@
 					<el-input v-model="state.queryForm[query.field]" :placeholder="query.label"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button icon="Search" type="primary" @click="getDataList()">查询</el-button>
+					<el-button icon="Search" type="primary" @click="getDataList()">Query</el-button>
 				</el-form-item>
 			</el-form>
 			<el-table
@@ -36,8 +36,8 @@
 			>
 			</el-pagination>
 			<template #footer>
-				<el-button @click="handleClose">取消</el-button>
-				<el-button type="primary" @click="submitHandle()">确定</el-button>
+				<el-button @click="handleClose">Cancel</el-button>
+				<el-button type="primary" @click="submitHandle()">OK</el-button>
 			</template>
 		</el-dialog>
 	</div>
@@ -106,11 +106,11 @@ const currentChange = (row: any) => {
 
 const emit = defineEmits(['select', 'update:visible'])
 const submitHandle = () => {
-	// 多选
+	// Multiple choice
 	if (props.multiple) {
 		const dataList = state.dataListSelections ? state.dataListSelections : []
 		if (dataList.length === 0) {
-			ElMessage.warning('请选择记录')
+			ElMessage.warning('Please select records')
 			return
 		}
 
@@ -119,9 +119,9 @@ const submitHandle = () => {
 		return
 	}
 
-	// 单选
+	// Single choice
 	if (!currentRow.value) {
-		ElMessage.warning('请选择记录')
+		ElMessage.warning('Please select records')
 		return
 	}
 	handleClose()

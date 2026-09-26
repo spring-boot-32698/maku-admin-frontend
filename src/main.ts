@@ -17,12 +17,12 @@ import MaComponent from '@/components/index'
 const app = createApp(App)
 app.use(createPinia())
 
-// element plus图标 全局注册
+// element plusIcon global registration
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 	app.component(key, component)
 }
 
-// 注册 自定义指令
+// Register custom directives
 directive(app)
 app.use(i18n)
 app.use(router)

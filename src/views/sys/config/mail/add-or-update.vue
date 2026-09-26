@@ -1,24 +1,24 @@
 <template>
-	<el-drawer v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :size="800">
+	<el-drawer v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :size="800">
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="100px" @keyup.enter="submitHandle()">
-			<el-form-item label="平台类型" prop="platform">
-				<ma-dict-select v-model="dataForm.platform" dict-type="mail_platform" placeholder="平台类型" style="width: 100%"></ma-dict-select>
+			<el-form-item label="Platform type" prop="platform">
+				<ma-dict-select v-model="dataForm.platform" dict-type="mail_platform" placeholder="Platform type" style="width: 100%"></ma-dict-select>
 			</el-form-item>
-			<el-form-item label="分组名称" prop="groupName">
-				<el-input v-model="dataForm.groupName" placeholder="分组名称相同的配置，会轮询发送邮件"></el-input>
+			<el-form-item label="Group name" prop="groupName">
+				<el-input v-model="dataForm.groupName" placeholder="Configurations with the same group name send mail in rotation"></el-input>
 			</el-form-item>
 			<el-divider></el-divider>
-			<el-form-item label="邮箱账号" prop="mailFrom" v-if="dataForm.platform == -1">
-				<el-input v-model="dataForm.mailFrom" placeholder="发件邮箱"></el-input>
+			<el-form-item label="Email account" prop="mailFrom" v-if="dataForm.platform == -1">
+				<el-input v-model="dataForm.mailFrom" placeholder="Sender mailbox"></el-input>
 			</el-form-item>
-			<el-form-item label="邮箱密码" prop="mailPass" v-if="dataForm.platform == -1">
-				<el-input v-model="dataForm.mailPass" placeholder="邮箱密码"></el-input>
+			<el-form-item label="Email password" prop="mailPass" v-if="dataForm.platform == -1">
+				<el-input v-model="dataForm.mailPass" placeholder="Email password"></el-input>
 			</el-form-item>
-			<el-form-item label="SMTP服务器" prop="mailHost" v-if="dataForm.platform == -1">
-				<el-input v-model="dataForm.mailHost" placeholder="企业邮箱或自建的，必须要填写"></el-input>
+			<el-form-item label="SMTPServer" prop="mailHost" v-if="dataForm.platform == -1">
+				<el-input v-model="dataForm.mailHost" placeholder="Required for enterprise mailboxes or self-hosted ones"></el-input>
 			</el-form-item>
-			<el-form-item label="SMTP端口" prop="mailPort" v-if="dataForm.platform == -1">
-				<el-input v-model="dataForm.mailPort" placeholder="默认25端口"></el-input>
+			<el-form-item label="SMTPPort" prop="mailPort" v-if="dataForm.platform == -1">
+				<el-input v-model="dataForm.mailPort" placeholder="Default port 25"></el-input>
 			</el-form-item>
 			<el-form-item label="AccessKey" prop="accessKey" v-if="dataForm.platform != -1">
 				<el-input v-model="dataForm.accessKey" placeholder="AccessKey"></el-input>
@@ -30,15 +30,15 @@
 				<el-input v-model="dataForm.regionId" placeholder="RegionId"></el-input>
 			</el-form-item>
 			<el-form-item label="Endpoint" prop="endpoint" v-if="dataForm.platform == 0">
-				<el-input v-model="dataForm.endpoint" placeholder="阿里云 endpoint"></el-input>
+				<el-input v-model="dataForm.endpoint" placeholder="Alibaba Cloud endpoint"></el-input>
 			</el-form-item>
-			<el-form-item label="状态" prop="status">
+			<el-form-item label="Status" prop="status">
 				<ma-dict-radio v-model="dataForm.status" dict-type="enable_disable"></ma-dict-radio>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-drawer>
 </template>
@@ -72,7 +72,7 @@ const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -89,17 +89,17 @@ const getEmailPlatform = (id: number) => {
 }
 
 const dataRules = ref({
-	platform: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	groupName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	mailFrom: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	mailPass: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	regionId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	endpoint: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	accessKey: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	secretKey: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	platform: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	groupName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	mailFrom: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	mailPass: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	regionId: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	endpoint: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	accessKey: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	secretKey: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -108,7 +108,7 @@ const submitHandle = () => {
 
 		useMailConfigSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

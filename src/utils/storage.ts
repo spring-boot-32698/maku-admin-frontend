@@ -1,9 +1,9 @@
 /**
- * window.localStorage 浏览器永久缓存
- * @method setItem 设置缓存
- * @method getItem 获取缓存
- * @method removeItem 移除缓存
- * @method clear 移除全部缓存
+ * window.localStorage Permanent browser cache
+ * @method setItem Set cache
+ * @method getItem Get cache
+ * @method removeItem Remove cache
+ * @method clear Remove all caches
  */
 export const Storage = {
 	setItem(key: string, value: any) {
@@ -25,11 +25,11 @@ export const Storage = {
 }
 
 /**
- * window.sessionStorage 浏览器临时缓存
- * @method setItem 设置缓存
- * @method getItem 获取缓存
- * @method removeItem 移除缓存
- * @method clear 移除全部缓存
+ * window.sessionStorage Temporary browser cache
+ * @method setItem Set cache
+ * @method getItem Get cache
+ * @method removeItem Remove cache
+ * @method clear Remove all caches
  */
 export const SessionStorage = {
 	setItem(key: string, value: any) {

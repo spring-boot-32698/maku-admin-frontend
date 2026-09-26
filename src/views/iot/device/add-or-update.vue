@@ -1,20 +1,20 @@
 <template>
-	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false">
+	<el-dialog v-model="visible" :title="!dataForm.id ? 'Add' : 'Edit'" :close-on-click-modal="false">
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="100px" @keyup.enter="submitHandle()">
-			<el-form-item label="编码" prop="code">
-				<el-input v-model="dataForm.code" placeholder="编码"></el-input>
+			<el-form-item label="Code" prop="code">
+				<el-input v-model="dataForm.code" placeholder="Code"></el-input>
 			</el-form-item>
-			<el-form-item label="名称" prop="name">
-				<el-input v-model="dataForm.name" placeholder="名称"></el-input>
+			<el-form-item label="Name" prop="name">
+				<el-input v-model="dataForm.name" placeholder="Name"></el-input>
 			</el-form-item>
-			<el-form-item label="设备类型" prop="type">
-				<ma-dict-select v-model="dataForm.type" dict-type="device_type" placeholder="设备类型" clearable></ma-dict-select>
+			<el-form-item label="Device type" prop="type">
+				<ma-dict-select v-model="dataForm.type" dict-type="device_type" placeholder="Device type" clearable></ma-dict-select>
 			</el-form-item>
-			<el-form-item label="唯一标识码" prop="uid">
-				<el-input v-model="dataForm.uid" placeholder="唯一标识码"></el-input>
+			<el-form-item label="Unique identifier" prop="uid">
+				<el-input v-model="dataForm.uid" placeholder="Unique identifier"></el-input>
 			</el-form-item>
-			<el-form-item label="通信协议" prop="protocolType">
-				<el-select v-model="dataForm.protocolType" placeholder="通信协议" style="width: 100%">
+			<el-form-item label="Communication protocol" prop="protocolType">
+				<el-select v-model="dataForm.protocolType" placeholder="Communication protocol" style="width: 100%">
 					<el-option label="MQTT" value="MQTT"></el-option>
 					<el-option label="TCP" value="TCP"></el-option>
 					<el-option label="Modbus" value="Modbus" disabled></el-option>
@@ -22,16 +22,16 @@
 					<el-option label="LwM2M" value="LwM2M" disabled></el-option>
 				</el-select>
 			</el-form-item>
-			<el-form-item label="设备密钥" prop="secret">
-				<el-input v-model="dataForm.secret" placeholder="设备密钥"></el-input>
+			<el-form-item label="Device key" prop="secret">
+				<el-input v-model="dataForm.secret" placeholder="Device key"></el-input>
 			</el-form-item>
-			<el-form-item label="状态" prop="status">
+			<el-form-item label="Status" prop="status">
 				<ma-dict-radio v-model="dataForm.status" dict-type="enable_disable"></ma-dict-radio>
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -61,7 +61,7 @@ const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
@@ -78,16 +78,16 @@ const getIot_device = (id: number) => {
 }
 
 const dataRules = ref({
-	code: [{ required: true, message: '编码不能为空', trigger: 'blur' }],
-	name: [{ required: true, message: '名称不能为空', trigger: 'blur' }],
-	type: [{ required: true, message: '设备类型不能为空', trigger: 'blur' }],
-	uid: [{ required: true, message: '唯一标识码不能为空', trigger: 'blur' }],
-	secret: [{ required: true, message: '设备密钥不能为空', trigger: 'blur' }],
-	status: [{ required: true, message: '状态不能为空', trigger: 'blur' }],
-	protocolType: [{ required: true, message: '通信协议不能为空', trigger: 'blur' }]
+	code: [{ required: true, message: 'Code cannot be empty', trigger: 'blur' }],
+	name: [{ required: true, message: 'Name cannot be empty', trigger: 'blur' }],
+	type: [{ required: true, message: 'Device type cannot be empty', trigger: 'blur' }],
+	uid: [{ required: true, message: 'Unique identifier cannot be empty', trigger: 'blur' }],
+	secret: [{ required: true, message: 'Device key cannot be empty', trigger: 'blur' }],
+	status: [{ required: true, message: 'Status cannot be empty', trigger: 'blur' }],
+	protocolType: [{ required: true, message: 'Communication protocol cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -96,7 +96,7 @@ const submitHandle = () => {
 
 		useIotDeviceSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

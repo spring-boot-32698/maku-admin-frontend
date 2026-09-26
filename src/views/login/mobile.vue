@@ -27,16 +27,16 @@
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
 				</svg>
-				发送验证码
+				Send verification code
 			</el-button>
 			<el-button v-else class="code-btn" disabled>
-				<span class="countdown">{{ sms.count }}</span> 秒后重发
+				<span class="countdown">{{ sms.count }}</span> seconds to resend
 			</el-button>
 		</el-form-item>
 		<el-form-item class="login-button">
 			<el-button type="primary" :loading="loading" @click="onLogin()">
 				<span v-if="!loading">{{ $t('app.signIn') }}</span>
-				<span v-else>登录中...</span>
+				<span v-else>Logging in...</span>
 			</el-button>
 		</el-form-item>
 	</el-form>
@@ -56,10 +56,10 @@ import cache from '@/utils/cache'
 const userStore = useUserStore()
 const loading = ref(false)
 
-// 发送短信验证码
+// Send SMS verification code
 const sendCode = () => {
 	if (!mobileRegExp.test(loginForm.mobile)) {
-		ElMessage.error('请输入正确的手机号')
+		ElMessage.error('Please enter a valid mobile number')
 		return
 	}
 
@@ -68,14 +68,14 @@ const sendCode = () => {
 	})
 }
 
-// 短信计时器
+// SMS timer
 const sms = reactive({
 	disabled: false,
 	total: 60,
 	count: 0
 })
 
-// 计时器处理器
+// Timer handler
 const timerHandler = () => {
 	sms.count = sms.total
 	sms.disabled = true
@@ -112,7 +112,7 @@ const onLogin = () => {
 
 		loading.value = true
 
-		// 用户登录
+		// User login
 		userStore
 			.mobileLoginAction(loginForm)
 			.then(() => {

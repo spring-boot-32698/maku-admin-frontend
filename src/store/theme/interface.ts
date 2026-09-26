@@ -1,22 +1,22 @@
 export interface ITheme {
-	// 侧栏风格 [light、dark]
+	// Sidebar style [light, dark]
 	sidebarStyle: string
-	// 顶栏风格 [light、theme]
+	// Top bar style [light, theme]
 	headerStyle: string
-	// 主题颜色
+	// Theme color
 	primaryColor: string
-	// 布局风格 [vertical、columns、transverse]
+	// Layout style [vertical, columns, transverse]
 	layout: string
-	// 侧栏排他展开(只保持一个子菜单展开)
+	// Sidebar exclusive expand(Keep only one submenu expanded)
 	uniqueOpened: boolean
-	// 开启LOGO
+	// Enable LOGO
 	isLogo: boolean
-	// 开启面包屑
+	// Enable breadcrumbs
 	isBreadcrumb: boolean
-	// 开启标签页
+	// Enable tabs
 	isTabsView: boolean
-	// 开启标签页缓存
+	// Enable tab caching
 	isTabsCache: boolean
-	// 标签页风格 [style-1、style-2]
+	// Tab page style [style-1, style-2]
 	tabsStyle: string
 }

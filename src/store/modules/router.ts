@@ -14,14 +14,14 @@ export const useRouterStore = defineStore('routerStore', {
 			const { data } = await useMenuNavApi()
 			const routes = generateRoutes(data)
 
-			// 控制台菜单
+			// Console menu
 			const dashboardRoutes = generateRoutes(dashboardMenu)
 			this.menuRoutes.push(...dashboardRoutes)
 
-			// 后端菜单
+			// Backend menu
 			this.menuRoutes.push(...routes)
 
-			// 常量菜单
+			// Constant menu
 			const constantRoutes = generateRoutes(constantMenu)
 			this.menuRoutes.push(...constantRoutes)
 

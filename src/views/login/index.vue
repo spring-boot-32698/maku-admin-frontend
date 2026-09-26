@@ -18,7 +18,7 @@
 					</div>
 					<h1 class="brand-title">{{ $t('app.title') }}</h1>
 				</div>
-				<p class="brand-slogan">企业级低代码开发平台，让开发更简单！</p>
+				<p class="brand-slogan">Enterprise low-code development platform that makes development simpler!</p>
 				<div class="brand-desc">
 					{{ $t('app.description') }}
 				</div>
@@ -29,7 +29,7 @@
 								<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
 							</svg>
 						</div>
-						<span>安全可靠</span>
+						<span>Secure and reliable</span>
 					</div>
 					<div class="feature-item">
 						<div class="feature-icon">
@@ -38,7 +38,7 @@
 								<polyline points="12 6 12 12 16 14" />
 							</svg>
 						</div>
-						<span>快速开发</span>
+						<span>Rapid development</span>
 					</div>
 					<div class="feature-item">
 						<div class="feature-icon">
@@ -48,7 +48,7 @@
 								<line x1="9" y1="21" x2="9" y2="9" />
 							</svg>
 						</div>
-						<span>灵活扩展</span>
+						<span>Flexible extension</span>
 					</div>
 					<div class="feature-item">
 						<div class="feature-icon">
@@ -65,15 +65,15 @@
 								<line x1="1" y1="14" x2="4" y2="14" />
 							</svg>
 						</div>
-						<span>支持信创</span>
+						<span>Supports Xinchuang</span>
 					</div>
 				</div>
 
-				<!-- 微信小程序演示二维码 -->
+				<!-- WeChat Mini Program demo QR code -->
 				<div class="wechat-qrcode-section">
 					<div class="qrcode-card">
 						<div class="qrcode-img-wrap">
-							<img src="/wechat.jpg" alt="微信小程序" class="qrcode-img" />
+							<img src="/wechat.jpg" alt="WeChat Mini Program" class="qrcode-img" />
 						</div>
 						<div class="qrcode-info">
 							<div class="qrcode-title">
@@ -82,21 +82,21 @@
 									<path d="M8 21h8" />
 									<path d="M12 17v4" />
 								</svg>
-								<span>微信小程序演示</span>
+								<span>WeChat Mini Program demo</span>
 							</div>
-							<p class="qrcode-desc">微信扫一扫<br />体验移动端功能</p>
+							<p class="qrcode-desc">WeChat scan<br />Try the mobile features</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<!-- 右侧登录区 -->
+		<!-- Right login area -->
 		<div class="login-panel">
 			<div class="login-card">
 				<div class="card-header">
-					<h2 class="card-title">欢迎使用</h2>
-					<p class="card-subtitle">请登录您的账户继续使用</p>
+					<h2 class="card-title">Welcome to</h2>
+					<p class="card-subtitle">Please log in to your account to continue</p>
 				</div>
 
 				<div class="login-tabs">
@@ -136,13 +136,13 @@ import Third from './third.vue'
 import { useRoute } from 'vue-router'
 import cache from '@/utils/cache'
 
-// 登录类型
+// Login type
 const loginType = ref('account')
 const loginSwitch = (type: string) => {
 	loginType.value = type
 }
 
-// 登录跳转
+// Login redirect
 const route = useRoute()
 watch(
 	() => route,
@@ -167,7 +167,7 @@ watch(
 	overflow: hidden;
 }
 
-// 背景装饰
+// Background decoration
 .bg-decoration {
 	position: absolute;
 	inset: 0;
@@ -202,7 +202,7 @@ watch(
 	}
 }
 
-// 左侧品牌区
+// Left brand area
 .login-brand {
 	flex: 1;
 	display: flex;
@@ -303,7 +303,7 @@ watch(
 		}
 	}
 
-	// 微信小程序二维码区域
+	// WeChat Mini Program QR code area
 	.wechat-qrcode-section {
 		.qrcode-card {
 			display: flex;
@@ -372,7 +372,7 @@ watch(
 	}
 }
 
-// 右侧登录区
+// Right login area
 .login-panel {
 	display: flex;
 	align-items: center;
@@ -527,7 +527,7 @@ watch(
 	}
 }
 
-// 响应式
+// Responsive
 @media only screen and (max-width: 1200px) {
 	.login-brand {
 		padding: 40px;

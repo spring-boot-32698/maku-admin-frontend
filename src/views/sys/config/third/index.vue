@@ -2,10 +2,10 @@
 	<div style="margin-top: 10px">
 		<el-space>
 			<el-space>
-				<el-button type="primary" icon="Plus" @click="addOrUpdateHandle()">新增</el-button>
+				<el-button type="primary" icon="Plus" @click="addOrUpdateHandle()">Add</el-button>
 			</el-space>
 			<el-space>
-				<el-button type="danger" icon="Delete" plain @click="deleteBatchHandle()">批量删除</el-button>
+				<el-button type="danger" icon="Delete" plain @click="deleteBatchHandle()">Batch delete</el-button>
 			</el-space>
 		</el-space>
 		<el-table
@@ -17,21 +17,21 @@
 			@selection-change="selectionChangeHandle"
 		>
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column prop="openType" label="平台类型" header-align="center" align="center" width="180">
+			<el-table-column prop="openType" label="Platform type" header-align="center" align="center" width="180">
 				<template #default="scope">
-					<el-text v-if="scope.row.openType === 'wechat_work'"><ma-icon icon="icon-workweixin" size="16" /> 企业微信</el-text>
-					<el-text v-else-if="scope.row.openType === 'dingtalk'"><ma-icon icon="icon-dingding" size="16" /> 钉钉</el-text>
-					<el-text v-else-if="scope.row.openType === 'feishu'"><ma-icon icon="icon-feishu" size="16" /> 飞书</el-text>
-					<el-text v-else-if="scope.row.openType === 'wechat_open'"><ma-icon icon="icon-weixin" size="16" /> 微信</el-text>
+					<el-text v-if="scope.row.openType === 'wechat_work'"><ma-icon icon="icon-workweixin" size="16" /> WeCom</el-text>
+					<el-text v-else-if="scope.row.openType === 'dingtalk'"><ma-icon icon="icon-dingding" size="16" /> DingTalk</el-text>
+					<el-text v-else-if="scope.row.openType === 'feishu'"><ma-icon icon="icon-feishu" size="16" /> Feishu</el-text>
+					<el-text v-else-if="scope.row.openType === 'wechat_open'"><ma-icon icon="icon-weixin" size="16" /> WeChat</el-text>
 				</template>
 			</el-table-column>
 			<el-table-column prop="clientId" label="ClientID" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="clientSecret" label="ClientSecret" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="redirectUri" label="RedirectUri" header-align="center" align="center"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="120">
+			<el-table-column label="Operation" fixed="right" header-align="center" align="center" width="120">
 				<template #default="scope">
-					<el-button type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-					<el-button type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
+					<el-button type="primary" link @click="addOrUpdateHandle(scope.row.id)">Edit</el-button>
+					<el-button type="primary" link @click="deleteBatchHandle(scope.row.id)">Delete</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -46,7 +46,7 @@
 		>
 		</el-pagination>
 
-		<!-- 弹窗, 新增 / 修改 -->
+		<!-- Dialog, Add / Edit -->
 		<add-or-update ref="addOrUpdateRef" @refreshDataList="getDataList"></add-or-update>
 	</div>
 </template>

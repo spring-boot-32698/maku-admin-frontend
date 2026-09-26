@@ -1,17 +1,17 @@
 <template>
-	<el-dialog v-model="visible" :title="!update ? '新增' : '修改'" :close-on-click-modal="false" draggable>
+	<el-dialog v-model="visible" :title="!update ? 'Add' : 'Edit'" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="120px" @keyup.enter="submitHandle()">
-			<el-form-item prop="type" label="类型">
+			<el-form-item prop="type" label="Type">
 				<el-radio-group v-model="dataForm.type" :disabled="update" @change="menuTypeChange(dataForm.pid)">
-					<el-radio :value="0">菜单</el-radio>
-					<el-radio :value="1">按钮</el-radio>
-					<el-radio :value="2">接口</el-radio>
+					<el-radio :value="0">Menu</el-radio>
+					<el-radio :value="1">Button</el-radio>
+					<el-radio :value="2">API</el-radio>
 				</el-radio-group>
 			</el-form-item>
-			<el-form-item prop="name" label="名称">
-				<el-input v-model="dataForm.name" placeholder="名称"></el-input>
+			<el-form-item prop="name" label="Name">
+				<el-input v-model="dataForm.name" placeholder="Name"></el-input>
 			</el-form-item>
-			<el-form-item prop="pid" label="上级菜单">
+			<el-form-item prop="pid" label="Parent menu">
 				<el-tree-select
 					v-model="dataForm.pid"
 					:data="menuList"
@@ -23,28 +23,28 @@
 					clearable
 				/>
 			</el-form-item>
-			<el-form-item v-if="dataForm.type === 0" prop="url" label="路由">
-				<el-input v-model="dataForm.url" placeholder="路由"></el-input>
+			<el-form-item v-if="dataForm.type === 0" prop="url" label="Route">
+				<el-input v-model="dataForm.url" placeholder="Route"></el-input>
 			</el-form-item>
-			<el-form-item prop="sort" label="排序">
-				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="排序"></el-input-number>
+			<el-form-item prop="sort" label="Sort">
+				<el-input-number v-model="dataForm.sort" controls-position="right" :min="0" aria-label="Sort"></el-input-number>
 			</el-form-item>
-			<el-form-item v-if="dataForm.type === 0" prop="openStyle" label="打开方式">
+			<el-form-item v-if="dataForm.type === 0" prop="openStyle" label="Open mode">
 				<el-radio-group v-model="dataForm.openStyle">
-					<el-radio :value="0">内部打开</el-radio>
-					<el-radio :value="1">外部打开</el-radio>
+					<el-radio :value="0">Open internally</el-radio>
+					<el-radio :value="1">Open externally</el-radio>
 				</el-radio-group>
 			</el-form-item>
-			<el-form-item prop="authority" label="授权标识">
-				<el-input v-model="dataForm.authority" placeholder="多个用逗号分隔，如：sys:menu:save,sys:menu:update"></el-input>
+			<el-form-item prop="authority" label="Authorization identifier">
+				<el-input v-model="dataForm.authority" placeholder="Separate multiple values with commas, e.g.: sys:menu:save,sys:menu:update"></el-input>
 			</el-form-item>
-			<el-form-item v-if="dataForm.type === 0" prop="icon" label="图标" class="popover-list">
+			<el-form-item v-if="dataForm.type === 0" prop="icon" label="Icon" class="popover-list">
 				<SelectIcon v-model="dataForm.icon" />
 			</el-form-item>
 		</el-form>
 		<template #footer>
-			<el-button @click="visible = false">取消</el-button>
-			<el-button type="primary" @click="submitHandle()">确定</el-button>
+			<el-button @click="visible = false">Cancel</el-button>
+			<el-button type="primary" @click="submitHandle()">OK</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -80,12 +80,12 @@ const init = (isUpdate: boolean, row: any) => {
 	visible.value = true
 	update.value = isUpdate
 
-	// 重置表单数据
+	// Reset form data
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
 	}
 
-	// 存在则为修改
+	// If it exists, it is an update
 	if (row) {
 		getMenu(isUpdate, row)
 	} else {
@@ -93,27 +93,27 @@ const init = (isUpdate: boolean, row: any) => {
 		dataForm.parentName = ''
 	}
 
-	// 菜单列表
+	// Menu list
 	getMenuList()
 }
 
-// 菜单类型改变
+// Menu type changed
 const menuTypeChange = (pid: any) => {
 	getMenuList()
 	dataForm.pid = pid
 }
 
-// 获取菜单列表
+// Get menu list
 const getMenuList = async () => {
 	const res = await useMenuListApi(dataForm.type)
 	menuList.value = res.data
 }
 
-// 获取信息
+// Get info
 const getMenu = (isUpdate: boolean, row: any) => {
 	Object.assign(dataForm, row)
 	if (!isUpdate) {
-		// 是新增，重置表单数据
+		// If adding, reset the form data
 		dataForm.pid = row.id
 		dataForm.id = ''
 		dataForm.type = 0
@@ -128,11 +128,11 @@ const getMenu = (isUpdate: boolean, row: any) => {
 }
 
 const dataRules = ref({
-	name: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	parentName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	name: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }],
+	parentName: [{ required: true, message: 'Required fields cannot be empty', trigger: 'blur' }]
 })
 
-// 表单提交
+// Form submission
 const submitHandle = () => {
 	dataFormRef.value.validate((valid: boolean) => {
 		if (!valid) {
@@ -141,7 +141,7 @@ const submitHandle = () => {
 
 		useMenuSubmitApi(dataForm).then(() => {
 			ElMessage.success({
-				message: '操作成功',
+				message: 'Operation succeeded',
 				duration: 500,
 				onClose: () => {
 					visible.value = false

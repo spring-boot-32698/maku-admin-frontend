@@ -1,16 +1,16 @@
 <template>
 	<el-card>
 		<el-tabs v-model="activeName">
-			<el-tab-pane v-auth="'iot:device:info'" label="设备详情" name="info">
+			<el-tab-pane v-auth="'iot:device:info'" label="Device details" name="info">
 				<DeviceInfo :device-id="props.deviceId" />
 			</el-tab-pane>
-			<el-tab-pane v-auth="'iot:device:info'" label="服务" name="service">
+			<el-tab-pane v-auth="'iot:device:info'" label="Service" name="service">
 				<DeviceService :device-id="props.deviceId" />
 			</el-tab-pane>
-			<el-tab-pane v-auth="'iot:device:info'" label="事件" name="event">
+			<el-tab-pane v-auth="'iot:device:info'" label="Event" name="event">
 				<DeviceEvent :device-id="props.deviceId" />
 			</el-tab-pane>
-			<el-tab-pane v-auth="'iot:device:update'" label="调试" name="debug">
+			<el-tab-pane v-auth="'iot:device:update'" label="Debug" name="debug">
 				<DeviceDebug :device-id="props.deviceId" :protocol-type="props.protocolType" />
 			</el-tab-pane>
 		</el-tabs>
@@ -24,7 +24,7 @@ import DeviceEvent from './device-event.vue'
 import DeviceInfo from './device-info.vue'
 import DeviceDebug from './device-debug.vue'
 
-// 接收来自第一个页面的 deviceId
+// Receive the deviceId from the first page
 const props = defineProps({
 	deviceId: {
 		type: Number,
@@ -36,6 +36,6 @@ const props = defineProps({
 	}
 })
 
-// 默认显示的标签页名称
+// Name of the tab page displayed by default
 const activeName = ref('info')
 </script>

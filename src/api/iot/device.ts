@@ -12,21 +12,21 @@ export const useIotDeviceSubmitApi = (dataForm: any) => {
 	}
 }
 
-// 发送指令，等待设备回复
+// Send command, wait for device reply
 export const useIotDeviceSyncSendCommandApi = (dataForm: any) => {
 	return service.post('/iot/device/syncSendCommand', dataForm)
 }
-// 发送指令，等待设备回复，调试模式
+// Send command, wait for device reply, debug mode
 export const useIotDeviceSyncSendCommandDebugApi = (dataForm: any) => {
 	return service.post('/iot/device/syncSendCommand/debug', dataForm)
 }
 
-// 发送指令，不等待设备回复
+// Send command, do not wait for device reply
 export function useIotDeviceAsyncSendCommandApi(dataForm: any) {
 	return service.post('/iot/device/asyncSendCommand', dataForm)
 }
 
-//模拟设备属性数据上报
+//Simulate device property data report
 export function useIotDeviceSimulateDeviceReportAttributeDataApi(dataForm: any) {
 	return service.post('/iot/device/simulateDeviceReportAttributeData', dataForm)
 }

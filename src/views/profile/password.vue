@@ -43,9 +43,9 @@ const handleDataForm = () => {
 			return false
 		}
 
-		// 修改密码
+		// Change password
 		updatePasswordApi(dataForm).then(() => {
-			ElMessage.success('修改成功')
+			ElMessage.success('Update succeeded')
 		})
 	})
 }

@@ -8,14 +8,14 @@
 		v-if="!disabled && visible"
 		:key="visible + ''"
 		v-model:visible="visible"
-		title="机构选择"
+		title="Organization selection"
 		url="/sys/org/list"
 		:multiple
 		row-key="id"
 		:page="false"
 		:columns="[
-			{ field: 'name', label: '名称' },
-			{ field: 'parentName', label: '上级名称' }
+			{ field: 'name', label: 'Name' },
+			{ field: 'parentName', label: 'Parent name' }
 		]"
 		@select="onSelect"
 	></ma-data-table>

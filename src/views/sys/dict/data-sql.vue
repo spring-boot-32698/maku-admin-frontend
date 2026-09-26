@@ -9,8 +9,8 @@
 		@sort-change="sortChangeHandle"
 	>
 		<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-		<el-table-column prop="dictValue" label="字典值" header-align="center" align="center"></el-table-column>
-		<el-table-column prop="dictLabel" label="字典标签" header-align="center" align="center"> </el-table-column>
+		<el-table-column prop="dictValue" label="Dictionary value" header-align="center" align="center"></el-table-column>
+		<el-table-column prop="dictLabel" label="Dictionary label" header-align="center" align="center"> </el-table-column>
 	</el-table>
 </template>
 
